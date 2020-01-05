@@ -1,0 +1,1914 @@
+
+layout: post
+title:  "vue vs react vs angular1"
+date:   2017/12/28 
+categories:  学习 
+tags: 专题探究
+
+layout: post
+title:  "f8app在window安装教程"
+date:   2017/11/21 
+categories: 学习     
+tags: 专题探究 
+
+layout: post
+title:  "vue 一些需要注意的点"
+date:   2017/12/6 
+categories:  学习 
+tags: 专题探究
+
+title: 2017遇到的问题
+date:   2017/12/1
+categories:  学习 
+tags: 日常记录
+
+layout: post
+title:  "前端启航"
+date:   2017/7/1 
+categories:  学习  
+tags: 专题探究
+
+layout: post
+title:  "读《AngularJS深度剖析与最佳实践》"
+date:   2017/7/17 
+categories:  学习 
+tags: 读书笔记
+
+layout: post
+title:  "react-cnode实践笔记"
+date:   2017/9/25 
+categories: 学习 
+tags: 专题探究
+
+layout: post
+title:  "读《Web 全栈工程师的自我修养》"
+date:   2018/1/30 
+categories:  学习
+tags: 读书笔记
+
+layout: post
+title:  "reat-native在Android和IOS平台的区别"
+date:   2018/1/30 
+categories:  学习
+tags: 读书笔记
+
+title: 读《Learning Javascript Design Patterns》 -Addy Osmani 
+date:   2018/10/18
+categories: 学习
+tags:读书笔记
+
+title: canvas 
+date:   2018/11/18
+categories: 学习
+tags: 日常记录
+
+title: 搭建博客过程
+date:   2018/2/26
+categories: 学习 
+tags: 专题探究 
+
+title: 制作H5动画页面
+date:   2018/3/6
+categories: 学习     
+tags: 专题探究
+
+title: 深度克隆
+date:   2018/4/26
+categories: 学习
+tags: 专题探究 
+
+title: 读《web前端黑客技术揭秘》
+date:   2018/6/1
+categories: 学习
+tags: 读书笔记 
+
+title: 《深入浅出node.js》、慕课网
+date:   2018/7/5
+categories: 学习
+tags: 读书笔记 
+---
+
+《深入浅出node.js》
+===================
+适合高并发、IO密集型、事件驱动
+
+
+* 服务端
+```javascript
+http.createServer(function(ServerRequest, ServerResponse){
+    //监听
+    ServerRequest.on('data',function(chunk){})
+    ServerRequest.on('end',function(){})
+    ServerRequest.on('close',function(){})
+    //响应
+    ServerResponse.writeHead(200,{'Content-Type':'text/plain'})
+    ServerResponse.write('hello')
+    ServerResponse.end()
+}).listen(3000)
+```
+
+* 客户端
+```javascript
+options = {
+    host:'',
+    hostname
+    localAdrress
+    socketPath
+    auth
+    agent
+    keepAlive
+    keepAliveMsecs
+    port:'',
+    method:'',
+    path:'',
+    headers:''
+}
+var clientRequest = http.request(options,function(clientResponse){
+    clientResponse.setEncoding()
+    clientResponse.pause()
+    clientResponse.resume()
+    clientResponse.on('data',function(data){
+        console.log(Buffer.isBuffer(chunk));//true
+        console.log(typeof chunk)//Object
+    })//不断被触发,流
+    clientResponse.on('end',function(){})
+    clientResponse.on('close',function(){})
+
+})
+
+clientRequest.write(请求体)
+clientRequest.end()
+clientRequest.on('error',function(e){console.log(e.message)})
+clientRequest.abort()
+clientRequest.setTimeout()
+clientRequest.setNoDelay()
+
+```
+
+
+
+## 文件加载方式
+> 按路径加载
+
+    require以'/'开头的，以绝对路径方式加载
+    require以'./'或'../'开头的，以相对路径加载
+>查找node_modules文件夹
+
+    在当前目录下的node_modules中查找=>
+    父目录node_modules找=>
+    上一层目录的node_modules找。。。。。
+    一层一层向上
+
+
+## 异步I/O原理
+事实上，javascript是单线程的，**Node自身其实是多线程的**，只是I/O线程使用的CPU较少。
+除了用户代码无法并行执行外，所有的I/O（磁盘I/O和网络I/O等）都是可以并行执行的。
+
+{% asset_img async-io.png %}
+
+## 非I/O异步的方法
+非I/O异步的方法：``setTimeout``,``setInterval``,``setImmediate``,``process.nextTick``
+
+### ``setTimeout``,``setInterval``
+调用``setTimeout``,``setInterval``创建的定时器会被插入到定时器观察者内部的一个红黑树里面。每次Tick执行，就从改红合数中迭代去除定时器对象，检查是否超过定时时间。如果超过，就形成一个事件，回调函数立即执行
+
+{% asset_img setTimeout.png %}
+
+### ``process.nextTick`` VS ``setTimeout(function(){},0)``
+立即执行一个异步任务可以用``process.nextTick``。
+
+``setTimeout(function(){},0)``需要动用到红黑树，创建定时器对象和迭代操作等操作，较浪费性能，复杂度为O(lg(n)。
+
+nextTick只会将回调函数放入队列中，在下一轮Tick时取出执行，复杂度为O(1)。
+
+### ``setImmediate``  VS ``process.nextTick``
+
+``process.nextTick``优先级大于 ``setImmediate`` 。因为时间循环对观察者的检查是有先后顺序的，``process.nextTick``属于idle观察者，``setImmediate``属于check观察者。在每一个时间循环检查中，**观察者检查顺序：idle---I/O
+title: 社交分享接口
+date:   2018/7/4
+categories:  学习
+tags: 日常记录 
+
+title: vue中使用gojs/jointjs
+date:   2018/8/23
+categories:  学习
+tags: 专题探究
+---
+
+因为公司项目需求，要画出相关业务的流程图，以便客户了解自己身处何处
+
+搜索框输入 “前端流程图插件”，查了很多资料，总结一下有以下几种
+### Raphael
+http://dmitrybaranovskiy.github.io/raphael/reference.html
+这个星星很多，但是我找到的demo都要自己设置x坐标，y坐标，找不到自动布局的demo
+
+http://www.weixuehao.com/archives/370
+
+### flow-chart 
+代码写法繁琐，不是json就可以解决，效果也比较丑,PASS
+
+### darge-d3  
+github :[https://github.com/dagrejs/dagre-d3](https://github.com/dagrejs/dagre-d3)
+
+效果图
+{% asset_img darge-d3.png %}
+
+下载里面的demo,改一下json就可以了
+```json
+// States 
+var states = [ "NEW", "SUBMITTED","FINISHED" ,"FAILED","DELIVER", 
+               "CANCELED", "ABOLISHED" , "DELETED","REFUNDING","REFUNDED"];
+var map = ['新创建','已提交','已完成','提交失败',"交付中",
+              '已取消','废除','已删除','退款中',"已退款"]
+// Automatically label each of the nodes
+states.forEach(function(state,index) { g.setNode(state, { label: `${map[index]}(${state})`})});
+
+// Set up the edges
+g.setEdge("NEW", "FAILED",     { label: "后台接口自动"});
+g.setEdge("NEW", "SUBMITTED",   { label: "后台接口自动" });
+g.setEdge("NEW", "CANCELED",   { label: "用户取消订单" });
+g.setEdge("SUBMITTED","CANCELED",     { label: "用户取消订单" });
+g.setEdge("SUBMITTED", "ABOLISHED",  { label: "用户超过48小时未支付，\n系统自动取消"});
+g.setEdge("ABOLISHED","DELETED",      { label: "已删除" });
+g.setEdge("CANCELED", "DELETED",   { label: "已删除"});
+g.setEdge("FAILED",   "SUBMITTED",      { label: "后台接口自动" });
+
+g.setEdge("SUBMITTED",   "DELIVER",     { label: "用户支付" });
+g.setEdge("FINISHED",   "REFUNDING",     { label: "用户退款" });
+
+g.setEdge("DELIVER",   "FINISHED",     { label: "交付完成" });
+g.setEdge("REFUNDING",   "REFUNDED",     { label: "已退款" });
+g.setEdge("REFUNDED",   "DELETED",     { label: "已删除" });
+g.setEdge("DELIVER",   "REFUNDING",     { label: "用户退款" });
+g.setEdge("FAILED",   "CANCELED",     { label: "用户取消订单" });
+```
+
+
+**不满意的地方**：画出来的图是垂直方向的，我要的是水平方向,PASS
+
+### gojs
+github :[https://github.com/NorthwoodsSoftware/GoJS](https://github.com/NorthwoodsSoftware/GoJS)
+
+可以通过``npm install gojs -save``安装
+
+效果图
+{% asset_img gojs.png %}
+
+
+看里面的demo我自己包装了一下
+```html
+<template>
+<div>
+  <p style="background-color:#d5d5d5;margin:0;padding:5px;">
+    您当前处于 <span class="tip">用户提交资料</span> 步骤 
+    下一步等待<span class="tip">供应商接单</span>
+    <el-button type="text" v-if="show===false" @click="show=true">展开</el-button>
+    <el-button type="text" v-else @click="show=false">收起</el-button>
+    
+  </p>
+  <div id="myDiagramDiv" v-show="show"  ></div>
+  </div> 
+    
+</template>
+<style scoped>
+.tip{
+  color:red;
+  font-size:0.8em;
+  font-weight:bold;
+  padding:5px;
+}
+#myDiagramDiv{
+  height: 200px; 
+  border: solid 1px #d3d3d3;
+}
+
+</style>
+```
+```javascript
+<script>
+window.go =require('./go.js') 
+var $ = go.GraphObject.make;
+
+import datam from './data';
+export default{
+  mixins:[datam],
+  data(){
+    return{
+      myDiagram:null,
+      show:true
+    }
+  },
+  mounted(){
+    this.load();
+  },
+  methods:{
+    load(){
+      this.init();
+      this.addNodeTemplate(this.User);
+      this.addNodeTemplate(this.Supplier);
+      this.layout();
+    },
+    layout() {
+      this.myDiagram.model = go.Model.fromJson(this.myjson);
+      this.myDiagram.layoutDiagram(true);
+    },
+
+    getOption(){
+      // for conciseness in defining templates
+
+      let options={
+        yellowgrad : $(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" }),
+        greengrad : $(go.Brush, "Linear", { 0: "#98FB98", 1: "#9ACD32" }),
+        bluegrad : $(go.Brush, "Linear", { 0: "#B0E0E6", 1: "#87CEEB" }),
+        redgrad : $(go.Brush, "Linear", { 0: "#C45245", 1: "#871E1B" }),
+        whitegrad : $(go.Brush, "Linear", { 0: "#F0F8FF", 1: "#E6E6FA" }),
+        bigfont : "bold 8pt Helvetica, Arial, sans-serif",
+        smallfont : "bold 6pt Helvetica, Arial, sans-serif",
+        
+      }
+
+      return options;
+    },
+
+     textStyle(){
+        return {
+          margin: 6,
+          wrap: go.TextBlock.WrapFit,
+          textAlign: "center",
+          editable: true,
+          font: this.getOption()['bigfont']
+        }
+      },
+      init(){
+        this.myDiagram =
+            $(go.Diagram, "myDiagramDiv",
+              {
+                isReadOnly: true,
+                // have mouse wheel events zoom in and out instead of scroll up and down
+                "toolManager.mouseWheelBehavior": go.ToolManager.WheelNone,
+                initialAutoScale: go.Diagram.Uniform,
+                "linkingTool.direction": go.LinkingTool.ForwardsOnly,
+                initialContentAlignment: go.Spot.Center,
+                layout: $(go.LayeredDigraphLayout, { isInitial: false, isOngoing: false, layerSpacing: 50 }),
+                "undoManager.isEnabled": true
+              });
+              //默认节点模板
+        this.myDiagram.nodeTemplate =
+            $(go.Node, "Auto",
+              new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+              // define the node's outer shape, which will surround the TextBlock
+              $(go.Shape, "Rectangle",
+                { fill: this.getOption()['yellowgrad'], stroke: "black",
+                  portId: "", fromLinkable: true, toLinkable: true, cursor: "pointer",
+                  toEndSegmentLength: 50, fromEndSegmentLength: 40 }),
+              $(go.TextBlock, "Page",
+                { margin: 6,
+                  font: this.getOption()['bigfont'],
+                  editable: true },
+                new go.Binding("text", "text").makeTwoWay()));
+            // replace the default Link template in the linkTemplateMap
+          this.myDiagram.linkTemplate =
+                $(go.Link,  // the whole link panel
+                  new go.Binding("points").makeTwoWay(),
+                  { curve: go.Link.Bezier, toShortLength: 15 },
+                  new go.Binding("curviness", "curviness"),
+                  $(go.Shape,  // the link shape
+                    { stroke: "#2F4F4F", strokeWidth: 2.5 }),
+                  $(go.Shape,  // the arrowhead
+                    { toArrow: "kite", fill: "#2F4F4F", stroke: null, scale: 2 })
+                  );
+      },
+      /**
+       * options:{
+       *  category
+       *  shape:RoundedRectangle/Rectangle
+       *  shapeOptions:{
+       *   fill:bluegrad/greengrad/yellowgrad/null/redgrad/whitegrad  自定义的
+       *   stroke: "black",
+       *   portId:""
+       *   fromLinkable:true
+       *   toLinkable:
+       *   cursor:"pointer"
+       *   fromEndSegmentLength:40
+       *    toEndSegmentLength
+       *    strokeWidth
+       *  
+       *   }
+       *    textStyle:{
+       *        margin: 9,
+       *        maxSize: new go.Size(200, NaN),
+       *        wrap: go.TextBlock.WrapFit,
+        *       editable: true,
+        *       textAlign: "center",
+        *       font: smallfont 
+        * },
+       *    
+       * }
+       */
+      addNodeTemplate(options){
+        let fill = this.getOption()[options.shapeOptions.fill];
+        options.shapeOptions.fill = fill;
+        this.myDiagram.nodeTemplateMap.add(options.category,
+          $(go.Node, "Auto",
+            new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+            $(go.Shape, options.shape,options.shapeOptions),
+            $(go.TextBlock,  this.textStyle(),
+              new go.Binding("text", "text").makeTwoWay())
+            ));
+      },
+
+    }
+
+
+}
+
+</script>
+
+
+```
+
+**不满意的地方**：
+1. 免费版gojs是有水印的，百度搜索“gojs如何去水印”有一堆答案，我就不写了。
+2. 因为要自己手动去掉水印，所以我只能手动下载go.js放在我自己的组件目录下，但是这个文件太大了，800+KB,
+npm run dev 的时候停在这里停了好久。有时候还爆出“......maximun ....500KB”的错误，我也不知道是什么原因，不知道有什么方法，有的话麻烦通知我。
+3. 代码写法有点太繁琐
+
+这是我自己包装的代码地址：[https://github.com/LRY1994/vue-lib/tree/master/src/components/process-go](https://github.com/LRY1994/vue-lib/tree/master/src/components/process-go)
+
+### jointjs
+github : [https://github.com/clientIO/joint](https://github.com/clientIO/joint) 
+效果图
+{% asset_img jointjs.png %}
+
+可以通过``npm install jointjs -save``安装
+
+参照了很多demo和文档，用的是矩形，但是可以设置圆角的度数变成椭圆形，其他形状我就无力了。
+
+可以自定义矩形的样式和矩形框里面的文字样式
+
+```javascript
+//data.vue
+<script>
+export default {
+    data(){
+        var userClass = {//这个要参照SVG属性
+            /**shapeStyle
+             * fill:填充的背景颜色
+                stroke: 边框颜色
+                strokeWidth: 边框宽度
+                rx: 圆角
+                ry: 
+             */
+            shapeStyle:{//矩形样式
+                fill:{
+                    type: 'linearGradient',
+                    stops: [
+                        {offset: '0%', color: '#98FB98'},
+                        {offset: '100%', color: '#9ACD32'}
+                    ],
+                },
+                rx:150,
+                ry:15
+            },
+            /**
+             * textStyle
+             *  fontWeight
+             *  fontSize
+             * 
+             */
+            textStyle:{//文本样式
+                fontWeight:'bold'
+            }    
+        };
+        return{
+            graphData :{
+                node:{
+                    '100':{text:'用户提交资料',category:userClass},
+                    '101':{text:'用户完善资料',category:userClass},
+                    '102':{text:'用户确认完成',category:userClass},
+                    '103':{text:'用户撤销',category:userClass},
+
+                    '200':{text:'供应商驳回'},
+                    '201':{text:'供应商接单'},
+                    '202':{text:'供应商完工'},
+                    '203':{text:'等待供应商处理'},
+
+                    '300':{text:'系统交付出错'}               
+                },
+                edge :{//每个点都要写
+                    '100': ['200','201','103'], 
+                    '101': ['201'],
+                    '102':[],
+                    '103': ['100'],
+
+                    '200': ['101'],              
+                    '201': ['202','300'],
+                    '202': ['102'],               
+                    '203': ['102'], 
+
+                    '300': ['203'],
+                
+                },
+            }
+        }
+    }
+}
+</script>
+
+```
+```html
+<template>
+<div id="container">
+  <p style="background-color:#EEEEEE;margin:0;padding:5px;font-size:0.9em">
+    您当前处于 <span class="tip">用户提交资料</span> 步骤 
+    下一步等待<span class="tip">供应商接单</span>
+    <el-button type="text" v-if="show===false" @click="show=true">展开</el-button>
+    <el-button type="text" v-else @click="show=false">收起</el-button>
+    
+  </p>
+    <div id="myholder" v-show="show"></div>
+</div>
+</template>
+```
+```javascript
+<script>
+window.joint=require('jointjs');
+var Shape = joint.dia.Element.define('default.Rectangle', {      
+        attrs: {  
+            rect: {
+                refWidth: '100%',
+                refHeight: '100%',
+                //下面这些可以自己设置
+                fill:{
+                    type: 'linearGradient',
+                    stops: [
+                        {offset: '0%', color: '#B0E0E6'},//渐变开始
+                        {offset: '100%', color: '#F0F8FF'}//渐变结束
+                    ]
+                },
+                stroke: '#B0E0E6',
+                strokeWidth: 1,
+                rx: 5,//圆角
+                ry: 5
+            },
+            text: {
+                refX: '50%',
+                refY: '50%',                               
+                textVerticalAnchor: 'middle',
+                textAnchor: 'middle',
+                fontSize: 10           
+            }
+         }                    
+    }, 
+    {
+         markup: '<rect/><text/>',
+         setText: function(text) {                    
+            return this.attr('text/text', text || '');
+        },
+        setShapeStyle:function(shapeStyle){
+            let newstyle = Object.assign({},this.attr('rect'),shapeStyle);
+            return this.attr('rect',newstyle)
+        },
+        
+        setTextStyle:function(textStyle){
+            let newstyle = Object.assign({},this.attr('text'),textStyle);
+            return this.attr('text',newstyle)
+        }
+    }
+);
+
+var Link = joint.dia.Link.define('default.Link', {
+        attrs: {
+            '.connection': {
+                stroke: '#2F4F4F',//线
+                strokeWidth: 1,
+                pointerEvents: 'none',
+                targetMarker: {//箭头
+                    type: 'path',
+                    fill: '#2F4F4F',//填充颜色
+                    stroke: '#2F4F4F',//边框颜色
+                    strokeWidth:'1',
+                    d: 'M 2 -2 0 0 2 2 z'//形状
+                }
+            }
+        },
+        connector: {
+            name: 'rounded'
+        },
+        z: -1,
+        weight: 1,
+        minLen: 1,
+        labelPosition: 'c',
+        labelOffset: 10,
+        labelSize: {
+            width: 50,
+            height: 30
+        },
+        labels: [{
+            markup: '<rect/><text/>',
+            attrs: {
+                text: {
+                    fill: 'gray',
+                    textAnchor: 'middle',
+                    refY: 5,
+                    refY2: '-50%',
+                    fontSize: 10,
+                    cursor: 'pointer'
+                },
+                // rect: {
+                //     fill: 'lightgray',
+                //     stroke: 'gray',
+                //     strokeWidth: 2,
+                //     refWidth: '100%',
+                //     refHeight: '100%',
+                //     refX: '-50%',
+                //     refY: '-50%',
+                //     rx: 5,
+                //     ry: 5
+                // }
+            },
+            size: {
+                width: 50, height: 10
+            }
+        }]
+
+    }, {
+        markup: '<path class="connection"/><g class="labels"/>',
+        
+        connect: function(sourceId, targetId) {
+            return this.set({
+                source: { id: sourceId },
+                target: { id: targetId }
+            });
+        },
+
+        setLabelText: function(text) {
+            return this.prop('labels/0/attrs/text/text', text || '');
+        }
+    });
+
+
+
+var ElementView = joint.dia.ElementView.extend({
+        pointerdown: function () {
+
+            // this._click = true;
+            // joint.dia.ElementView.prototype.pointerdown.apply(this, arguments);
+        },
+        pointermove: function(evt, x, y) {
+            // this._click = false;
+            // joint.dia.ElementView.prototype.pointermove.apply(this, arguments);
+        },
+        pointerup: function (evt, x, y) {
+            // if (this._click) {
+            //     // triggers an event on the paper and the element itself
+            //     this.notify('cell:click', evt, x, y); 
+            // } else {
+            //     joint.dia.ElementView.prototype.pointerup.apply(this, arguments);
+            // }
+        }
+    });
+var LinkView = joint.dia.LinkView.extend({
+    addVertex: function(evt, x, y) {},
+    removeVertex: function(endType) {},
+    pointerdown:function(evt, x, y) {}
+});
+
+
+export default {   
+    data(){
+        return{
+            graph:null,
+            paper:null,
+            show:true
+        }       
+    },
+    props:{
+        graphData:{
+            type:Object,
+            required:true
+        }
+    },
+    mounted(){
+        let w = document.getElementById('container').width ; 
+        this.graph = new joint.dia.Graph;
+        this.paper = new joint.dia.Paper({
+            el: document.getElementById('myholder'),
+            width: w,
+            height: 250,         
+            model: this.graph,
+            elementView: ElementView,//禁止拖拽
+            linkView:LinkView//禁止拖拽
+        });
+        this.layout();
+    },
+    methods:{
+        getWidthandHeight(label){
+            let maxLineLength = _.max(label.split('\n'), function(l) { return l.length; }).length,
+
+            // Compute width/height of the rectangle based on the number
+            // of lines in the label and the letter size. 0.6 * letterSize is
+            // an approximation of the monospace font letter width.
+             letterSize = 8,
+             width = 2 * (letterSize * (0.6 * maxLineLength + 1)),
+             height = 2 * ((label.split('\n').length + 1) * letterSize);
+            return {width,height}
+        },
+        getLayoutOptions() {
+            return {
+                // setVertices: false,
+                // setLabels: false,
+                // ranker:'longer-path',//'tight-tree'/'network-simplex',
+                rankDir: 'LR',
+                align: 'UR',
+                rankSep:0,
+                edgeSep:0,
+                nodeSep:0,
+            };
+        },
+        buildGraphFromAdjacencyList(adjacencyList) {
+            let elements = [],links = [],obj,size,node;
+            const _this=this;
+            const map=this.graphData.node;
+
+            Object.keys(adjacencyList).forEach(function(parentId) {
+                // Add element
+
+                obj =map[parentId];
+                size = _this.getWidthandHeight(obj.text);
+                node =new Shape({id:parentId,size:size}).setText(obj.text);
+
+                if(obj.category&&obj.category.shapeStyle){
+                    node = node.setShapeStyle(obj.category.shapeStyle);
+                }
+                if(obj.category&&obj.category.textStyle){
+                    node = node.setTextStyle(obj.category.textStyle);
+                }
+
+                elements.push(node);
+                
+                // Add links
+                adjacencyList[parentId].forEach(function(childId) {
+                    links.push(
+                        new Link().connect(parentId, childId)// .setLabelText(parentLabel + '-' + childLabel)                                         
+                    );
+                });
+            });
+
+            return elements.concat(links);
+        },
+        layout() {            
+            let cells = this.buildGraphFromAdjacencyList(this.graphData.edge);    
+            this.graph.resetCells(cells);
+            joint.layout.DirectedGraph.layout(this.graph, this.getLayoutOptions());
+        },
+    }
+}
+</script>
+
+<style>
+#myholder {
+    border: 1px solid lightgray;
+    margin-bottom:20px;
+    padding-left:20px
+}
+.tip{
+  color:#9ACD32;
+  font-size:0.9em;
+  font-weight:bold;
+  padding:5px;
+}
+</style>
+
+```
+
+这是我自己包装的代码地址：[https://github.com/LRY1994/vue-lib/tree/master/src/components/process-joint](https://github.com/LRY1994/vue-lib/tree/master/src/components/process-joint)
+
+这个目前看来还算满意
+
+
+### jsplumb
+这个看了官网，不太友好，而且下载只有一个js文件，没有demo代码，不知如何下手
+
+### 参考资料：
+[https://gojs.net/latest/samples/pageFlow.html](https://gojs.net/latest/samples/pageFlow.html)
+[http://www.daviddurman.com/assets/autolayout.js](http://www.daviddurman.com/assets/autolayout.js)
+[http://resources.jointjs.com/demos/layout](http://resources.jointjs.com/demos/layout)
+
+---------------------------------------------更新 2018/8/30-------------------------------------------------------
+title: 八大排序算法、KMP
+date:   2018/9/8
+categories: 学习
+tags:面经
+
+title: 库文件太大，webpack打包时怎么办
+date:   2018/9/3
+categories: 学习
+tags: 专题探究
+
+title: 面经收集--HTML+CSS+JS
+date:   2018/9/8
+categories: 学习
+tags: 面经
+
+title: 面经收集网络/浏览器/模块化/diff原理
+date:   2018/9/10
+categories:  学习
+tags: 面经
+---
+
+[https://segmentfault.com/a/1190000011635556?utm_source=tag-newest](https://segmentfault.com/a/1190000011635556?utm_source=tag-newest)
+
+#### https（对是https）有1次握手
+可以把https拆成tcp/tls/http这三层来看，tcp handshake >> TLS(SSL) handshake >> http request/response
+{%asset_img https.png%}
+[https://blog.csdn.net/u012361288/article/details/54883154](https://blog.csdn.net/u012361288/article/details/54883154)
+
+[http://www.cnblogs.com/lovesong/p/5186200.html](http://www.cnblogs.com/lovesong/p/5186200.html)
+
+### tcp的三次握手和四次挥手画图（当场画写ack 和 seq的值）,为什么tcp要三次握手四次挥手？
+{%asset_img tcp_3_wo.png%}
+{%asset_img tcp_4_hui.png%}
+
+#### TCP与UDP的区别
+1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接。
+
+2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付。
+
+3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的。UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）。
+
+4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信。
+
+5、TCP首部开销20字节;UDP的首部开销小，只有8个字节。
+
+6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道。
+
+#### http2的持久连接和管线化
+在长连接的基础上，将客户端的其他请求都交给这一个连接去处理。这里服务器需要注意一件事情。那就是这个请求的先后顺序是不能颠倒的
+
+在使用持久连接的情况下，某个连接消息的传递类似于
+
+请求1 -> 响应1 -> 请求2 -> 响应2
+
+管线化：某个连接上的消息变成了类似这样 
+
+请求1 -> 请求2 -> 请求3 -> 响应1 -> 响应2 -> 响应3
+
+1. 只有GET和HEAD要求可以进行管线化，而POST则有所限制
+
+2. 初次创建连接时也不应启动管线机制，因为对方（服务器）不一定支持HTTP/1.1版本的协议。
+
+3. HTTP1.1要求服务器端支持管线化，但并不要求服务器端也对响应进行管线化处理，只是要求对于管线化的请求不失败，而且现在很多服务器端和代理程序对管线化的支持并不好，现代浏览器Chrome和Firefox默认并未开启管线化支持
+#### 域名发散和域名收敛
+浏览器对于同一域名下允许的并发请求数作了限制
+{%asset_img per-hostname-max.jpg%}
+域名发散就是为了突破浏览器对于同一域名并发请求数的限制
+
+域名收敛就是将静态资源放在一个域名下不进行发散，这主要是为了适应移动端的发展需求；通常DNS是一个开销较大的操作，而移动端由于网络带宽和实时性、资源等的限制，这些开销对移动端的用户体验是致命的，因此需要进行域名收敛；
+
+
+### 五大浏览器\四大内核
+
+四大内核分别是：Trident（也称IE内核）、webkit、Blink、Gecko。
+
+五大浏览器采用的都是单内核，而随着浏览器的发展现在也出现了双内核。像360浏览器、QQ浏览器都是采用双内核。
+
+1. IE                   ：Trident；
+2. Chrome               ：Webkit  ----> Blink；
+3. Firefox              ：Gecko
+4. Safari               ：Webkit；
+5. Opera                ：自己的Presto内核 ----> Webkit ---->Blink
+6. 360、猎豹             ：Trident + Chrome；
+7. 搜狗、遨游、QQ浏览器   ：Trident（兼容模式）+ Webkit（高速模式）；
+8. 百度览器、世界之窗     ：Trident；
+9. 2345                 ：Trident -
+title: vue_koa建站及部署  
+date:  2018/5/22
+categories: 学习
+tags:日常记录 
+---
+
+参考
+
+[SimpleMDE编辑器 + 提取HTML + 美化输出](https://segmentfault.com/a/1190000009469890)
+
+[用 vue koa 和mongo 撸了个人博客和博客管理网站](https://segmentfault.com/a/1190000007004199)
+
+[前端 vue+后端 koa，全栈式开发 bilibili 首页](https://www.v2ex.com/t/357255)
+
+[分享我个人学习项目：系统管理平台（基于vue，koa2前后端分离）](http://cnodejs.org/topic/5a66b313ce45d44045146277 )
+
+[koa+mongoose实现简单增删改查接口](https://www.cnblogs.com/junhua/p/7714572.html)
+
+[koa2从起步到填坑](https://www.jianshu.com/p/6b816c609669)
+
+[vue使用highlight.js](https://www.jianshu.com/p/6c1e4fcc6d6f)
+
+[阿里云ECS服务器部署Node.js项目全过程详解](https://www.jianshu.com/p/2e31fd9eb048)
+[Nodejs项目部署阿里云完整流程](https://blog.csdn.net/u013263917/article/details/79037770)
+[ koa2使用阿里云oss的nodejs sdk实现上传图片](https://www.cnblogs.com/beileixinqing/p/9152113.html)
+[](https://help.aliyun.com/document_detail/50775.html?spm=5176.doc25426.6.655.kn1mB7)
+### 2018-5-22
+
+windows下查找特定端口
+```
+cd c:\WINDOWS\system32\ 
+netstat -aon|findstr "3000"
+```
+
+``W:\MongoDB\bin\mongod --dbpath W:\MongoDB\data`` 运行 MongoDB 服务器
+pm2
+
+``mongo `` 连接MongoDB
+
+一些常用命令
+```
+show dbs
+use ...
+db.dropDatabase()
+show collections
+db.collection.drop()
+db.users.find().pretty()
+```
+* Vue准备
+```
+npm install -g @vue/cli
+vue init webpack  admin 
+npm i --registry https://registry.npm.taobao.org
+```
+安装``sass-loader\node-sass\axios\element-ui``
+
+* Koa2准备
+```
+npm install -g koa-generator 
+koa2 server //创建koa2项目
+```
+ 安装``koa-router\mongoose\koa2-cors``
+
+
+``co ``模块可以将异步解放成同步。co 函数接受一个 generator 函数作为参数，在函数内部自动执行 yield 。(没用这个在别处看到)
+
+
+
+``npm install --save koa-router``
+
+koa-router在处理post请求时，koa无法解析http请求体中的数据，这时我们需要引入另外一个模块叫做``koa-bodyparser``。
+引入``bodyparser``之后需要注册到app对象上，且在router之前注册，然后才可能在router的post请求的处理函数中获取http请求体中的数据。
+
+### 2018-5-23
+
+``npm install --save koa2-cors``
+
+koa2-cors 解决跨域问题
+```
+Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+https://github.com/zadzbw/koa2-cors 
+```
+* axios
+
+如果没有``type=file``的控件，用默认的``application/x-www-form-urlencoded``就可以了。
+ 但是如果有``type=file``的话，就要用到``multipart/form-data``了。
+
+ 要给``ctx.response.body``赋值，否则会404
+
+``withCredentials:true`` 代表请求带cookies
+
+### 2018-5-31
+``npm install md5 --save``密码加密
+
+``npm install mavon-editor --save``富文本编辑器
+
+### 2018-6-5
+这两点很重要
+
+axios传data   ---> 用ctx.request.body提取
+
+axios传params 
+title: 2019遇到的问题  
+date:  2019/2/1
+categories: 学习
+tags:日常记录 
+---
+
+2019/2
+---------------
+### IE浏览器url中文乱码
+IE浏览器直接拼接url,中文会乱码，需要像下面这样进行转码
+ ```
+ <a :href="`/ctyun/clientcase?tag=${encodeURI(data[current].tag)}`" >
+ ```
+ 用router-link的就不用转码：
+ ```
+ <router-link :to="{name:'clientcase',query:{tag:item.tag}}" >
+ 或者
+<router-link v-if="item.id" :to="{path:`/clientcase?tag=${item.tag}&id=${item.id}`}" >
+ ```
+
+ ### 组件上有ref的话，这个组件不可以使用懒加载
+ ```
+  <template v-for="item in partnerList">
+    <case-item :data="item" :key="item.index" :ref="`case${item.id}`"></case-item>
+</template>
+```
+```js
+    components: { CaseItem },//正确的做法
+    components: { CaseItem:()=>import('....') },//懒加载的做法  
+ getData(type, offset, limit) {
+    xxxxx.then((res) => {
+    this.partnerList.push(...res.item);
+    this.scrollTo(this.selectedId);
+    });
+},
+scrollTo(id) {
+    this.$nextTick(() => {
+        const target = this.$refs[`case${id}`];
+        xxxxx
+    });
+},
+```
+如果``<case-item>``是懒加载的话，第一次进入这个页面``target = this.$refs[`case${id}`];``是undefined
+
+### @click="func"和@click="fun()"的区别
+1. 如果func函数没有参数，就没有区别
+2. 如果func函数有参数，例如``func(arg){...}``，那么``@click="func"`` 在func(arg)里面输出arg并不是undefined，而是一个事件对象
+
+#:class可以是一个数组
+```js
+boxClazz(){
+    return ['box',  !this.canAddHideAnimationLater ? '' : this.visible ? 'show': 'hide']
+}
+<nav :class="boxClazz" ></nav>
+```
+### 动态挂载组件
+```js
+import Vue from 'vue';
+import imgPreview from './img-preview.vue';
+let instance;
+
+let imgPreviewConsturctor = Vue.extend(imgPreview);
+
+
+const initInstance = () => {
+  const el = document.createElement('div')
+  el.id="__img_preview_box"
+  document.body.appendChild(el);
+  instance = new imgPreviewConsturctor().$mount(`#${el.id}`);
+  
+};
+
+const init = (imgSrc) => {
+	if(!instance){
+		initInstance();
+	}
+	instance.imgSrc = imgSrc;
+	instance.visible = true;
+}
+export default {
+	init
+}
+```
+
+### body上加上over-flow:hidden获取scrollTop会不准确
+
+### fixed定位页面抖动解决方法
+这方法是看微博网站代码看到的，完美！！其他百度上的方法没一个管用
+
+fixed定位的元素加上
+```css
+nav-tab{
+  z-index: 10;
+  transform: translateZ(0px);
+  position: relative;
+  transition: top 0.3s ease 0s;
+  will-change:top;
+}  
+```
+页面上加多一个同等高度的容器
+```html
+<!--关键-->
+<div :style="{height:fixNav?`${nav-height}px`:0}"></div>
+<!--fixed定位的元素-->
+<nav-tab  :class="{'fix-nav':fixNav}"></nav-tab>
+```
+
+
+### vucli3构建库模式大坑
+1. 代码里不能有懒加载，不然打出来的文件不止1个，引入的时候路径不对
+2. 图片不能``<img src>``渲染，会找不到路径。可以用background-image解决
+3. ``new consturctor().$mount();``的时候，生命周期钩子mouted在``$mount()``过程中就会执行.
+4. ``import Vue from 'vue'`` 得到的也不是主项目的vue
+    ```js
+    //方案：把vue实例当做props传进去
+    instance = new feedbackConsturctor({
+         //！！！依赖库手动挂载的节点的__proto__跟主项目的__proto__不是同一个，会导致断链
+         propsData:{
+             http$ : _VUE_.prototype.http$
+         }}).$mount();
+    ```
+5. vue父子组件之间是没有原型链的，手动$mount()的组件$root是自己。所以子组件如果要使用主项目的数据，可以
+    ```js
+    data(){
+        return { http$:this.$root.http$ }
+    }
+    ```
+
+### 可以利用src做请求
+```
+send(url, params){
+
+		const img = new Image;
+		img.src = `${url}?${this.serializeParams(params, true)}`;
+	}
+```
+2019/6
+---------------
+### overflow-y: visible不起作用
+在container上添加以下样式
+```
+padding-top: 20px;
+margin-top: -20px;
+```
+
+### IE在本地运行出错
+但是部署到测试环境是正常的，吓死个人了
+
+
+函数节流不管事件触发有多频繁，都会保证在规定时间内一定会执行一次真正的事件处理函数，
+而函数防抖只是在最后一次事件后才触发一次函数。 比如在页面的无限加载场景下，我们需要用户在滚动页面时，每隔一段时间发一次 Ajax 请求，而不是在用户停下滚动页面操作时才去请求数据。这样的场景，就适合用节流技术来实现
+
+
+2019/10
+------------
+title: 关于css打包后过大的问题  
+date:  2019/1/15
+categories: 学习
+tags:专题探究
+---
+
+### 公共代码多次放在scoped内
+我们很多时候写了一个公共的common.scss,然后在各个vue里面
+
+```scss
+<style scoped>
+import  '@/assets/css/common.scss'
+</style>
+```
+由于加了scoped，导致common里面的样式都加上了``[data-v-aaaa]``这样的标识，最后打出来的css重复，这就不是公共css了。
+
+并且在多少个vue里面import就会打包多少次common.scss进去，最后导致css打出来很大。
+
+### 公共代码多次放在scoped外
+下面的代码打包出来只会有一份global.scss，也就是不会重复打包。所以为了方便，直接在main.js引入一次就够了
+```scss
+//a.vue
+<style >
+@import '@/assets/css/global.scss'
+</style>
+```
+
+```scss
+//b.vue
+<style >
+@import '@/assets/css/global.scss'
+</style>
+```
+
+### 公共代码放scoped外，自定义代码放scoped内
+ 为了不重复打包，那我把公共的css代码拿出来不放在scoped里面不就好了。
+
+```scss
+//global.scss
+.white{ color:#fff}
+```
+
+```scss
+//a.vue
+<style >
+@import '@/assets/css/global.scss'
+</style>
+```
+但是下面这个情况不行，运行会报错：``$white is not defined``
+```scss
+// variable.scss
+$white:#fff;
+```
+
+```scss
+//a.vue
+<style >
+@import '@/assets/css/variable.scss'
+</style>
+<style scoped>
+.white{
+    color:$white;
+}
+<style/>
+```
+然后试了一下
+```scss
+<style scoped>
+@import '@/assets/css/variable.scss'
+.white{
+    color:$white;
+}
+</style>
+```
+发现打出来的css里面变量$white直接编译成#fff了，打包后的css里面找不到$white,所以就不用担心会重复打包这些变量了。
+
+
+### webpack打包后体积依然过大的css文件
+ 之前控制台中心在IE9浏览器下样式混乱。说是IE浏览器对css有些约束
+
+[Stylesheet Limits in Internet Explorer](https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer/)
+
+[参考博客](https://blog.csdn.net/napoleonxxx/article/details/80292006)
+
+然后用了下面两个插件解决。好像也可以设置splitChunk解决，不过试了效果不太满意，后面再继续探究。
+```js
+optimization: {
+    minimizer: [
+    new CSSSplitWebpackPlugin({
+        size: 4000,
+        filename: path.posix.join(assetsDir,'css/[name]-[part].[ext]'),
+        }),  
+    new OptimizeCSSAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: { discardComments: {removeAll: true },reduceIdents:false },
+        canPrint: true
+    }),             
+    ]
+},
+```
+[IE9引发的血案-如何处理webpack打包后体积依然过大的css文件](https://blog.csdn.net/napoleonxxx/article/details/80292006)
+
+## 总结：
+1. 把css变量单独拎出来做一个文件variable.scss，在vue的``<style scoped>``里@import使用
+2. 公共css文件在main.js里面直接import一次就好，不要再在其他vue里面import
+3. 多人协作防止冲突，各组件的公共css文件我觉得可以在外面用一个自己的class包裹起来。例如
+
+```js
+//main.js
+import '@/views/order/style.scss';
+```
+
+```scss
+//@/views/order/style.scss
+.order{
+    xxxxx
+}
+```
+
+最后把控制台的代码按照上面的方法整理了一下，结果打包出来的css足足小了127kb
+<img src="./css-improve-effect.png">
+
+------------------2019/2/19更新------------------
+
+注意：之前在想，既然``<style></style>``(不用scoped)放在哪里都可以全局生效，那我随便放在一个大组件里也行啊。
+最近发现在一个组件里面不用scoped地引入css,从这个组件进去另一个组件，另一个组件确实是会受到前者css的影响。
+但是如果直接打开后者组件的页面，不经过前者，css无效。所以全局css还是放在main里面好。
+
+------------------2019/2/27更新---------------
+title: IE hack  
+date:  2019/4/16
+categories: 学习
+tags: 专题探究
+
+title: 图片预加载探究 
+date:  2019/4/16
+categories: 学习
+tags:专题探究 
+---
+
+
+```
+
+    /**
+     * 预加载
+     * @param {Array} dataList  预加载数据
+     * @param {Array} attrArray 预加载属性，可选
+     */
+    export function  preLoad(dataList,attrList){
+      //若有指定对象属性
+      let imgList = [];
+      if(attrList){
+        dataList.forEach(element => {
+          attrList.forEach(attr=>{
+            if(element[attr]){
+              const img = new Image();
+              img.src = element[attr];
+              imgList.push(img);
+    
+            } 
+          })
+        });
+      }else{
+        dataList.forEach(element => { 
+          const img = new Image();
+          img.src = element;
+          imgList.push(img);       
+        });
+      }
+      
+      return imgList;
+    }
+```
+
+**测试浏览器：chrome、firefox**
+------------------------
+
+> 在Firefox下并没有from memory cache以及from disk cache的状态展现 相同的资源在chrome下是from
+> disk/memory cache，但是Firefox统统是304状态码
+> 即Firefox下会缓存资源，但是每次都会请求服务器对比当前缓存是否更改，chrome不请求服务器，直接拿过来用
+
+> 200 OK (from disk cache) 是浏览器没有跟服务器确认， 就是它直接用浏览器缓存。 304
+> 是浏览器和服务器确认了一次缓存有效性，再用的缓存。客户端和服务器端只需要传输很少的数据量来做文件的校验，如果文件没有修改过，则不需要返回全量的数据。能够节省大量的网络带宽，并减少了页面的渲染时间。
+
+
+图片img的预加载
+========
+
+方法一:直接用src进行预加载,但不保存
+----------------------------
+
+     <img :src="data[current].imagePath">
+     mounted() {  
+         preLoad(this.data,['imagePath']);
+    }
+
+**结果：**
+
+ 1. 谷歌 切换图片速度快，确实有预加载. 初次 200  disk cache。
+ 
+    切换没有发XHR，发了Img。200 OK (from disk cache) 是浏览器没有跟服务器确认，即直接用浏览器缓存。
+ 
+
+
+ 2. 火狐切换图片速度慢，并没有预加载 初次，没有“已缓存”标识。
+     
+    第一次切换,还是发了请求
+ 
+    第二次切换，正常没有请求（默认情况下状态码为200的响应可以被缓存）。
+    所以火狐预加载并没有成功。
+
+-------------
+方法二： 把预加载的挂载到data上（最好）
+---------------------
+
+**结果：**火狐、谷歌表现一致，都切换较快，没有发请求
+
+    <div ref="solution-img"></div>
+    mounted() {    
+        this.preLoadImg = preLoad(this.data,['bgimagePath']);
+    }
+    methods: {
+        changeActive(index) {
+          this.current = index;
+          let dom = this.$refs['solution-img'];
+          if(dom.childNodes.length > 0) dom.removeChild(dom.childNodes[0]);
+          dom.appendChild(this.preLoadImg[index]);
+        }
+    
+      },
+
+背景图片的预加载
+========
+
+**不做任何处理结果**：第一次请求返回200。第一次加载后都是304
+
+-------------
+方法一 ：使用css预加载
+---------------------------
+
+    #preload-01 { background:  url('~@/assets/img/market/icon-00.png') no-repeat -9999px -9999px; }    
+    #preload-02 { background:  url('~@/assets/img/market/icon-01.png') no-repeat -9999px -9999px; }    
+
+**结果：** 和不处理表现一致。初次加载也没有请求这些图片。
+
+方法二：src预加载，但不保存
+---------------------------------------
+
+    {
+     background-image: url('~@/assets/img/market/icon-10.png')  ;       
+     &:hover{  background-image:url('~@/assets/img/market/icon-11.png')}
+    }
+    myPreLoad(){
+          let images = [  
+            require('@/assets/img/market/icon-10.png'),
+            require('@/assets/img/market/icon-11.png'),
+          ];
+          preLoad(images);
+   }
+ 
+**结果：** 第一次hover 状态码304。之后切换没有发请求。火狐和谷歌表现一致，都是304
+
+
+
+方法三：把预加载的挂载到data上
+--------------------------------------------
+
+    handleMouseenter(index){
+    this.getDom(index).style.backgroundImage = "url(" +this.preLoadImage[index*2+1].src + ")";
+    
+    },
+**结果：** 谷歌切换没有发请求。但是火狐会发请求，并返回304。
+
+
+方法四：雪碧图（最好）
+--------
+title: scss笔记 
+date:  2019/2/28
+categories: 学习
+tags:日常记录     
+
+title: 面试题摘录
+date:   2018/5/5
+categories: 学习
+tags:面经
+
+title: js题摘录（柯里化、栈队列）
+date:   2018/5/5
+categories: 学习
+tags: 面经
+---
+
+[44个Javascript变态题解析](https://blog.csdn.net/ceshi986745/article/details/51698893)
+## foreach
+数组的foreach可以和闭包起一样的作用
+
+闭包中的变量包括参数，在内部函数执行完毕之前不会被释放
+## JS运行机制
+
+执行栈,任务队列
+
+``process.nextTick``方法可以在当前"执行栈"的尾部----下一次Event Loop（主线程读取"任务队列"）之前----触发回调函数
+
+``setImmediate``方法则是在当前"任务队列"的尾部添加事件
+
+``process.nextTick``指定的回调函数是在本次"事件循环"触发，而setImmediate指定的是在下次"事件循环"触发
+
+``setTimeout(fn,0)``表示当前代码执行完（执行栈清空）以后，立即执行（0毫秒间隔）指定的回调函数。
+
+``Promise``，里面的函数是直接执行的.
+
+``Promise`` 的 then 应当会放到当前 "执行栈"的尾部
+
+{% asset_img js_zhan_duilie.jpg js堆栈 %}
+
+在Javascript引擎里面，队列还分为 Task队列（也有人叫做 MacroTask）和 MicroTask队列， MicroTask会优先于 Task执行。
+
+比如常见的点击事件、 setImmediate、 setTimeout、 MessageChannel等会放入 Task队列，
+
+但是 Promise以及 MutationObserver会放到 Microtask队列。
+
+同时，Javascript引擎在执行 Microtask队列的时候，如果期间又加入了新的 Microtask，则该 Microtask会加入到之前的 Microtask队列的尾部，保证 Microtask先于 Task队列执行。
+
+Task(MacroTask)队列中： **setImmediate > MessageChannel > setTimeout 0**
+
+[你真的了解Javascript执行顺序么？](https://mp.weixin.qq.com/s/2ilx-5kDvszjF66iAvYQlg?utm_medium=hao.caibaojian.com&utm_source=hao.caibaojian.com)
+
+### setTimeOut
+{%asset_img setTimeOut.jpg%}
+
+[谈谈JavaScript的异步实现](http://www.cnblogs.com/sprying/archive/2013/05/26/3100639.html)
+* 1
+```javascript
+let a=[1,2,3];
+let b = a.map(n=>{n=n+1});
+let c = a.map(n=>n=n+1);
+b// [undefined, undefined, undefined]
+c// [2, 3, 4]
+```
+改成
+```javascript
+let b = a.map(n => {n = n + 1;return n;});
+```
+原因
+```javascript
+(a,b,c) => 表达式（单一）相当于
+(a,b,c)=>{ return 表达式}
+```
+
+* 2
+```javascript
+var a = 111111111111111110000;
+b=111;
+console.info(a+b);//111111111111111110000
+```
+
+JS的基础类型Number，遵循 IEEE 754 规范，采用双精度存储（double precision），占用 64 bit。
+1位用来表示符号位，
+11位用来表示指数，
+52位表示尾数
+
+Math.pow(2, 53) == 9007199254740992 是可以表示的最大值. 
+
+```javascript
+Number.isSafeInteger(111111111111111110000)//false
+```
+* 3
+```javascript
+[3,2,1].reduce(Math.pow)//9
+```
+表达式等价于 Math.pow(3, 2) => 9; Math.pow(9, 1) =>9
+
+* 4
+```javascript
+var arr = [0,1,2];
+arr[10]=10;
+arr.filter(function(x){return x==undefined});//[]
+```
+首先检查了这个索引值是不是数组的一个属性, 那么我们测试一下.
+```javascript
+0 in ary; => true
+3 in ary; => false
+10 in ary; => true
+```
+从 3 - 9 都是没有初始化的'坑'!, 这些索引并不存在与数组中. 在 array 的函数调用的时候是会``跳过``这些'坑'的,所以它不知道是不是undefined
+
+* 5
+```javascript
+var obj = {
+    foo:'bar',
+    func:function(){
+        var self = this;
+        console.log(this.foo);
+        console.log(self.foo);
+        (function(){
+            console.log(this.foo);
+            console.log(self.foo);
+        }())
+    }
+}
+obj.func();
+```
+输出
+```
+bar
+bar
+undefined
+bar
+```
+
+* 6
+```javascript
+var f = function g(){return 23;}
+typeof g();
+```
+输出
+```javascript
+//Chrome:
+typeof g() //无输出响应
+typeof g   //undefined
+typeof f() //number
+typeof f   //function
+
+//Firfox
+typeof g() //无输出响应
+typeof g   //undefined
+typeof f() //number
+typeof f   //function
+
+//IE8
+typeof g() //number
+typeof g   //function
+typeof f() //number
+typeof f   //function
+```
+
+* 7 重点
+```javascript
+add(2, 5); // 7
+add(2)(5); // 7
+function addto(){
+    var length = arguments.length;
+    var sum = 0;
+    for(var i = 0;i<length;i++){
+        sum += arguments[i]
+    }
+    return sum;
+}
+
+function add(){
+    var value = addto.apply(add,arguments);
+    var helper = function(next){
+        typeof next == "number" ? value+=next:value;
+        return helper
+    }
+    helper.valueOf = function(){
+        return value;
+    }
+    return helper;
+}
+
+```
+
+
+* 8
+```javascript
+void 0//undefined
+void(0)//undefined
+```
+
+* 9
+```javascript
+this;//window
+var obj = {
+    func : function(){return this;}
+};
+obj.func();//obj
+```
+* 抛出的异常找最近的catch
+```javascript
+try{
+    try{
+        throw new Error('oops');
+    }
+    finally{
+        console.log('finally');
+    }catch(ex){
+        console.error('outer',ex.message);
+    }
+}
+```
+输出 finally outer oops
+
+* 抛出的异常只需处理一次
+```javascript
+try{
+    try{
+        throw new Error('oops')
+    }
+    catch(ex){
+        console.error('inner',ex.message);
+    }finally{
+        console.log('finally')
+    }
+}catch(ex){
+    console.error('outer',ex.message)
+}
+}
+```
+输出 inner oops finally
+
+* 12
+```javascript
+fd();//true
+function fd(){
+    //do sth
+    return true;
+}
+```
+```javascript
+fe();//TypeError
+var fe = function(){
+    //do sth
+}
+```
+* 13
+```javascript
+var myarr2 = new 
+Array("80","16","50","6","100","1");
+document.write(myarr2.sort());//1,100,16,50,6,80
+```
+原因 ：因为按unicode码顺序排列。如要实现排序，就必须手写排序函数
+
+
+{% asset_img 1.png %}
+{% asset_img 2.png %}
+{% asset_img 3.png %}
+{% asset_img 4.png %}
+{% asset_img 5.png %}
+{% asset_img 6.png %}
+{% asset_img 7.png %}
+
+什么是普通对象？？？
+{% asset_img 8.png %}
+{% asset_img 9.png %}
+
+为什么result先输出？？？？
+{% asset_img 10.png %}
+
+## 你知道为什么会有 Generator 吗?
+[你知道为什么会有 Generator 吗](https://juejin.im/post/5adae8246fb9a07aa541e150)
+
+## 柯里化--部分求值
+柯里化又称部分求值，柯里化函数会接收一些参数，然后不会立即求值，而是继续返回一个新函数，将传入的参数通过闭包的形式保存，等到被真正求值的时候，再一次性把所有传入的参数进行求值
+```javascript
+//通用的柯里化函数
+function curry(fn) {
+    let slice = Array.prototype.slice,  // 将slice缓存起来
+        args = slice.call(arguments, 1);   // 这里将arguments转成数组并保存
+        
+    return function() {
+        // 将新旧的参数拼接起来
+        let newArgs = args.concat(slice.call(arguments));    
+        return fn.apply(null, newArgs); // 返回执行的fn并传递最新的参数
+    }
+}
+// ES6版的柯里化函数
+function curry(fn) {
+    const g = (...allArgs) => allArgs.length >= fn.length ?
+        fn(...allArgs) : 
+        (...args) => g(...allArgs, ...args)
+
+    return g;
+}
+
+// 测试用例
+const foo = curry((a, b, c, d) => {
+    console.log(a, b, c, d);
+});
+foo(1)(2)(3)(4);    // 1 2 3 4
+const f = foo(1)(2)(3);
+f(5);               // 1 2 3 5
+
+```
+## 反柯里化-函数的借用
+简而言之就是函数的借用，天下函数(方法)大家用
+```javascript
+//写法一
+Function.prototype.uncurrying = function() {
+    let self = this;    
+    return function() {
+        let obj = Array.prototype.shift.call(arguments);//删除并返回
+        return self.apply(obj, arguments); 
+    }
+};
+//写法二
+Function.prototype.uncurrying = function() {
+    let self = this;
+    return function() {
+        return Function.prototype.call.apply(self, arguments);
+        /*相当于Function.prototype.call.apply(Array.prototype.slice, arguments);
+        也就是相当于Array.prototype.slice.call(arguments)*/
+    }
+};
+
+//测试一
+let slice = Array.prototype.slice.uncurrying();
+
+(function() {
+    let result = slice(arguments);  
+    console.log(result);    // [1, 2, 3]
+})(1,2,3);
+
+//测试二
+let slice = Array.prototype.push.uncurrying();
+let obj = {
+    'length': 1,
+    '0': 1
+};
+push(obj, 110);
+console.log(obj);   // { '0': 1, '1': 110, length: 2 }
+```
+## 数字类型的 toLocaleString
+minimumIntegerDigits、 minimumFractionDigits 与 maximumFractionDigits，用于指定整数最少位数与小数的最少和最多位数，不够则用0去凑。简单说，自动补0！
+
+minimumSignificantDigits 与 maximumSignificantDigits，用于控制有效数字位数，只要设置了这一组属性，第一组属性全部忽略不算
+
+注意，maximumFractionDigits 与 maximumSignificantDigits 均是四舍五入，使用时需要注意。
+
+```javascript
+const num = 2333333;
+num.toLocaleString();   // 2,333,333
+num.toLocaleString('zh', { style: 'decimal' });   //2,333,333
+num.toLocaleString('zh', { style: 'percent' });   //233,333,300%
+num.toLocaleString('zh', { style: 'currency', currency: 'CNY' });    //￥2,333,333.00
+num.toLocaleString('zh', { style: 'currency', currency: 'cny', currencyDisplay: 'code' });      //CNY2,333,333.00
+num.toLocaleString('zh', { style: 'currency', currency: 'cny', currencyDisplay: 'name' });      //2,333,333.00人民币
+num.toLocaleString('zh', { minimumIntegerDigits: 5 });        //02,333.3
+//如果不想有分隔符，可以指定useGrouping为false
+num.toLocaleString('zh', { minimumIntegerDigits: 5, useGrouping: false });        //02333.3
+num.toLocaleString('zh', { minimumFractionDigits: 2, useGrouping: false });     //2333.30
+
+num = 666.666
+num.toLocaleString('zh', { maximumFractionDigits: 2, useGrouping: false });     //666.67
+
+const num = 1234.5;
+num.toLocaleString('zh', { minimumSignificantDigits: 6, useGrouping: false });      //1234.50
+num.toLocaleString('zh', { maximumSignificantDigits: 4, useGrouping: false });      //1235
+
+```
+
+```js
+ [] === []//false 
+ [] == []//false
+ //因为[]是一个数组，是一个对象。就好比创建了2个对象，然后比较两个对象是否相同
+
+[] == false//true
+ /*他是经历了这个过程最终才为true的。
+（[] == false）   ---->  （[] == +0）   ---->  （“”== +0）  ---->  （+0 == +0）  
+title: 学习资源收集
+date:   2017-1-1
+categories: 学习
+tags:日常记录
+---
+
+
+# Learning-resource
+
+## 前端面试题目
+* https://segmentfault.com/a/1190000013331105?utm_source=index-hottest
+* https://github.com/qiu-deqing/FE-interview
+* https://github.com/fouber/blog
+* https://www.imooc.com/article/20319
+* http://caibaojian.com/40-html5-interview.html
+
+## css
+* css3 grid layout https://css-tricks.com/snippets/css/complete-guide-grid/#prop-align-items
+
+## full stack
+* Growth Engineering: The Definitive Guide。全栈增长工程师指南 http://growth.phodal.com/
+* 全栈增长工程师实战 http://growth-in-action.phodal.com/
+
+## Jekyll
+* Ovilia's blog http://zhangwenli.com/blog
+  源码：https://github.com/Ovilia/blog
+  
+* axuebin
+https://github.com/axuebin/blog
+
+* https://github.com/simongfxu/simongfxu.github.com
+
+
+## react,react-native,redux
+
+* react小书里面的例子
+https://github.com/huzidaha/react-naive-book-examples
+
+* 一个 react + redux 的完整项目 和 个人总结
+https://github.com/bailicangdu/react-pxq
+
+* 一个react+redux+webpack+ES6+antd的SPA的后台管理框架demo
+https://github.com/duxianwei520/react
+
+* 基于webpack + react + react-router + redux + less + flex.css + ES6 的React版cnode社区
+https://github.com/lzxb/react-cnode
+
+* React Native指南汇集了各类react-native学习资源、开源App和组件
+https://github.com/reactnativecn/react-native-guide
+
+* Source code of the official F8 app of 2016, powered by React Native and other Facebook open source projects.
+https://github.com/fbsamples/f8app
+
+
+* Redux 莞式教程。本教程深入浅出，配套入门、进阶源码解读以及文档注释丰满的 Demo 等一条龙服务
+https://github.com/kenberkeley/redux-simple-tutorial
+
+
+## nodejs
+* express框架应用
+https://github.com/nswbmw/N-blog
+
+* express+mongodb+bootstrap blog system
+https://github.com/mz121star/NJBlog
+
+* 《Node.js 包教不包会》 by alsotang
+https://github.com/alsotang/node-lessons
+
+## vue
+* A curated list of awesome things related to Vue.js
+https://github.com/vuejs/awesome-vue
+
+* 记录vue-webapck的学习基础
+https://github.com/guowenfh/vue-webpack
+
+* Learn Vuex by Building a Notes App
+https://github.com/coligo-io/notes-app-vuejs-vuex
+
+
+## 工具
+* Packaged version of Ace code editor
+https://github.com/ajaxorg/ace-builds
+
+* PNotify is a JavaScript notification plugin, developed by SciActive. PNotify can also provide desktop notifications based on the Web Notifications spec. If desktop notifications are not available or not allowed, PNotify will fall back to displaying the notice as a regular, in-browser notice.
+https://github.com/sciactive/pnotify
+
+* JsGen is a next generation，free, open source web software that you can generate a powerful website, such as blog, forum, etc. It is coded by pure JavaScript, based on Node.js, AngularJS, MongoDB.
+https://github.com/zensh/jsgen
+
+
+## 其他
+
+* Web Development With Node and Express, first edition.配套代码
+https://github.com/EthanRBrown/web-development-with-node-and-express
+
+* 《A Practitioner's Guide to Software Test Design》的中文翻译
+https://github.com/miaoyinniao/Software-Test-Design-Guide-Cn
+
+* 全栈工程师培训材料
+title: 页面加载过程解析
+date:   2017/10/12
+categories: 学习
+tags: 面经
+
+title: 前端库收集
+date:   2018-1-1
+categories: 学习
+tags:日常记录
+
+title: HTML元素定位
+date:   2018/7/12
+categories: 学习
+tags: 日常记录
