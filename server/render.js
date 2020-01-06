@@ -2,8 +2,31 @@ const ejs=require('ejs');
 const fs = require('fs');
 const path = require("path")
 const marked = require("marked")
+const  mime = require("mime");
+const CONFIG = require('./config');
+function handleFile(data){
+    let obj = {};
 
-const basePath = "../post";
+    let info = data.match(/^---[\s\S]+?---/);
+    if(info==null) {
+        fs.appendFileSync('null.txt', data)
+        return obj;
+    }
+    info = info[0].replace(/(^-*|-*$)/g, "");
+
+    
+    fs.appendFileSync('output.txt', info)
+    info = info.split(/[\n]/);
+    
+    for(let i = 0;i < info.length; i++){
+        if(info[i]){
+            let arr = info[i].split(':');
+            obj[arr[0]] = arr[1]
+        }
+    }
+    return obj ; 
+}
+
 function fileDisplay(dirPath,arr,mdArr){
     var filesList = fs.readdirSync(dirPath);
     for(var i=0;i<filesList.length;i++){
@@ -33,52 +56,30 @@ function fileDisplay(dirPath,arr,mdArr){
 exports.renderList = function(res){
   var arr = [];
   var mdArr = [];
-  fileDisplay(basePath,arr,mdArr);
-  //读取完毕则写入到txt文件中
-  fs.writeFileSync('./mdfile.txt', JSON.stringify(mdArr));
+  fileDisplay('./post',arr,mdArr);
 
   let list = [];
   for(let i = 0 ;i < mdArr.length ; i++ ){
-    fs.readFile(mdArr[i].filePath ,"utf8",  function(err, data) {
-      
-      if (err) {
-          return console.error(err)
-      }
-  
-      let obj = {};
-      let info = data.match(/---([\s\S]*)---/)[1];
-
-      fs.appendFileSync('output.txt', info)
-      
-      info = info.split(/[\n]/);
-      for(let i = 0;i < info.length; i++){
-          if(info[i]){
-              let arr = info[i].split(':');
-              obj[arr[0]] = arr[1]
-          }
-      }
-      obj.html = marked(data);
-
-      list.push(obj);
-  });
+    let md = fs.readFileSync(mdArr[i].filePath ,"utf8");
+    let obj = handleFile(md)
+    newObj = {...mdArr[i],...obj}
+    list.push(newObj);
   }
 
-   
-  // fs.writeFileSync('./file.txt', JSON.stringify(list));
-  // ejs.renderFile('../ejs/list.ejs', {list}, function(err,data){
-  //     if(err){
-  //         console.log(err);
-  //     }else{
-  //         res.end(data);
-      
-  //     }
-  // }) 
+  fs.writeFileSync('./mdfile.js', JSON.stringify(list));
+
+    ejs.renderFile('./ejs/list.ejs', {list,title:'列表',nav:CONFIG.NAV}, function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            res.end(data);
+        
+        }
+    }) 
 
 
 
 }
-
-
 
 exports.renderPost = function (postpath,res){
     res.statusCode = 200;
@@ -89,18 +90,11 @@ exports.renderPost = function (postpath,res){
         return console.error(err)
     }
 
-    let obj = {};
-    let  info = data.match(/---\n([\s\S]*)---\n/)[1]; 
-        info = info.split(/[\n]/);
-    for(let i = 0;i < info.length; i++){
-        if(info[i]){
-            let arr = info[i].split(':');
-            obj[arr[0]] = arr[1]
-        }
-    }
+    let obj = handleFile(data)
     obj.html = marked(data);
+    // console.log(obj)
     
-    ejs.renderFile('../ejs/post.ejs', obj, function(err,data){
+    ejs.renderFile('./ejs/post.ejs', {...obj,nav:CONFIG.NAV}, function(err,data){
         if(err){
             console.log(err);
         }else{
@@ -110,5 +104,18 @@ exports.renderPost = function (postpath,res){
     }) 
 
 });
+}
+
+exports.renderStatic = function (url,response){
+        // 读取静态文件
+        fs.readFile(url, function (err, data) {
+          if (err) {
+            throw err;
+          }
+          // 设置请求头
+          response.setHeader("Content-Type", mime.getType(url));
+          response.end(data);
+        })
+      
 }
 

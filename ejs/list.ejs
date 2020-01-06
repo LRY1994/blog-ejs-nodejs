@@ -1,14 +1,20 @@
 <html>
 <head>
-<title>my ejs template</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <title>my ejs template</title>
 </head>
 
 <body>
+    <div style="width:300px;">
+        <%- include('nav', {navList: nav}); %>
+    </div>
+    
     <p>文章列表</p>
     <ul>
         <% list.forEach(function(item){%>
-                <li><%=item.title %></li>
-            <% }) %>
+                <li><a href="<%= item.filePath %>"><%=item.title %></a></li>
+        <% }) %>
     </ul>
 </body>
 </html>

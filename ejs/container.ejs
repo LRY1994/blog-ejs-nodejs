@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
-    <title><%=title%></title>
+    <title>LRY's Blog</title>
 </head>
+
 <body>
-    <%- html %>
+    <%- include('nav', {navList: user}); %>
+    <%- include('list', {navList: user}); %>
 </body>
 </html>

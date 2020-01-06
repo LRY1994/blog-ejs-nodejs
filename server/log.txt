@@ -1,3 +1,0 @@
-..\post\2018\9\network\Tcp_state_diagram_fixed.svg
-g
-timize.png

@@ -1,0 +1,13 @@
+{
+  "name": "ejs-nodejs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "node server/server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "marked": "^0.8.0",
+    "mime": "^2.4.4"
+  }
+}

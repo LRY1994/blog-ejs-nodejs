@@ -6,7 +6,6 @@ categories:  学习
 tags: 读书笔记
 ---
 
-![cover](/images/book/web-full-stack-self-cultivation.jpg)
 ## 减少同一域名下的HTTP请求数
 1、把静态资源放在单独的非主域名。这样可以增加浏览器并发连接数，而且减少HTTP请求中携带的不必要的cookie数据（cookie的作用域是整个域名）
 
