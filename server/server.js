@@ -40,6 +40,7 @@ class Server {
             let md = fs.readFileSync(mdArr[i].filePath ,"utf8");
             let obj = this.handleFile(md)      
             let newObj = {...mdArr[i],...obj}
+            newObj.index = i;
             list.push(newObj);  
         }
 

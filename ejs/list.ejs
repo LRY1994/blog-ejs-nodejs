@@ -13,7 +13,7 @@
     <p>文章列表</p>
     <ul>
         <% for(var i=0;i< list.length;i++){%>
-            <li><a href="<%= list[i].filePath+'?index='+i %>"><%=list[i].title %></a></li>
+            <li><a href="<%= list[i].filePath+'?index='+list[i].index %>"><%=list[i].title %></a></li>
         <%}%>
     </ul>
 </body>
