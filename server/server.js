@@ -8,17 +8,19 @@ const sass = require('node-sass')
 const CONFIG = require('./config');
 const hostname = '127.0.0.1';
 const port = 3000;
+
 class Server {
     constructor() {
       this.start();
-      this.instance.listen(port, hostname, () => {
-        console.log(`服务器运行在 http://${hostname}:${port}/`);
-      });
     }
     start(){
-        this.transferSass();
+        this.transferSassToCss();
         this.createServer();
+        this.instance.listen(port, hostname, () => {
+          console.log(`服务器运行在 http://${hostname}:${port}/`);
+        });
     }
+
     createServer(){
       const _that = this;
       this.instance = http.createServer((req, res) => {
@@ -35,15 +37,16 @@ class Server {
         })
     })
     }
+    //生成cache.json
     initCache(){
         var arr = [];
         var mdArr = [];
-        this.fileDisplay('./post',arr,mdArr,'md');
+        this.traversalDir('./post',arr,mdArr,'md');
 
         let list = [];
         for(let i = 0 ;i < mdArr.length ; i++ ){
             let md = fs.readFileSync(mdArr[i].filePath ,"utf8");
-            let obj = this.handleFile(md)      
+            let obj = this.extractDataFromFile(md)      
             let newObj = {...mdArr[i],...obj}
             newObj.index = i;
             list.push(newObj);  
@@ -56,8 +59,8 @@ class Server {
 
         fs.writeFileSync(CONFIG.CACHE, JSON.stringify(obj));
     }
-
-    handleFile (data){
+    //提取md头几行信息
+    extractDataFromFile (data){
         let obj = {};
         //提取---xxx---之间的json
         let info = data.match(/^---[\s\S]+?---/);
@@ -83,8 +86,8 @@ class Server {
         }
         return obj ; 
     }
-
-    fileDisplay (dirPath,arr,mdArr,extname){
+    //遍历dirPath下的文件，返回后缀名是extname的结果，存放于mdArr
+    traversalDir (dirPath,arr,mdArr,extname){
         var filesList = fs.readdirSync(dirPath);
         for(var i=0;i<filesList.length;i++){
             //描述此文件/文件夹的对象
@@ -100,7 +103,7 @@ class Server {
                 fileObj.child = [];
                 arr.push(fileObj);
                 //递归调用
-                this.fileDisplay(filePath,arr[i].child,mdArr,extname);
+                this.traversalDir(filePath,arr[i].child,mdArr,extname);
             }else{
                 //不是文件夹,则添加type属性为文件后缀名
                 fileObj.type = path.extname(filesList[i]).substring(1);
@@ -110,7 +113,7 @@ class Server {
             }
         }
     }
-
+    //响应请求
     route (req, res){
         const urlObj = url.parse(req.url);
         const pathname = urlObj.pathname;
@@ -124,18 +127,14 @@ class Server {
           }
         }
     }
-
-    transferSass () { // 使用node-sass模块进行转换，后保存至css文件夹
-
-
+    //使用node-sass模块进行转换，后保存至css/all.css
+    transferSassToCss () { 
       var arr = [];
       var scssArr = [];
-      this.fileDisplay('./static/scss',arr,scssArr,'scss');
-      let outputName = path.resolve('./static/css/', 'all.css')
+      this.traversalDir('./static/scss', arr, scssArr, 'scss');
+      let outputName = path.resolve('./static/css/', 'all.css');
       let allResult = '';
-        // let suffix = path.extname(filename) // 后缀名
-        // if (suffix !== '.scss') return
-
+  
       for(let j = 0;j < scssArr.length;j++){
           let result = sass.renderSync({
             file: scssArr[j].filePath,
@@ -154,26 +153,7 @@ class Server {
         }
       });
 
-
-      //   sass.render({
-      //     file: path.resolve('./static/scss', filename),
-      //     outFile: outputName,
-      //     outputStyle: 'compressed',
-      //     sourceMap: true
-      //   }, function (err, result) {
-      //     if (err) {
-      //       console.log('sass render err -> ', err)
-      //     } else {
-      //       fs.writeFile(outputName, result.css, function(err){
-      //         if (err) {
-      //           console.log('write file err -> ', err)
-      //         } else {
-      //           console.log('save css success -> ', outputName)
-      //         }
-      //       });
-      //     }
-      //   })
-      // }
   }
 }
+
 new Server();
