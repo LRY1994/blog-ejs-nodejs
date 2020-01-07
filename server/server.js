@@ -4,6 +4,7 @@ const Render=require('./render')
 const http = require('http');
 const url  = require('url');
 const querystring = require('querystring')
+const sass = require('node-sass')
 const CONFIG = require('./config');
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -33,7 +34,7 @@ class Server {
     initCache(){
         var arr = [];
         var mdArr = [];
-        this.fileDisplay('./post',arr,mdArr);
+        this.fileDisplay('./post',arr,mdArr,'md');
 
         let list = [];
         for(let i = 0 ;i < mdArr.length ; i++ ){
@@ -79,7 +80,7 @@ class Server {
         return obj ; 
     }
 
-    fileDisplay (dirPath,arr,mdArr){
+    fileDisplay (dirPath,arr,mdArr,extname){
         var filesList = fs.readdirSync(dirPath);
         for(var i=0;i<filesList.length;i++){
             //描述此文件/文件夹的对象
@@ -95,11 +96,11 @@ class Server {
                 fileObj.child = [];
                 arr.push(fileObj);
                 //递归调用
-                this.fileDisplay(filePath,arr[i].child,mdArr);
+                this.fileDisplay(filePath,arr[i].child,mdArr,extname);
             }else{
                 //不是文件夹,则添加type属性为文件后缀名
                 fileObj.type = path.extname(filesList[i]).substring(1);
-                if( fileObj.type=="md") mdArr.push({filePath,...fileObj})
+                if( fileObj.type == extname) mdArr.push({filePath,...fileObj})
                 arr.push(fileObj);
                
             }
@@ -119,6 +120,30 @@ class Server {
           }
         }
     }
+
+    transferSass (filename) { // 使用node-sass模块进行转换，后保存至css文件夹
+        let suffix = path.extname(filename) // 后缀名
+        if (suffix !== '.scss') return
+        let outputName = path.resolve('./static/css/', path.basename(filename, suffix) + '.css')
+        sass.render({
+          file: path.resolve('./static/scss', filename),
+          outFile: outputName,
+          outputStyle: 'compressed',
+          sourceMap: true
+        }, function (err, result) {
+          if (err) {
+            console.log('sass render err -> ', err)
+          } else {
+            fs.writeFile(outputName, result.css, function(err){
+              if (err) {
+                console.log('write file err -> ', err)
+              } else {
+                console.log('save css success -> ', outputName)
+              }
+            });
+          }
+        })
+      }
 }
 
 new Server();
