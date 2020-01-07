@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
-    <title>my ejs template</title>
+    <title><%=title%></title>
 </head>
 
 <body>
@@ -12,9 +12,9 @@
     
     <p>文章列表</p>
     <ul>
-        <% list.forEach(function(item){%>
-                <li><a href="<%= item.filePath %>"><%=item.title %></a></li>
-        <% }) %>
+        <% for(var i=0;i< list.length;i++){%>
+            <li><a href="<%= list[i].filePath+'?index='+i %>"><%=list[i].title %></a></li>
+        <%}%>
     </ul>
 </body>
 </html>
