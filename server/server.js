@@ -16,20 +16,24 @@ class Server {
       });
     }
     start(){
-        const _that = this;
-        this.instance = http.createServer((req, res) => {
-            fs.exists(CONFIG.CACHE,function(exists){
-              if(exists){
-                console.log("文件存在");
-                _that.route(req, res);
-              }
-               if(!exists){
-                  console.log("文件不存在")
-                  _that.initCache();
-                  _that.route(req, res);
-               }
-            })
+        this.transferSass();
+        this.createServer();
+    }
+    createServer(){
+      const _that = this;
+      this.instance = http.createServer((req, res) => {
+        fs.exists(CONFIG.CACHE,function(exists){
+          if(exists){
+            console.log("文件存在");
+            _that.route(req, res);
+          }
+           if(!exists){
+              console.log("文件不存在")
+              _that.initCache();
+              _that.route(req, res);
+           }
         })
+    })
     }
     initCache(){
         var arr = [];
@@ -121,29 +125,55 @@ class Server {
         }
     }
 
-    transferSass (filename) { // 使用node-sass模块进行转换，后保存至css文件夹
-        let suffix = path.extname(filename) // 后缀名
-        if (suffix !== '.scss') return
-        let outputName = path.resolve('./static/css/', path.basename(filename, suffix) + '.css')
-        sass.render({
-          file: path.resolve('./static/scss', filename),
-          outFile: outputName,
-          outputStyle: 'compressed',
-          sourceMap: true
-        }, function (err, result) {
-          if (err) {
-            console.log('sass render err -> ', err)
-          } else {
-            fs.writeFile(outputName, result.css, function(err){
-              if (err) {
-                console.log('write file err -> ', err)
-              } else {
-                console.log('save css success -> ', outputName)
-              }
-            });
-          }
-        })
-      }
-}
+    transferSass () { // 使用node-sass模块进行转换，后保存至css文件夹
 
+
+      var arr = [];
+      var scssArr = [];
+      this.fileDisplay('./static/scss',arr,scssArr,'scss');
+      let outputName = path.resolve('./static/css/', 'all.css')
+      let allResult = '';
+        // let suffix = path.extname(filename) // 后缀名
+        // if (suffix !== '.scss') return
+
+      for(let j = 0;j < scssArr.length;j++){
+          let result = sass.renderSync({
+            file: scssArr[j].filePath,
+            outFile: outputName,
+            outputStyle: 'compressed',
+            sourceMap: true
+          });
+          allResult += result.css;
+      }
+             
+      fs.writeFileSync(outputName, allResult, function(err){
+        if (err) {
+          console.log('write file err -> ', err)
+        } else {
+          console.log('save css success -> ', outputName)
+        }
+      });
+
+
+      //   sass.render({
+      //     file: path.resolve('./static/scss', filename),
+      //     outFile: outputName,
+      //     outputStyle: 'compressed',
+      //     sourceMap: true
+      //   }, function (err, result) {
+      //     if (err) {
+      //       console.log('sass render err -> ', err)
+      //     } else {
+      //       fs.writeFile(outputName, result.css, function(err){
+      //         if (err) {
+      //           console.log('write file err -> ', err)
+      //         } else {
+      //           console.log('save css success -> ', outputName)
+      //         }
+      //       });
+      //     }
+      //   })
+      // }
+  }
+}
 new Server();
