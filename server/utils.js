@@ -55,14 +55,9 @@ const extractDataFromFile = function (data){
     //提取---xxx---之间的json
     let info = data.match(/^---[\s\S]+?---/);
     let section = info;
-    //错误log
-    if(info==null) {
-        fs.appendFileSync('null.txt', data)
-        return obj;
-    }
+   
     //去除头尾的---
     info = info[0].replace(/(^-*|-*$)/g, "");   
-    // fs.appendFileSync('output.txt', info)
 
     //按行切分，提取键值对
     info = info.split(/[\n|\r]/);   
@@ -81,6 +76,7 @@ const extractDataFromFile = function (data){
     return obj ; 
 }
 
+//循环创建目录
 const makeDir = function (dirpath) {
     
     var pathtmp;
