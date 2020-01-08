@@ -1,29 +1,26 @@
 const fs = require('fs');
 const path = require("path")
-const http = require('http');
-const url  = require('url');
-const querystring = require('querystring')
 const sass = require('node-sass')
-const Render=require('./render')
 const CONFIG = require('./config');
+const Utils = require('./utils')
+const ejs=require('ejs');
 
-const hostname = '127.0.0.1';
-const port = 3000;
-
+const categories_path='./public/categories';
+const css_path='./public/static/css'
 class Generate {
-
-    generatePost(){
+     //生成cache.json
+    generateCache(){
       var arr = [];
       var mdArr = [];
-      this.traversalDir('./post',arr,mdArr,'md');
+      Utils.traversalDir('./post',arr,mdArr,'md');
 
       let list = [];
       for(let i = 0 ;i < mdArr.length ; i++ ){
           let md = fs.readFileSync(mdArr[i].filePath ,"utf8");
-          let obj = this.extractDataFromFile(md)      
+          let obj = Utils.extractDataFromFile(md)      
           let newObj = {...mdArr[i],...obj}
           newObj.index = i;
-          
+          list.push(newObj);  
       }
 
       let obj = {
@@ -33,13 +30,16 @@ class Generate {
 
       fs.writeFileSync(CONFIG.CACHE, JSON.stringify(obj));
     }
-    generateCategory(){
+    //生成文章页面
+    generatePost(){
+    }
+   
+    generateCategory(categories){
       fs.readFile( CONFIG.CACHE, 'utf8',
                   function (err, data) {
                       if(err) return console.log(err);
 
-                      const { cache, total } = JSON.parse(data);//从cache.json里取值
-                      const categories = 'Reading'
+                      const { cache, total } = JSON.parse(data);//从cache.json里取值                     
 
                       let list = [];
                       //分类
@@ -62,22 +62,39 @@ class Generate {
                           if(err){
                               console.log(err);
                           }else{
-                             fs.writeFileSync('./public/categories/', JSON.stringify(obj));
-                              res.end(data);
-                          
+                            fs.writeFileSync(`${categories_path}/${categories}.html`, data)
+                            //  fs.writeFileSync(`./public/categories/${categories}.html`, data,function(err){
+                            //   if (err) {
+                            //     console.log('write html err -> ', err)
+                            //   } else {
+                            //     console.log('save html success -> ',categories)
+                            //   }
+                            // });
                           }
                       }) 
       })
     }
-    generateImg(){
-
+    //2、生成分类页面
+    generateCategories(){
+      if (fs.existsSync(categories_path) == false) {
+        Utils.makeDir(categories_path);
     }
+      for(let i = 0;i < CONFIG.NAV.length; i++) this.generateCategory(CONFIG.NAV[i].name);
+    }
+    //拷贝静态图片
+    generateStatic(){
+      Utils.CopyDirectory('./static', './public/static');
+    }
+    //生成css
     generateCss(){
+      if (fs.existsSync(css_path) == false) {
+        Utils.makeDir(css_path);
+    }
         //使用node-sass模块进行转换，后保存至css/all.css  
         var arr = [];
         var scssArr = [];
-        this.traversalDir('./static/scss', arr, scssArr, 'scss');
-        let outputName = path.resolve('./public/css/', 'all.css');
+        Utils.traversalDir('./static/scss', arr, scssArr, 'scss');
+        let outputName = path.resolve(`./static/css/`, 'all.css');
         let allResult = '';
     
         for(let j = 0;j < scssArr.length;j++){
@@ -100,4 +117,8 @@ class Generate {
   
     
     }
+}
+
+module.exports  = {
+  Generate
 }
