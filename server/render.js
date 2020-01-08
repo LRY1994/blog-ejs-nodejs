@@ -36,6 +36,7 @@ exports.renderList = function(res,queryObj){
                         if(err){
                             console.log(err);
                         }else{
+                            fs.writeFileSync('./public/categories/Reading.html', data);
                             res.end(data);
                         
                         }
