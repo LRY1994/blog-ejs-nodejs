@@ -48,7 +48,15 @@ class Server {
         const queryObj = querystring.parse(urlObj.query);
         console.log(req.url)
         if(req.url.startsWith("/static"))  Render.renderStatic(`./${req.url}`,res);
-        else if(path.extname(pathname).substring(1) ==='png'||path.extname(pathname).substring(1)==='jpg'){ res.statusCode = 404;}
+        else if( path.extname(pathname).substring(1) ==='png'||path.extname(pathname).substring(1)==='jpg'){ res.statusCode = 404;}
+        else if(req.url.lastIndexOf("/categories")>=0)  {
+           
+          let lastIndex = req.url.lastIndexOf('\/')
+          
+          let categories = req.url.substring(lastIndex + 1);
+          console.log(categories);
+          Render.renderList(res,{ categories });
+        }
         else{
           switch (pathname){
             case '/':  
