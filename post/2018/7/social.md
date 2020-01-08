@@ -1,7 +1,7 @@
 ---
 title: 社交分享接口
 date:   2018/7/4
-categories:  学习
+categories:  Experience
 tags: 日常记录 
 ---
 

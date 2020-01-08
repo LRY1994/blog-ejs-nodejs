@@ -1,22 +1,34 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/static/css/all.css" />
-
-    <title>大脸圆玉的博客</title>
-</head>
+<%- include('head'); %>
 
 <body>
-    <div style="width:300px;">
+    <div class="l-nav">
         <%- include('nav', {navList: nav}); %>
     </div>
-    
-    <p>文章列表</p>
-    <ul>
-        <% for(var i=0;i< list.length;i++){%>
-            <li><a href="<%= list[i].filePath+'?index='+list[i].index %>"><%=list[i].title %></a></li>
-        <%}%>
-    </ul>
+    <div class="r-box">
+        <div class="article-list">
+        <div class="article-list-categories"><span><%=categories %></span></div>
+         <ul>
+            <% for(let i=0;i< list.length;i++){ %>
+                <li>
+                
+
+                    
+                        <% if(i%2==1){ %>
+                            <img src='/static/img/blue-flower.png'/>
+                            <% }else{ %>
+                            <img src='/static/img/pink-flower.png'/>
+                            <% } %>
+                        <a href="<%= list[i].filePath+'?index='+list[i].index %>" class="title"><%=list[i].title %></a>
+                        <div>
+                            <span><%=list[i].date %></span>
+                            <span><%=list[i].categories %></span>
+                        </div>
+
+                </li>
+            <%}%>
+        </ul>
+     </div>
+    </div>
+   
 </body>
 </html>

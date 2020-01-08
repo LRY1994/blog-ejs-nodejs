@@ -2,7 +2,7 @@
 layout: post
 title:  "前端启航"
 date:   2017/7/1 
-categories:  学习  
+categories:  Collecting  
 tags: 专题探究
 ---
 以前开始学前端就是看了这份同学转给我的文档，还是有点指导性质的

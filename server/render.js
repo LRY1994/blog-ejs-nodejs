@@ -4,6 +4,7 @@ const marked = require("marked")
 const mime = require("mime");
 const CONFIG = require('./config');
 
+
 //列表
 exports.renderList = function(res,queryObj){
 
@@ -25,7 +26,13 @@ exports.renderList = function(res,queryObj){
                         list = cache;
                     }
                     
-                    ejs.renderFile('./ejs/list.ejs', { list, nav:CONFIG.NAV }, function(err,data){
+                    ejs.renderFile('./ejs/list.ejs', 
+                    {   
+                        list, 
+                        nav:CONFIG.NAV ,
+                        categories:categories||'All'
+                    }, 
+                    function(err,data){
                         if(err){
                             console.log(err);
                         }else{
@@ -49,16 +56,21 @@ exports.renderPost = function (res,queryObj){
                     const { index } = queryObj;
 
                     if(!cache[index].html) {
-                        let data = fs.readFileSync(`./${cache[index].filePath}` ,"utf8")
-                        cache[index].html =  marked(data);
+                        let data = fs.readFileSync(`./${cache[index].filePath}` ,"utf8");
+                        let section = data.match(/^---[\s\S]+?---/)[0];
+                        cache[index].html =  marked(data.replace(section,''));
                     }
                     
-                    ejs.renderFile('./ejs/post.ejs', { ...cache[index], nav:CONFIG.NAV }, function(err,data){
+                    ejs.renderFile('./ejs/post.ejs', 
+                    { 
+                        ...cache[index], 
+                        nav:CONFIG.NAV 
+                    }, 
+                    function(err,data){
                         if(err){
                             console.log(err);
                         }else{
                             res.end(data);
-                        
                         }
                     }) 
                 })
@@ -78,3 +90,34 @@ exports.renderStatic = function (url,response){
       
 }
 
+//照片
+exports.renderPhoto = function (res,queryObj){
+    fs.readFile(CONFIG.CACHE, 'utf8',
+    function (err, data) {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html'); 
+
+        const { cache } = JSON.parse(data);//从cache.json里取值
+        const { index } = queryObj;
+
+        if(!cache[index].html) {
+            let data = fs.readFileSync(`./${cache[index].filePath}` ,"utf8");
+            let section = data.match(/^---[\s\S]+?---/)[0];
+            cache[index].html =  marked(data.replace(section,''));
+        }
+        
+        ejs.renderFile('./ejs/post.ejs', 
+        { 
+            ...cache[index], 
+            nav:CONFIG.NAV 
+        }, 
+        function(err,data){
+            if(err){
+                console.log(err);
+            }else{
+                res.end(data);
+            
+            }
+        }) 
+    })
+}

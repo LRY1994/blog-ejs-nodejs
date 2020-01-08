@@ -1,7 +1,7 @@
 ---
 title: 页面加载过程解析
 date:   2017/10/12
-categories: 学习
+categories: Collection
 tags: 面经
 ---
 

@@ -1,7 +1,7 @@
 ---
-title: 搭建博客过程
+title: 基于hexo搭建博客过程
 date:   2018/2/26
-categories: 学习 
+categories: Experience 
 tags: 专题探究 
 ---
 

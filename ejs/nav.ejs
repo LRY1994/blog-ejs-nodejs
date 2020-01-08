@@ -1,5 +1,14 @@
+<div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
 <ul>
     <% navList.forEach(function(item){%>
-            <li><a href="<%= item.path %>"><%=item.zh %></a></li>
-    <% }) %>
+        <% if (categories==item.name){ %>
+            <li class="li-active"> <a href="<%= item.path %>"><%=item.name %></a></li>
+        <%} else{%>
+            <li > <a href="<%= item.path %>"><%=item.name %></a></li>
+        
+    <% }}) %>
 </ul>

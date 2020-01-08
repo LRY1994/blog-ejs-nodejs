@@ -1,8 +1,8 @@
 ---
-title: vue_koa建站及部署  
+title: koa建站及部署  
 date:  2018/5/22
-categories: 学习
-tags:日常记录 
+categories: Experience
+tags: 日常记录 
 ---
 
 参考

@@ -2,7 +2,7 @@
 layout: post
 title:  "读《AngularJS深度剖析与最佳实践》"
 date:   2017/7/17 
-categories:  学习 
+categories:  Reading 
 tags: 读书笔记
 ---
 

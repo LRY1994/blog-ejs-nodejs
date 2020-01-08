@@ -1,7 +1,7 @@
 ---
 title: js题摘录（柯里化、栈队列）
 date:   2018/5/5
-categories: 学习
+categories: Collection
 tags: 面经
 ---
 

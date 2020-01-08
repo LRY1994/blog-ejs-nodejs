@@ -1,7 +1,12 @@
 exports.NAV = [
-    { zh : 'Experience',  path:'/?categories=Experience'},
-    { zh : 'Reading ' ,   path:'/?categories=Reading'},
-    { zh : 'Collecting' , path: '/?categories=Collecting' }
+    { name : 'Experience',  path:'/list?categories=Experience'},
+    { name : 'Reading' ,   path:'/list?categories=Reading'},
+    { name : 'Collection' , path: '/list?categories=Collection' },
+    { name : 'My Photo' , path: '/list?categories=Collection' },
+
+    
 ]
 
 exports.CACHE = './Cache.json'
+
+// exports.PHOTO = './'

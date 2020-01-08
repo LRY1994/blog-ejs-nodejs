@@ -1,7 +1,7 @@
 ---
 title: 面经收集--HTML+CSS+JS
 date:   2018/9/8
-categories: 学习
+categories: Collection
 tags: 面经
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 前端库收集
 date:   2018-1-1
-categories: 学习
+categories: Collection
 tags:日常记录
 ---
 

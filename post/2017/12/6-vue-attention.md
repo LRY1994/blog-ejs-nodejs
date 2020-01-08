@@ -2,7 +2,7 @@
 layout: post
 title:  "vue 一些需要注意的点"
 date:   2017/12/6 
-categories:  学习 
+categories:  Experience 
 tags: 专题探究
 ---
 

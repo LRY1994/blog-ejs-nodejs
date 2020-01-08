@@ -1,0 +1,45 @@
+//article-list
+@import './var';
+.article-list {
+    li{
+        padding: 5px;
+        clear: both;
+        &:last-of-type,
+        &:first-of-type{ 
+            margin-bottom: 0;
+        }
+        .title,>div{     
+            margin: 0;
+            display: inline-block;
+            line-height: 40px;
+            vertical-align: middle;
+        }
+        >div{ float: right;}
+        a{ text-decoration: none;}
+        border-bottom: 2px dashed $blue;
+    }
+    .article-list-categories{
+        margin-bottom: 20px;
+       
+        >span{
+            background-color: #f4d66a;
+            font-size: 20px;
+            height: 40px;
+            display: inline-block;
+            line-height: 40px;
+            padding: 0 20px;
+            color: white;
+        }
+        &::after{
+            content: '';
+            display: inline-block;
+            border:20px solid $yellow;          
+            border:{
+                right-color: transparent;
+                top-color: transparent;
+                bottom-color:transparent;
+            }
+
+        }
+    }
+}

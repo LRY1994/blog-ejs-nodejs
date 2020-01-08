@@ -2,7 +2,7 @@
 layout: post
 title:  "f8app在window安装教程"
 date:   2017/11/21 
-categories: 学习     
+categories: Experience     
 tags: 专题探究 
 ---
 

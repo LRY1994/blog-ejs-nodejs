@@ -1,11 +1,12 @@
 const fs = require('fs');
 const path = require("path")
-const Render=require('./render')
 const http = require('http');
 const url  = require('url');
 const querystring = require('querystring')
 const sass = require('node-sass')
+const Render=require('./render')
 const CONFIG = require('./config');
+
 const hostname = '127.0.0.1';
 const port = 3000;
 
@@ -81,7 +82,7 @@ class Server {
                 if(arr[1]===undefined) {
                     fs.appendFileSync('output.txt', info)
                 }
-                obj[arr[0]] = arr[1].replace(/\s|\"/g,"");
+                obj[arr[0]] = arr[1].replace(/(^\s*)|(\s*$)|\"/g,"");//去除头尾空格和双引号
             }
         }
         return obj ; 
@@ -120,9 +121,12 @@ class Server {
         const queryObj = querystring.parse(urlObj.query);
         console.log(req.url)
         if(req.url.startsWith("/static"))  Render.renderStatic(`./${req.url}`,res);
+        else if(path.extname(pathname).substring(1) ==='png'||path.extname(pathname).substring(1)==='jpg'){ res.statusCode = 404;}
         else{
           switch (pathname){
-            case '/'            : Render.renderList(res,queryObj);break;
+            case '/':  
+            case '/list'          : Render.renderList(res,queryObj);break;
+            case '/photo'       :  Render.renderPhoto(res,queryObj);break;
             default             : Render.renderPost(res,queryObj);break;
           }
         }
@@ -140,7 +144,7 @@ class Server {
             file: scssArr[j].filePath,
             outFile: outputName,
             outputStyle: 'compressed',
-            sourceMap: true
+            sourceMap: false
           });
           allResult += result.css;
       }

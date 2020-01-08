@@ -3,7 +3,7 @@ layout: post
 title:  "读《全栈应用开发精益实践>"
 date:   2018-3-16 13:38:38 +0800
 img: "20180131.jpg"
-categories:  学习
+categories:  Reading
 tags: 读书笔记 
 ---
 

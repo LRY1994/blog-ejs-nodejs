@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "node server/server.js"
+    "serve": "node server/server.js",
+    "generate":"node server/generate.js"
   },
   "dependencies": {
     "ejs": "^3.0.1",

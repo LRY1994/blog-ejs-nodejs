@@ -2,7 +2,7 @@
 layout: post
 title:  "原生DOM兼容特性总结"
 date:   2018/2/26
-categories:  学习
+categories:  Experience
 tags: 专题探究
 ---
 

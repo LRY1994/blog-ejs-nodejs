@@ -1,7 +1,7 @@
 ---
 title: scss笔记 
 date:  2019/2/28
-categories: 学习
+categories: Reading
 tags:日常记录     
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 学习资源收集
 date:   2017-1-1
-categories: 学习
+categories: Collection
 tags:日常记录
 ---
 

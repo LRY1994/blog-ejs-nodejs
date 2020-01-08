@@ -1,0 +1,43 @@
+ @import './var';
+ 
+ /*美化原生滚动条*/
+::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+}
+
+/*定义滚动条轨道*/
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+
+/*定义滑块*/
+::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background-color: #ddd;
+}
+
+html,body{
+    height:100vh;
+}
+html,body,ul{
+    margin: 0;
+    padding: 0;
+}
+body{
+    color: $txt-color;
+    margin:0;
+    padding: 0;
+}
+a{
+    color:inherit;
+    cursor: pointer;
+}
+li{ 
+    list-style: none;   
+}
+*{
+    box-sizing: border-box;
+    vertical-align: top;
+}

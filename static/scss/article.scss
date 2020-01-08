@@ -1,0 +1,11 @@
+//article
+@import './var';
+.article{
+    padding: 20px;
+    background-color: $white;
+    .title{ text-align: center;}
+    code,a{
+        word-break: break-word;
+        white-space: pre-wrap;
+    }
+}

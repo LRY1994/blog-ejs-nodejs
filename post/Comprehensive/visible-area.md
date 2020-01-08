@@ -1,7 +1,7 @@
 ---
 title: HTML元素定位
 date:   2018/7/12
-categories: 学习
+categories: Collection
 tags: 日常记录
 ---
 

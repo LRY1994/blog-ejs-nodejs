@@ -1,7 +1,7 @@
 ---
 title: canvas 
 date:   2018/11/18
-categories: 学习
+categories: Experience
 tags: 日常记录
 ---
 

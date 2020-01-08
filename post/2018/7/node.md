@@ -1,7 +1,7 @@
 ---
 title: 《深入浅出node.js》、慕课网
 date:   2018/7/5
-categories: 学习
+categories: Reading
 tags: 读书笔记 
 ---
 

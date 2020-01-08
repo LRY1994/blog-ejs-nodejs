@@ -1,7 +1,7 @@
 ---
 title: 库文件太大，webpack打包时怎么办
 date:   2018/9/3
-categories: 学习
+categories: Experience
 tags: 专题探究
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: vue中使用gojs/jointjs
 date:   2018/8/23
-categories:  学习
+categories:  Experience
 tags: 专题探究
 ---
 
