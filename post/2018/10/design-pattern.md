@@ -18,7 +18,7 @@ obj=Object.create(null)
 * [Prototype](#prototypejs)
 * [Singleton](#singletonjs)
 * [Factory](#factoryjs)
-* [Abstarct](#abstract-Factoryjs)
+* [Abstarct](#abstract-factoryjs)
 * Builder
 ### 机构型
 * Decorator

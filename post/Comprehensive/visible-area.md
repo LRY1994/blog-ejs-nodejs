@@ -21,9 +21,9 @@ tags: 日常记录
 网页正文项目组左： ``window.screenLeft``;
 
 
-<img src="./load-process/visible-area.gif" >
+<img src="./visible-area/element-position.gif" >
 
-<img src="./load-process/pic2.jpg" >
+<img src="./visible-area/pic2.jpg" >
 
 
 clientTop/clientLeft  这个属性就是border宽度。
@@ -167,7 +167,7 @@ var h= document.documentElement.offsetHeight|| document.body.offsetHeight;
 
 我们先来看看下面的图：
 
-<img src="./load-process/scroll.png" >
+<img src="./visible-area/scroll.png" >
 
 
 ``scrollLeft``:设置或获取位于给定对象左边界与窗口中目前可见内容的最左端之间的距离 ，即左边灰色的内容。
