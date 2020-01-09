@@ -21,7 +21,6 @@ class Generate {
           let md = fs.readFileSync(mdArr[i].filePath ,"utf8");
           let obj = Utils.extractDataFromFile(md)      
           let newObj = {...mdArr[i],...obj}
-          newObj.index = i;
           list.push(newObj);  
       }
 
@@ -31,6 +30,9 @@ class Generate {
         return bt - at;
       })
 
+      for(let j=0 ; j < mdArr.length ; j++){
+        list[j].index = j;
+      }
       let obj = {
           total:list.length,
           cache:list,
@@ -150,7 +152,7 @@ class Generate {
             allResult += result.css;
         }
                
-        fs.writeFileSync(outputName, allResult, function(err){
+        return fs.writeFile(outputName, allResult, function(err){
           if (err) {
             console.log('write css  err -> ', err)
           } 

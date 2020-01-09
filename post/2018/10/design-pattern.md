@@ -5,9 +5,6 @@ categories: Reading
 tags:读书笔记
 ---
 
-
-# 《Learning Javascript Design Patterns》 -Addy Osmani 人民邮电出版社
-
 ## 创建对象的三种方法
 ```javascipt
 obj={};

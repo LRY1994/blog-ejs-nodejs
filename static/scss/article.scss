@@ -4,39 +4,4 @@
     padding: 20px;
     background-color: $white;
     .title{ text-align: center;}
-    code,a{
-        word-break: break-word;
-        white-space: pre-wrap;
-    }
-
-    code{
-        background-color: $pink;
-        display: block;
-        padding: 10px;
-        font-family: KaiTi;
-    }
-
-    blockquote{
-        font-style: italic;
-        color: lightsalmon;
-        font-size: 13px;
-        position: relative;
-        &::before{
-            content: '>>';
-            display: inline;
-            position: absolute;
-            left: -20px;
-
-        }
-    }
-    a{
-        color: $blue;
-        font-size: 0.85em;
-    }
-    img{
-        border: 1px solid $yellow;
-        max-width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-    }
 }

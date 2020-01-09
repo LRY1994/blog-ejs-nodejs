@@ -5,7 +5,7 @@ categories: Experience
 tags:专题探究
 ---
 
-### 公共代码多次放在scoped内
+### 公共代码多次放在scoped内 8-)
 我们很多时候写了一个公共的common.scss,然后在各个vue里面
 
 ```scss

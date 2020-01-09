@@ -1,9 +1,8 @@
 const ejs=require('ejs');
 const fs = require('fs');
-const marked = require("marked")
 const mime = require("mime");
 const CONFIG = require('./config');
-
+const { myMarked } = require('./myMarked')
 
 //列表
 exports.renderList = function(res,queryObj){
@@ -58,7 +57,7 @@ exports.renderPost = function (res,queryObj){
                     if(!cache[index].html) {
                         let data = fs.readFileSync(`./${cache[index].filePath}` ,"utf8");
                         let section = data.match(/^---[\s\S]+?---/)[0];
-                        cache[index].html =  marked(data.replace(section,''));
+                        cache[index].html =  myMarked(data.replace(section,''));
                     }
                     
                     ejs.renderFile('./ejs/post.ejs', 
@@ -90,34 +89,3 @@ exports.renderStatic = function (url,response){
       
 }
 
-//照片
-exports.renderPhoto = function (res,queryObj){
-    fs.readFile(CONFIG.CACHE_PATH, 'utf8',
-    function (err, data) {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html'); 
-
-        const { cache } = JSON.parse(data);//从cache.json里取值
-        const { index } = queryObj;
-
-        if(!cache[index].html) {
-            let data = fs.readFileSync(`./${cache[index].filePath}` ,"utf8");
-            let section = data.match(/^---[\s\S]+?---/)[0];
-            cache[index].html =  marked(data.replace(section,''));
-        }
-        
-        ejs.renderFile('./ejs/post.ejs', 
-        { 
-            ...cache[index], 
-            nav:CONFIG.NAV 
-        }, 
-        function(err,data){
-            if(err){
-                console.log(err);
-            }else{
-                res.end(data);
-            
-            }
-        }) 
-    })
-}

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require("path")
-const marked = require("marked")
+const { myMarked } = require('./myMarked')
 
 //遍历dirPath下的文件，返回后缀名是extname的结果，存放于mdArr
 const traversalDir = function (dirPath,arr,mdArr,extname){
@@ -54,7 +54,7 @@ const extractDataFromFile = function (data){
         }
     }
 
-    obj.html =  marked(data.replace(section,''));
+    obj.html =  myMarked(data.replace(section,''));
 
     return obj ; 
 }
