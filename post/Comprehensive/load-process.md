@@ -54,7 +54,7 @@ ES5提出的``performance``可以获取到，``微秒级别(10^-9)``
 
 
 ``performance.timing``对象
-{% asset_img timing.png %}
+<img src="./load-process/timing.png" >
 
  [https://www.cnblogs.com/libin-1/p/6501951.html](https://www.cnblogs.com/libin-1/p/6501951.html)
  
@@ -193,7 +193,9 @@ performance.timing.domContentLoadedEventStart - performance.timing.domLoading; /
 或者， 比如``example.com`` ->`` m.example.com/home ``。
 
 这里就会经过两次DNS解析，TCP连接，以及请求的发送,耗费的时间成本是双倍的。所以，``在后台设置好正确的网址是很重要的。``
- {% asset_img 2.png %}
+
+<img src="./load-process/2.png" >
+
 
 这里，我们可以使用``performance``的属性,计算出``重定向时间``
 

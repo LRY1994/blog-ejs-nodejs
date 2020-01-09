@@ -37,8 +37,9 @@ obj=Object.create(null)
 * Visitor
 
 Observer和Publich-Subscribe的区别
-{%asset_img observer.png%}
-{%asset_img publish-suscriber.png%}
+
+<img src="./design-pattern/observer.png">
+<img src="./design-pattern/publish-suscriber.png">
 
 # Prototype.js
 ```js

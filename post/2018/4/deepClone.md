@@ -150,8 +150,7 @@ const oldObj = {
 ## toString和typeof区别
 
 之前一直不知道这两个有什么区别，所以这次好好研究一下，探索出来这样的关系
- {% asset_img toString_typeof.png %}
-
+<img src="./deepClone/toString_typeof.png">
 
 下面是一些测试例子
 ```javascript

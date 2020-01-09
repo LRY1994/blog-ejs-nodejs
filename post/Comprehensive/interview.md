@@ -353,16 +353,15 @@ Expires 头部字段提供一个日期和时间，响应在该日期和时间后
         2. 如果某些文件会被定期生成，当有时内容并没有任何变化，但Last-Modified却改变了，导致文件没法使用缓存
         3. 有可能存在服务器没有准确获取文件修改时间，或者与代理服务器时间不一致等情形
 
-{% asset_img cache.png 浏览器缓存机制 %}
-{% asset_img cache2.png 浏览器缓存机制 %}
-
-{% asset_img cache-control.png %}
-
-{% asset_img user_cache.png 用户行为影响浏览器缓存 %}
+<img src="./interview/cache.png">
+<img src="./interview/cache2.png">
+<img src="./interview/cache-control.png">
+<img src="./interview/user_cache.png">
 
 浏览器的缓存来源是怎么设置的？
 
-{% asset_img cache_from.png 浏览器缓存来源 %}
+<img src="./interview/cache_from.png">
+
 
 看到知乎有人讨论 [https://www.zhihu.com/question/64201378](https://www.zhihu.com/question/64201378)
 

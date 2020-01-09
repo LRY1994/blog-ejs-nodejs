@@ -6,7 +6,6 @@ categories:  Reading
 tags: 读书笔记
 ---
 
-![cover](/images/book/angualr-deep-analysics.png)
 
 ### 组件型指令
 对于组件型指令来说，标准的用法是E，但是为了兼容IE8，通
@@ -19,10 +18,10 @@ tags: 读书笔记
 前面的例子
 ``<user-details name="test" details="details" on-update="updateIt(times)"></userdetails>``，
 假如不使用独立作用域，我们该如何获取这些属性的值呢？
-●对于 @ 型的绑定，我们可以直接通过 attrs 取到它：attrs.name 等价于 name: '@'。
-● 对于 = 型的绑定，我们可以通过 scope.$eval 取到它：scope.$eval(attrs.details) 等价
+1 、对于 @ 型的绑定，我们可以直接通过 attrs 取到它：attrs.name 等价于 name: '@'。
+2、 对于 = 型的绑定，我们可以通过 scope.$eval 取到它：scope.$eval(attrs.details) 等价
 
- {%  asset_img 2.png section %}
+ <img src='./17-angualr/2.png'/>
 
 ### 过滤器
 过滤器还可以接收第二个参数，乃至第N个参数，如：``return function(input, arg1, arg2, arg3){...};``,而使用者则通过
@@ -61,7 +60,7 @@ config 函数中使用，而其他的服务是不能被注入到config 函数中
 需要在config 中使用一个全局配置项，那么它就只能声明为常量，而不能声明为变量。
 在官方的开发指南中，给出了一个完整的对比表，见表2-1。
 
-{% asset_img service-kind.png service-kind  %}
+ <img src='./17-angualr/service-kind.png'/>
  
 由于 Factory 可以根据程序逻辑返回不同的数据类型，所以我们无法推断其结果是什么类型，也就是对类型不够友好。Provider 由于其灵活性比Factory 更高，因此在类型友好性上和
 Factory 是一样的。
@@ -73,50 +72,50 @@ Provider 实例化之后的结果，所以只有config 阶段完成后才可用�
 Angular 提供了另一种机制：decorator。
 
 ### angualr mvc
-  {% asset_img mvc.png mvc  %}
+   <img src='./17-angualr/mvc.png'/>
 
 ### angular启动过程
-  {% asset_img start-process.png start-process  %}
+   <img src='./17-angualr/start-process.png'/>
 
 ### 依赖注入
-  {% asset_img 1.png section  %}
+   <img src='./17-angualr/1.png'/>
 
 ### 浏览事件循环
-  {% asset_img event-loop.png loop  %}
+   <img src='./17-angualr/event-loop.png'/>
 
 ### 指令生命周期
-  {% asset_img directive-life-cycle.png cycle  %}
+   <img src='./17-angualr/directive-life-cycle.png'/>
 
 ### one-time绑定
-  {% asset_img 3.png section  %}
-  {% asset_img 4.png section  %}
-
+   <img src='./17-angualr/3.png'/>
+   <img src='./17-angualr/4.png'/>
 
 ### 滚屏加载
-  {% asset_img 5.png section  %}
-     
-[http://sroze.github.io/ngInfiniteScroll/index.html](http://sroze.github.io/ngInfiniteScroll/index.html)
+    <img src='./17-angualr/4.png'/>
+
+<a href="http://sroze.github.io/ngInfiniteScroll/index.html" target="_blank">http://sroze.github.io/ngInfiniteScroll/index.html</a>
 
 get可以用来取本地文件，其他不可以
 
 ### js object layout
- {% asset_img js-obj-layout.png.png js-obj-layout  %}
+ <img src='./17-angualr/js-obj-layout.png'/>
     
 ### 其他
-  {% asset_img 7.png section  %}
+   <img src='./17-angualr/7.png'/>
+
 
 ### $anchorScroll服务
-  {% asset_img 8.png section  %}
+   <img src='./17-angualr/8.png'/>
 
 ### ngRepeat验证失败 ，简单的验证显示
-  {% asset_img 9.png section  %}
+  <img src='./17-angualr/9.png'/>
 
 ### 复杂的验证显示
-  {% asset_img 10.png section  %}
+  <img src='./17-angualr/10.png'/>
 
 ### ngRepeat报重复内容错误
-  {% asset_img 11.png section  %}
-  {% asset_img 12.png section  %}
+  <img src='./17-angualr/11.png'/>
+   <img src='./17-angualr/12.png'/>
 
 
 ### 优化
@@ -124,13 +123,11 @@ get可以用来取本地文件，其他不可以
 
   $scope是数据展示和各种事件的载体。与展示、交互行为无关的数据和方法最好不要挂载到$scope上，保持$scope的纯粹。
   参考链接
-  [保持$scope的纯粹](https://github.com/atian25/blog/issues/5)
+  <a href="https://github.com/atian25/blog/issues/5" target="_blank">
 
   2. 避免深度watch， 即第三个参数为true.
   参考《mastering web application development with angularjs》 P313
-
-  {% asset_img avoid-deep-watch.png avoid-deep-watch %}
-  
+  <img src="./17-angualr/avoid-deep-watch.png">
 
   3. 及时移除不必要的$watch
 
@@ -140,9 +137,9 @@ get可以用来取本地文件，其他不可以
   watchFn();//移除watch
   ```
 
-  4. 减少watch的变量长度，例如对双向绑定的变量用标签例如<span>包起来
-  
-  {% asset_img shorten-watch.png shorten-watch %}
+  4. 减少watch的变量长度，例如对双向绑定的变量用标签例如``<span>``包起来
+ 
+   <img src='./17-angualr/shorten-watch.png'/>
 
   5. ng-repeat使用 track by
 

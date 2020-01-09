@@ -56,12 +56,19 @@ class Generate {
                           if (fs.existsSync(dir_path) == false) {
                               Utils.makeDir(dir_path);
                           }
-                        
                           fs.writeFile(html_path, data,function(err){
                             if (err) {
                               console.log('write Post err -> ', err)
                             } 
                           });
+                          //如果有图
+                          let img_path = File.filePath.replace('.md','');console.log(img_path)
+                          if (fs.existsSync(img_path) == true) {
+                            let newImgpath = path.join('./public',img_path)
+                            Utils.makeDir(newImgpath);
+                            Utils.CopyDirectory(img_path, newImgpath)
+                        }
+
                     }
                   }) 
               }
@@ -70,7 +77,7 @@ class Generate {
     }
    
     generateCategory(categories,destDir){
-      fs.readFile( cache_path, 'utf8',
+      return fs.readFile( cache_path, 'utf8',
                   function (err, data) {
                       if(err) return console.log(err);
 
@@ -146,9 +153,9 @@ class Generate {
     
     }
     //生成index.html
-    generateIndex(){
-      this.generateCategory('All', './public');
-      // fs.renameSync(`./public/All.html`,`./public/index.html`)
+    async generateIndex(){
+      await this.generateCategory('All', './public');
+      fs.renameSync(`./public/All.html`,`./public/index.html`)
     }
 }
 

@@ -81,7 +81,7 @@ clientRequest.setNoDelay()
 事实上，javascript是单线程的，**Node自身其实是多线程的**，只是I/O线程使用的CPU较少。
 除了用户代码无法并行执行外，所有的I/O（磁盘I/O和网络I/O等）都是可以并行执行的。
 
-{% asset_img async-io.png %}
+<img src="./node/async-io.png">
 
 ## 非I/O异步的方法
 非I/O异步的方法：``setTimeout``,``setInterval``,``setImmediate``,``process.nextTick``
@@ -89,7 +89,8 @@ clientRequest.setNoDelay()
 ### ``setTimeout``,``setInterval``
 调用``setTimeout``,``setInterval``创建的定时器会被插入到定时器观察者内部的一个红黑树里面。每次Tick执行，就从改红合数中迭代去除定时器对象，检查是否超过定时时间。如果超过，就形成一个事件，回调函数立即执行
 
-{% asset_img setTimeout.png %}
+<img src="./node/setTimeout.png">
+
 
 ### ``process.nextTick`` VS ``setTimeout(function(){},0)``
 立即执行一个异步任务可以用``process.nextTick``。
@@ -130,7 +131,7 @@ EventProxy 是对 events.EventEmitter 的补充，可以自由订阅组合事件
 
 * promise/deferred
 
-{% asset_img promise-deferred.png %}
+<img src="./node/promise-deferred.png">
 
 #### 流程控制库
 * async
@@ -177,7 +178,7 @@ V8 的垃圾回收会引起Javascript线程``暂停执行``，回收的内存越
 
     进程的内存包括rss(常驻内存)、交换区swap中一部分和文件系统中一部分
 
-    {% asset_img v8-heap.png %}
+    <img src="./node/v8-heap.png">
 
     Node的内存使用并非都是通过V8进行分配的，那些不是通过V8进行分配的内存叫做 **堆外内存**.利用堆外内存可以突破内存限制
 

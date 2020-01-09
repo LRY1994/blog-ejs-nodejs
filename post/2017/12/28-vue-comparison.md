@@ -16,10 +16,10 @@ vue 与angualr1 ,react 不同体验整理
 而react和vue就是轻量级的，要什么就去找，找来再用。
 
 
-* [React与vue比较](#React与vue比较)
+* [React与vue比较](#react与vue比较)
     * [生命周期](#生命周期)
     * [总结](#总结)
-* [React-redux与vuex比较](#React-redux与vuex比较)
+* [React-redux与vuex比较](#react-redux与vuex比较)
     * [1-使用流程](#1-使用流程)
     * [2-共享数据store](#2-共享数据store)
     * [3-模块](#3-模块)
@@ -33,13 +33,11 @@ vue 与angualr1 ,react 不同体验整理
 ### 生命周期
 #### React生命周期
 
-
-{% asset_img react-life.png react生命周期 %}
+<img src="./28-vue-comparison/react-life.png">
 
 #### vue生命周期
-{% asset_img vue-life.png vue生命周期 %}
 
-
+<img src="./28-vue-comparison/vue-life.png">
 
 
 ### 总结
@@ -84,7 +82,7 @@ vue 与angualr1 ,react 不同体验整理
 5. connect(mapStateToProps, mapDispatchToProps)（组件）
 6. 组件里面使用this.props.（action.type）(action.data)
 
-{% asset_img react-redux-process.png react-redux使用流程 %}
+<img src="./28-vue-comparison/react-redux-process.png">
 
 #### vuex
 1. 写好store和不同模块的state,mutations,getters,actions 
@@ -253,10 +251,12 @@ export default {
 
 ### 6-调用链
 #### React-redux调用链
-{% asset_img react-redux-lian.png React-redux调用链 %}
-#### Vuex调用链
-{% asset_img vuex-lian.png vuex调用链 %}
 
+<img src="./28-vue-comparison/react-redux-lian.png">
+
+#### Vuex调用链
+
+<img src="./28-vue-comparison/vuex-lian.png">
 
 ### 7-总结
 #### React-redux

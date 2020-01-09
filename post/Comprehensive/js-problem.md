@@ -26,7 +26,7 @@ tags: 面经
 
 ``Promise`` 的 then 应当会放到当前 "执行栈"的尾部
 
-{% asset_img js_zhan_duilie.jpg js堆栈 %}
+<img src="./js-problem/js_zhan_duilie.jpg" title="js堆栈">
 
 在Javascript引擎里面，队列还分为 Task队列（也有人叫做 MacroTask）和 MicroTask队列， MicroTask会优先于 Task执行。
 
@@ -41,7 +41,8 @@ Task(MacroTask)队列中： **setImmediate > MessageChannel > setTimeout 0**
 [你真的了解Javascript执行顺序么？](https://mp.weixin.qq.com/s/2ilx-5kDvszjF66iAvYQlg?utm_medium=hao.caibaojian.com&utm_source=hao.caibaojian.com)
 
 ### setTimeOut
-{%asset_img setTimeOut.jpg%}
+
+<img src="./js-problem/setTimeOut.jpg" title="js堆栈">
 
 [谈谈JavaScript的异步实现](http://www.cnblogs.com/sprying/archive/2013/05/26/3100639.html)
 * 1
@@ -247,20 +248,23 @@ document.write(myarr2.sort());//1,100,16,50,6,80
 原因 ：因为按unicode码顺序排列。如要实现排序，就必须手写排序函数
 
 
-{% asset_img 1.png %}
-{% asset_img 2.png %}
-{% asset_img 3.png %}
-{% asset_img 4.png %}
-{% asset_img 5.png %}
-{% asset_img 6.png %}
-{% asset_img 7.png %}
+<img src="./js-problem/1.png" >
+<img src="./js-problem/2.png" >
+<img src="./js-problem/3.png" >
+<img src="./js-problem/4.png" >
+<img src="./js-problem/5.png" >
+<img src="./js-problem/6.png" >
+<img src="./js-problem/7.png" >
+
 
 什么是普通对象？？？
-{% asset_img 8.png %}
-{% asset_img 9.png %}
+<img src="./js-problem/8.png" >
+<img src="./js-problem/9.png" >
+
 
 为什么result先输出？？？？
-{% asset_img 10.png %}
+<img src="./js-problem/10.png" >
+
 
 ## 你知道为什么会有 Generator 吗?
 [你知道为什么会有 Generator 吗](https://juejin.im/post/5adae8246fb9a07aa541e150)

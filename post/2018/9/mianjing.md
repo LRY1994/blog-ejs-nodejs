@@ -98,8 +98,8 @@ console.log(s instanceof Person);  //true
 console.log(s instanceof Object);  //true
 
 ```
-{%asset_img proto_link.png%}
 
+<img src="./mianjing/proto_link.png>
 
 手绘原型链：
 [https://blog.csdn.net/Picking_up_stones/article/details/70050086](https://blog.csdn.net/Picking_up_stones/article/details/70050086)

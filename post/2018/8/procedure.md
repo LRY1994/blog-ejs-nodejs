@@ -21,7 +21,7 @@ http://www.weixuehao.com/archives/370
 github :[https://github.com/dagrejs/dagre-d3](https://github.com/dagrejs/dagre-d3)
 
 效果图
-{% asset_img darge-d3.png %}
+<img src="./procedure/darge-d3.png">
 
 下载里面的demo,改一下json就可以了
 ```json
@@ -62,8 +62,7 @@ github :[https://github.com/NorthwoodsSoftware/GoJS](https://github.com/Northwoo
 可以通过``npm install gojs -save``安装
 
 效果图
-{% asset_img gojs.png %}
-
+<img src="./procedure/gojs.png">
 
 看里面的demo我自己包装了一下
 ```html
@@ -248,7 +247,7 @@ npm run dev 的时候停在这里停了好久。有时候还爆出“......maxim
 ### jointjs
 github : [https://github.com/clientIO/joint](https://github.com/clientIO/joint) 
 效果图
-{% asset_img jointjs.png %}
+<img src="./procedure/jointjs.png">
 
 可以通过``npm install jointjs -save``安装
 
@@ -609,7 +608,8 @@ export default {
 经过一番实践，我觉得jointjs不好用了。
 不满意点：
 1. 不能相对容器自动布局，都用的是死的像素，分辨率低的屏幕，部分图有些就看不见
-{% asset_img joint-error.png %}
+<img src="./procedure/joint-error.png">
+
 2. 不能滚动鼠标自己缩小放大
 3. 比较丑，也可能是我不会配色
 

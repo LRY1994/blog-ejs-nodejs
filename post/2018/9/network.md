@@ -9,14 +9,17 @@ tags: 面经
 
 #### https（对是https）有1次握手
 可以把https拆成tcp/tls/http这三层来看，tcp handshake >> TLS(SSL) handshake >> http request/response
-{%asset_img https.png%}
+
+<img src="./network/https.png">
+
 [https://blog.csdn.net/u012361288/article/details/54883154](https://blog.csdn.net/u012361288/article/details/54883154)
 
 [http://www.cnblogs.com/lovesong/p/5186200.html](http://www.cnblogs.com/lovesong/p/5186200.html)
 
 ### tcp的三次握手和四次挥手画图（当场画写ack 和 seq的值）,为什么tcp要三次握手四次挥手？
-{%asset_img tcp_3_wo.png%}
-{%asset_img tcp_4_hui.png%}
+
+<img src="./network/tcp_3_wo.png">
+<img src="./network/tcp_4_hui.png">
 
 #### TCP与UDP的区别
 1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接。
@@ -47,9 +50,12 @@ tags: 面经
 2. 初次创建连接时也不应启动管线机制，因为对方（服务器）不一定支持HTTP/1.1版本的协议。
 
 3. HTTP1.1要求服务器端支持管线化，但并不要求服务器端也对响应进行管线化处理，只是要求对于管线化的请求不失败，而且现在很多服务器端和代理程序对管线化的支持并不好，现代浏览器Chrome和Firefox默认并未开启管线化支持
+
 #### 域名发散和域名收敛
 浏览器对于同一域名下允许的并发请求数作了限制
-{%asset_img per-hostname-max.jpg%}
+
+<img src="./network/per-hostname-max.png">
+
 域名发散就是为了突破浏览器对于同一域名并发请求数的限制
 
 域名收敛就是将静态资源放在一个域名下不进行发散，这主要是为了适应移动端的发展需求；通常DNS是一个开销较大的操作，而移动端由于网络带宽和实时性、资源等的限制，这些开销对移动端的用户体验是致命的，因此需要进行域名收敛；

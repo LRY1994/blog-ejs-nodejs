@@ -74,15 +74,15 @@ PNG可以使用一些开源压缩软件来压缩，比图24色变为8色、去�
 
 性能优化
 
-{% asset_img performance-optimize.png 性能优化 %}
+<img src="./30-web-full-stack-study/performance-optimize.png">
 
 图片适配
 
-{% asset_img pic-adapt.jpg 图片适配 %}
-
+<img src="./30-web-full-stack-study/pic-adapt.jpg">
 
 aria无障碍文本
-{% asset_img aria.png aria %}
+
+<img src="./30-web-full-stack-study/aria.png">
 
 
 

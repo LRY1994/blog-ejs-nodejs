@@ -5,7 +5,7 @@ categories: Collection
 tags:面经
 ---
 
- {%asset_img 8-sort.png%}
+<img src="./8-sort/8-sort.png">
 
 当n较大，则应采用时间复杂度为O(nlog2n)的排序方法：快速排序、堆排序或归并排序。
 
@@ -21,7 +21,7 @@ tags:面经
 要点：设立哨兵，作为临时存储和判断数组边界之用。
 
 直接插入排序示例：
- {%asset_img insert_sort.png%}
+<img src="./8-sort/insert_sort.png">
 
 如果碰见一个和插入元素相等的，那么插入元素把想插入的元素放在相等元素的后面。所以，相等元素的前后顺序没有改变，从原无序序列出去的顺序就是排好序后的顺序，所以插入排序是``稳定``的。
 
@@ -63,7 +63,7 @@ InsertSort(a)
 3.每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。
 
 希尔排序的示例：
- {%asset_img shell_sort.png%}
+<img src="./8-sort/shell_sort.png">
 
 #### 算法实现：
 
@@ -113,7 +113,7 @@ shellSort(a,8); //希尔插入排序
 在要排序的一组数中，选出最小（或者最大）的一个数与第1个位置的数交换；然后在剩下的数当中再找最小（或者最大）的与第2个位置的数交换，依次类推，直到第n-1个元素（倒数第二个数）和第n个元素（最后一个数）比较为止。
 
 简单选择排序的示例：
-{%asset_img select_sort.png%}
+<img src="./8-sort/select_sort.png.png">
 
 #### 操作方法：
 第一趟，从n 个记录中找出关键码最小的记录与第一个记录交换；
@@ -198,8 +198,8 @@ for (i=1 ;i <= n/2;i++) {
 5）继续对不满足堆性质的子树进行上述交换操作，直到叶子结点，堆被建成。
 
 称这个自根结点到叶子结点的调整过程为筛选。如图：
-{%asset_img heap_sort_1.png%}
- 
+<img src="./8-sort/heap_sort_1.png">
+
 再讨论对n 个元素初始建堆的过程。
 
 #### 建堆方法：
@@ -212,8 +212,8 @@ for (i=1 ;i <= n/2;i++) {
 3）之后向前依次对各结点为根的子树进行筛选，使之成为堆，直到根结点。
 
 如图建堆初始过程：无序序列：（49，38，65，97，76，13，27，49）
- {%asset_img heap_sort_2.png%}
-
+<img src="./8-sort/heap_sort_2.png">
+ 
 #### 算法的实现：
 
 从算法描述来看，堆排序需要两个过程，一是建立堆，二是堆顶与堆的最后一个元素交换位置。所以堆排序有两个函数组成。一是建堆的渗透函数，二是反复调用渗透函数实现排序的函数。
@@ -287,7 +287,9 @@ console.log(' after: ' + arr);
 堆排序是一种选择排序，整体主要由构建初始堆+交换堆顶元素和末尾元素并重建堆两部分组成。其中构建初始堆经推导复杂度为O(n)，在交换并重建堆的过程中，需交换n-1次，而重建堆的过程中，根据完全二叉树的性质，[log2(n-1),log2(n-2)...1]逐步递减，近似为nlogn。所以堆排序时间复杂度一般认为就是O(nlogn)级。
 
 设树深度为k，k=floor(logn)+1 。从根到叶的筛选，元素比较次数至多2(k-1)次，交换记录至多k 次。所以，在建好堆后，排序过程中的筛选次数不超过下式：
- {%asset_img heap_sort_3.png%}
+
+<img src="./8-sort/heap_sort_3.png">
+
 而建堆时的比较次数不超过4n 次，因此堆排序最坏情况下，时间复杂度也为：O(nlogn )。
 
 ## 交换排序—冒泡排序（Bubble Sort）（下沉）
@@ -296,8 +298,8 @@ console.log(' after: ' + arr);
 在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。
 
 冒泡排序的示例：
-{%asset_img bubble_sort.png%}
- 
+<img src="./8-sort/bubble_sort.png">
+
 #### 算法的实现：
 ```js
 void bubbleSort(int a[], int n){ 
@@ -371,12 +373,13 @@ void Bubble_2 ( int r[], int n){
 快速排序的示例：
 
 （a）一趟排序的过程：
- {%asset_img bubble_sort_1.png%}
+<img src="./8-sort/bubble_sort_1.png">
 
 （b）排序的全过程
-  {%asset_img bubble_sort_2.png%}
+<img src="./8-sort/bubble_sort_2.png">
 
-{%asset_img quick_sort.png%}
+<img src="./8-sort/quick_sort.png">
+
 #### 算法的实现：
 ```js
  
@@ -486,9 +489,9 @@ print(a,10);
 归并（Merge）排序法是将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。
 
 归并排序示例：
- {%asset_img merge_sort.png%}
+<img src="./8-sort/merge_sort.png">
 
- {%asset_img merge_sort2.png%}
+<img src="./8-sort/merge_sort2.png">
 
 ```js
 
@@ -632,9 +635,11 @@ void MergeSort_recursive(ElemType *r, ElemType *rf, int n)
 实例:
 
 扑克牌中52 张牌，可按花色和面值分成两个字段，其大小关系为：
- {%asset_img tong_sort_1.png%}
+<img src="./8-sort/tong_sort_1.png">
+
 若对扑克牌按花色、面值进行升序排序，得到如下序列：
- {%asset_img tong_sort_2.png%}
+ 
+<img src="./8-sort/tong_sort_2.png">
  
 即两张牌，若花色不同，不论面值怎样，花色低的那张牌小于花色高的，只有在同花色情况下，大小关系才由面值的大小确定。这就是多关键码排序。
 
@@ -752,7 +757,9 @@ function radixSort(arr, maxDigit) {
 } 
 ```
 ## 总结
- {%asset_img all_sort.png%}
+
+<img src="./8-sort/all_sort.png">
+
 
 各种排序的稳定性，时间复杂度和空间复杂度总结：
 #### 时间复杂度来说：
