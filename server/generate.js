@@ -25,6 +25,12 @@ class Generate {
           list.push(newObj);  
       }
 
+      list.sort(function(a,b){
+        let at = new Date(a.date).getTime();
+        let bt = new Date(b.date).getTime();
+        return bt - at;
+      })
+
       let obj = {
           total:list.length,
           cache:list,

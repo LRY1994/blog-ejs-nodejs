@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "node server/server.js",
-    "build":"node server/build.js"
+    "build":"node server/build.js",
+    "clean":"node server/clean.js"
   },
   "dependencies": {
     "ejs": "^3.0.1",

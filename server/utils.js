@@ -112,9 +112,28 @@ const CopyDirectory = function(src, dest,excludeDir) {
         }
     });
 }
+
+//循环删除目录
+const deleteFolder = function(path) {
+    let files = [];
+    if( fs.existsSync(path) ) {
+        files = fs.readdirSync(path);
+        files.forEach(function(file,index){
+            let curPath = path + "/" + file;
+            if(fs.statSync(curPath).isDirectory()) {
+                deleteFolder(curPath);
+            } else {
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+}
+
 module.exports  = {
     CopyDirectory,
     traversalDir,
     extractDataFromFile,
-    makeDir
+    makeDir,
+    deleteFolder
 }
