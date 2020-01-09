@@ -7,6 +7,8 @@ class Build {
         GenerateInstance.generateCache();
         GenerateInstance.generateCategories();
         GenerateInstance.generateStatic();
+        GenerateInstance.generatePost();
+        GenerateInstance.generateIndex()
     }
 }
 

@@ -8,7 +8,7 @@ const CONFIG = require('./config');
 //列表
 exports.renderList = function(res,queryObj){
 
-    fs.readFile( CONFIG.CACHE, 'utf8',
+    fs.readFile( CONFIG.CACHE_PATH, 'utf8',
                 function (err, data) {
                     if(err) return console.log(err);
 
@@ -47,7 +47,7 @@ exports.renderList = function(res,queryObj){
 //详情
 exports.renderPost = function (res,queryObj){
 
-    fs.readFile(CONFIG.CACHE, 'utf8',
+    fs.readFile(CONFIG.CACHE_PATH, 'utf8',
                 function (err, data) {
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'text/html'); 
@@ -92,7 +92,7 @@ exports.renderStatic = function (url,response){
 
 //照片
 exports.renderPhoto = function (res,queryObj){
-    fs.readFile(CONFIG.CACHE, 'utf8',
+    fs.readFile(CONFIG.CACHE_PATH, 'utf8',
     function (err, data) {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html'); 

@@ -26,7 +26,7 @@ class Server {
     createServer(){
       const _that = this;
       this.instance = http.createServer((req, res) => {
-        fs.exists(CONFIG.CACHE,function(exists){
+        fs.exists(CONFIG.CACHE_PATH,function(exists){
           if(exists){
             console.log("文件存在");
             _that.route(req, res);
@@ -57,7 +57,7 @@ class Server {
 
         else if(req.url.lastIndexOf("/categories")>=0)  {          
           let lastIndex = req.url.lastIndexOf('\/')        
-          let categories = req.url.substring(lastIndex + 1);
+          let categories = req.url.substring(lastIndex + 1).replace('.html','');
           console.log(categories);
           Render.renderList(res,{ categories });
         }

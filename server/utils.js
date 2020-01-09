@@ -23,31 +23,14 @@ const traversalDir = function (dirPath,arr,mdArr,extname){
       }else{
           //不是文件夹,则添加type属性为文件后缀名
           fileObj.type = path.extname(filesList[i]).substring(1);
-          if( fileObj.type == extname) mdArr.push({filePath,...fileObj})
+          let htmlPath = '/'+ filePath.replace(/\\/g,'/').replace('.md','.html');
+          if( fileObj.type == extname) mdArr.push({filePath,htmlPath,...fileObj})
           arr.push(fileObj);
          
       }
   }
 }
-//拷贝文件夹
-const CopyDirectory = function(src, dest) {
-    if (fs.existsSync(dest) == false) {
-        fs.mkdirSync(dest);
-    }
 
-    var dirs = fs.readdirSync(src);
-    dirs.forEach(function(item){
-        var item_path = path.join(src, item);
-        var temp = fs.statSync(item_path);
-        if (temp.isFile()) 
-        { // 是文件
-            fs.copyFileSync(item_path, path.join(dest, item));
-        } else if (temp.isDirectory())
-        { // 是目录
-            CopyDirectory(item_path, path.join(dest, item));
-        }
-    });
-}
 
 //提取md头几行信息
 const extractDataFromFile = function (data){
@@ -77,9 +60,9 @@ const extractDataFromFile = function (data){
 }
 
 //循环创建目录
-const makeDir = function (dirpath) {
-    
-    var pathtmp;
+const makeDir = function (dirpath) { 
+    dirpath = dirpath.replace(/\\/g,'/');
+    var pathtmp;  
     dirpath.split("/").forEach(function(dirname) {
         if (pathtmp) {
             pathtmp = path.join(pathtmp, dirname);
@@ -100,6 +83,34 @@ const makeDir = function (dirpath) {
     });
   
     return true;
+}
+//拷贝文件夹
+const CopyDirectory = function(src, dest,excludeDir) {
+
+    if (fs.existsSync(dest) == false) {
+        fs.mkdirSync(dest);
+    }
+
+    var dirs = fs.readdirSync(src);
+    dirs.forEach(function(item){
+        var item_path = path.join(src, item);
+        var temp = fs.statSync(item_path);
+       
+        
+        if( 
+            excludeDir == undefined ||
+            ( excludeDir && ! item_path.startsWith(excludeDir) )
+        ) 
+            {
+            if (temp.isFile()) 
+            { // 是文件
+                fs.copyFileSync(item_path, path.join(dest, item));
+            } else if (temp.isDirectory())
+            { // 是目录
+                CopyDirectory(item_path, path.join(dest, item));
+            }
+        }
+    });
 }
 module.exports  = {
     CopyDirectory,

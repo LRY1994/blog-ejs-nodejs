@@ -5,8 +5,10 @@ const CONFIG = require('./config');
 const Utils = require('./utils')
 const ejs=require('ejs');
 
-const categories_path='./public/categories';
-const css_path='./public/static/css'
+const categories_path = CONFIG.CATEGORIES_PATH;
+const css_path = CONFIG.CSS_PATH
+const cache_path = CONFIG.CACHE_PATH
+
 class Generate {
      //生成cache.json
     generateCache(){
@@ -27,30 +29,61 @@ class Generate {
           total:list.length,
           cache:list,
       }
-
-      fs.writeFileSync(CONFIG.CACHE, JSON.stringify(obj));
+     
+      fs.writeFileSync( cache_path, JSON.stringify(obj));
+     
     }
     //生成文章页面
     generatePost(){
+      fs.readFile( cache_path, 'utf8',
+          function (err, data) {
+            const { cache, total } = JSON.parse(data);//从cache.json里取值   
+            for(let i = 0;i < total;i ++){
+                  let File = cache[i];
+                  ejs.renderFile('./ejs/post.ejs', 
+                  { 
+                      ...File, 
+                      nav:CONFIG.NAV 
+                  }, 
+                  function(err,data){
+                    if(err){
+                            console.log(err);
+                    }else{
+                          let dir_path = path.join('./public/' , File.filePath.substring ( 0, File.filePath.lastIndexOf('\\')));                         
+                          let html_path = path.join('./public/', File.filePath.replace('.md','.html'));
+                          // console.log(dir_path);
+                          // console.log(html_path);
+                          if (fs.existsSync(dir_path) == false) {
+                              Utils.makeDir(dir_path);
+                          }
+                        
+                          fs.writeFile(html_path, data,function(err){
+                            if (err) {
+                              console.log('write Post err -> ', err)
+                            } 
+                          });
+                    }
+                  }) 
+              }
+          }
+      )
     }
    
-    generateCategory(categories){
-      fs.readFile( CONFIG.CACHE, 'utf8',
+    generateCategory(categories,destDir){
+      fs.readFile( cache_path, 'utf8',
                   function (err, data) {
                       if(err) return console.log(err);
 
                       const { cache, total } = JSON.parse(data);//从cache.json里取值                     
 
                       let list = [];
-                      //分类
-                      if(categories){
+                      if(categories=='All') list = cache;                     
+                      else{//分类
                           for(let i = 0 ;i < total ; i++ ){
                               if(cache[i].categories && cache[i].categories.indexOf(categories)>=0) list.push(cache[i]);                        
                           }
                       }
-                      else{
-                          list = cache;
-                      }
+                      
                       
                       ejs.renderFile('./ejs/list.ejs', 
                       {   
@@ -62,14 +95,11 @@ class Generate {
                           if(err){
                               console.log(err);
                           }else{
-                            fs.writeFileSync(`${categories_path}/${categories}.html`, data)
-                            //  fs.writeFileSync(`./public/categories/${categories}.html`, data,function(err){
-                            //   if (err) {
-                            //     console.log('write html err -> ', err)
-                            //   } else {
-                            //     console.log('save html success -> ',categories)
-                            //   }
-                            // });
+                             fs.writeFile(`${destDir}/${categories}.html`, data,function(err){
+                              if (err) {
+                                console.log('write categories err -> ', err)
+                              } 
+                            });
                           }
                       }) 
       })
@@ -79,17 +109,17 @@ class Generate {
       if (fs.existsSync(categories_path) == false) {
         Utils.makeDir(categories_path);
     }
-      for(let i = 0;i < CONFIG.NAV.length; i++) this.generateCategory(CONFIG.NAV[i].name);
+      for(let i = 0;i < CONFIG.NAV.length; i++) this.generateCategory(CONFIG.NAV[i].name, categories_path);
     }
     //拷贝静态图片
     generateStatic(){
-      Utils.CopyDirectory('./static', './public/static');
+      Utils.CopyDirectory('./static', './public/static', 'static\\scss');
     }
     //生成css
     generateCss(){
       if (fs.existsSync(css_path) == false) {
         Utils.makeDir(css_path);
-    }
+      }
         //使用node-sass模块进行转换，后保存至css/all.css  
         var arr = [];
         var scssArr = [];
@@ -109,13 +139,16 @@ class Generate {
                
         fs.writeFileSync(outputName, allResult, function(err){
           if (err) {
-            console.log('write file err -> ', err)
-          } else {
-            console.log('save css success -> ', outputName)
-          }
+            console.log('write css  err -> ', err)
+          } 
         });
   
     
+    }
+    //生成index.html
+    generateIndex(){
+      this.generateCategory('All', './public');
+      // fs.renameSync(`./public/All.html`,`./public/index.html`)
     }
 }
 
