@@ -151,7 +151,7 @@ class Generate {
             });
             allResult += result.css;
         }
-               
+        
         return fs.writeFile(outputName, allResult, function(err){
           if (err) {
             console.log('write css  err -> ', err)

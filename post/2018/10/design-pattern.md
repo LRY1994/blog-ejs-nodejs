@@ -15,22 +15,22 @@ obj=Object.create(null)
 ## 设计模式类别
 ### 创建型
 * Constructor
-* [Prototype](#Prototype.js)
-* [Singleton](#Singleton.js)
-* [Factory](#Factory.js)
-* [Abstarct](#Abstract-Factory.js)
+* [Prototype](#prototypejs)
+* [Singleton](#singletonjs)
+* [Factory](#factoryjs)
+* [Abstarct](#abstract-Factoryjs)
 * Builder
 ### 机构型
 * Decorator
-* Facade : 和[Module](#Module.js)类似
+* Facade : 和[Module](#modulejs)类似
 * Flyweight
 * Adapter
 * Proxy
 ### 行为型
 * Iterator
 * [Mediator](https://github.com/LRY1994/nice-code/blob/master/designPattern/Mediator.js)
-* [Observer](#Observer.js)
-* [Publich-Subscribe](#Publich-Subscribe.js)
+* [Observer](#observerjs)
+* [Publich-Subscribe](#publich-subscribejs)
 * Visitor
 
 Observer和Publich-Subscribe的区别

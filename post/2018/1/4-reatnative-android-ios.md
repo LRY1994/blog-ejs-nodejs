@@ -1,14 +1,11 @@
 ---
 layout: post
-title:  "reat-native在Android和IOS平台的区别"
+title:  "读《React-Native跨平台移动应用开发第2版》"
 date:   2018/1/30 
-categories:  学习
+categories:  Reading
 tags: 读书笔记
 ---
 
-读《React-Native跨平台移动应用开发第2版》
-![cover](/images/book/React-Native.jpg)
- 
 * 在Android平台上，TextInput组件可以按照字体大小来自动设置高度
 IOS上必须要在样式上设置高度，否则不会显示
 Solution: TextInput组件设置高度
