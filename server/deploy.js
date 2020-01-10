@@ -1,12 +1,7 @@
-const cmd = require("node-cmd");
 const utils = require("./utils");
 const fs = require('fs')
 const exec = require('child_process').exec;
-// cmd.run('npm run clean && npm run build');
-// fs.renameSync(`./public/All.html`,`./public/index.html`)
-
-// utils.CopyDirectory('D:\\blog-ejs-nodejs\\public', 'D:\\lry1994.github.io')
-
+const path  = require('path');
 
 var cmds = [
     'D:',
@@ -15,16 +10,34 @@ var cmds = [
     'git commit -m "提交。。。"',
     'git push'
 ]
-cmds.forEach(function (cmd, i) {
-    setTimeout(function () {
-        console.log(cmd);
-        exec(cmd, function (err, stdout, stderr) {
-            if (err) {
-                console.log(err);
+cmds = cmds.join(' && ')
+
+
+
+exec("npm run clean && npm run build",function(error, stdout, stderr) {
+    if(error){
+        console.log(error);
+    }
+    else{
+        fs.renameSync( path.join(__dirname,`../public/All.html`), path.join(__dirname,`../public/index.html`),);
+
+        utils.CopyDirectory('D:\\blog-ejs-nodejs\\public', 'D:\\lry1994.github.io');
+
+        exec(cmds, function(error, stdout, stderr) {
+            if(error){
+                console.log(error);
+            }
+            else{
+                console.log("成功");
             }
         });
-    }, i * 1000);
-})
+
+        
+    }
+    
+});
+
+
 
 
 
