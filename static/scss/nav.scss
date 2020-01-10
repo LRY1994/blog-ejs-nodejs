@@ -1,0 +1,38 @@
+@import './var';
+$icon-w:40px;
+.nav-img{
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    >img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+}
+li{
+    margin: 20px;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    color:$blue;
+    a{ text-decoration: none;}
+    &.li-active{
+        background-color: #fff;
+        color:$pink
+    }
+    vertical-align: bottom;
+    line-height: $icon-w;
+}
+.icon {
+    width: $icon-w; 
+    height: $icon-w;
+}
+.intro{
+    text-align: center;
+    margin-top:50%;
+    a{
+        padding: 0 10px;
+        text-decoration: none;
+    }
+}
