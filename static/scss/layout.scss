@@ -1,5 +1,5 @@
 @import './var';
-
+$icon-w:40px;
 .l-nav{
     width:$nav-width;
     position: fixed;
@@ -30,6 +30,19 @@
             background-color: #fff;
             color:$pink
         }
+        vertical-align: bottom;
+        line-height: $icon-w;
+    }
+    .icon {
+        width: $icon-w; 
+        height: $icon-w;
+    }
+    .intro{
+        text-align: center;
+        margin-top:50%;
+        a{
+            padding: 0 10px;
+        }
     }
 }
 
@@ -46,3 +59,8 @@
 }
 
 
+.icon {
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }

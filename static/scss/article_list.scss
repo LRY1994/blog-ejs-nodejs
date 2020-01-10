@@ -2,7 +2,7 @@
 @import './var';
 .article-list {
     li{
-        padding: 5px;
+        margin: 5px;
         clear: both;
         &:last-of-type,
         &:first-of-type{ 
@@ -41,5 +41,31 @@
             }
 
         }
+
+    }
+    .letter{
+        padding: 0 10px;
+        color: white;
+        &-E{
+            background-color: #5d985b;
+        }
+        &-R{
+            background-color: #f4983d;
+        }
+        &-C{
+            background-color: #7d6acc;
+        }
+    }
+    .icon {
+        width: 20px; 
+        height: 20px; 
+    }
+}
+
+@media(min-width:1300px){
+    .article-list li{
+        width: 48%;
+        display: inline-block;
+        border-left: 2px solid #92a8d1;
     }
 }

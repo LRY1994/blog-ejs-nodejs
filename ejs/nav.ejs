@@ -6,9 +6,39 @@
 <ul>
     <% navList.forEach(function(item){%>
         <% if (categories==item.name){ %>
-            <li class="li-active"> <a href="<%= item.path %>"><%=item.name %></a></li>
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="<%= item.icon %>"></use>
+                </svg>
+                <a href="<%= item.path %>"><%=item.name %></a>
+            </li>
         <%} else{%>
-            <li > <a href="<%= item.path %>"><%=item.name %></a></li>
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="<%= item.icon %>"></use>
+                </svg>
+                <a href="<%= item.path %>"><%=item.name %></a>
+            </li>
         
     <% }}) %>
 </ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>

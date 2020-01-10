@@ -16,7 +16,7 @@ class Server {
     }
     start(){
         this.GenerateInstance = new Generate();
-        this.GenerateInstance.generateCss();
+        this.GenerateInstance.generateCss();     
         this.createServer();
         this.instance.listen(port, hostname, () => {
           console.log(`服务器运行在 http://${hostname}:${port}/`);

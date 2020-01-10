@@ -9,18 +9,17 @@
          <ul>
             <% for(let i=0;i< list.length;i++){ %>
                 <li>
-                
-
-                    
+            
                         <% if(i%2==1){ %>
                             <img src='/static/img/blue-flower.png'/>
-                            <% }else{ %>
-                            <img src='/static/img/pink-flower.png'/>
-                            <% } %>
+                        <% }else{ %>
+                            <img src='/static/img/pink-flower.png'/>                           
+                        <% } %> 
+                            
                         <a href="<%= list[i].htmlPath+'?index='+list[i].index %>" class="title"><%=list[i].title %></a>
-                        <div>
+                        <div>                           
+                            <span class="<%=`letter letter-`+ list[i].categories.substr(0, 1) %>"><%=list[i].categories.substr(0, 1) %></span>
                             <span><%=list[i].date %></span>
-                            <span><%=list[i].categories %></span>
                         </div>
 
                 </li>

@@ -1,7 +1,7 @@
 exports.NAV = [
-    { name : 'Experience',  path:'/categories/Experience.html'},
-    { name : 'Reading' ,   path:'/categories/Reading.html'},
-    { name : 'Collection' , path: '/categories/Collection.html' },
+    { name : 'Experience',  path:'/categories/Experience.html',icon:"#icon-xilanhua"},
+    { name : 'Reading' ,   path:'/categories/Reading.html',icon:"#icon-nangua"},
+    { name : 'Collection' , path: '/categories/Collection.html' ,icon:"#icon-qiezi"},
 
     
 ]
