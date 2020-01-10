@@ -5,13 +5,16 @@
   "scripts": {
     "serve": "node server/server.js",
     "build": "node server/build.js",
-    "clean": "node server/clean.js"
+    "clean": "node server/clean.js",
+    "deploy": "node server/deploy.js"
+
   },
   "dependencies": {
     "ejs": "^3.0.1",
     "highlight.js": "^9.17.1",
     "marked": "^0.8.0",
     "mime": "^2.4.4",
+    "node-cmd": "^3.0.0",
     "node-sass": "^4.13.0"
   }
 }

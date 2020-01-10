@@ -1,5 +1,4 @@
 var hljs = require('highlight.js');
-const markdownit = require('markdown-it')
 const marked = require('marked');
 
 // hljs 只针对pre code 里面的样式

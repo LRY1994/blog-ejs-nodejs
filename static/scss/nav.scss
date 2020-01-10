@@ -1,6 +1,6 @@
 @import './var';
 $icon-w:40px;
-.nav-img{
+.l-nav .nav-img{
     height: 100px;
     width: 100%;
     text-align: center;
@@ -10,7 +10,7 @@ $icon-w:40px;
         border-radius: 50%;
     }
 }
-li{
+.l-nav li{
     margin: 20px;
     padding: 10px;
     font-size: 20px;
@@ -24,11 +24,11 @@ li{
     vertical-align: bottom;
     line-height: $icon-w;
 }
-.icon {
+.l-nav .icon {
     width: $icon-w; 
     height: $icon-w;
 }
-.intro{
+.l-nav .intro{
     text-align: center;
     margin-top:50%;
     a{

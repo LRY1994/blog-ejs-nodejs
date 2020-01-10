@@ -103,16 +103,16 @@ optimization: {
 [IE9引发的血案-如何处理webpack打包后体积依然过大的css文件](https://blog.csdn.net/napoleonxxx/article/details/80292006)
 
 ## 总结：
-1. 把css变量单独拎出来做一个文件variable.scss，在vue的``<style scoped>``里@import使用
-2. 公共css文件在main.js里面直接import一次就好，不要再在其他vue里面import
-3. 多人协作防止冲突，各组件的公共css文件我觉得可以在外面用一个自己的class包裹起来。例如
+1、把css变量单独拎出来做一个文件variable.scss，在vue的``<style scoped>``里@import使用
+
+2、公共css文件在main.js里面直接import一次就好，不要再在其他vue里面import
+
+3、 多人协作防止冲突，各组件的公共css文件我觉得可以在外面用一个自己的class包裹起来。例如
 
 ```js
 //main.js
 import '@/views/order/style.scss';
-```
 
-```scss
 //@/views/order/style.scss
 .order{
     xxxxx
@@ -120,15 +120,16 @@ import '@/views/order/style.scss';
 ```
 
 最后把控制台的代码按照上面的方法整理了一下，结果打包出来的css足足小了127kb
-<img src="./css-improve-effect.png">
 
-------------------2019/2/19更新------------------
+2019/2/19更新
+------------------------------------
 
 注意：之前在想，既然``<style></style>``(不用scoped)放在哪里都可以全局生效，那我随便放在一个大组件里也行啊。
 最近发现在一个组件里面不用scoped地引入css,从这个组件进去另一个组件，另一个组件确实是会受到前者css的影响。
 但是如果直接打开后者组件的页面，不经过前者，css无效。所以全局css还是放在main里面好。
 
-------------------2019/2/27更新------------------
+2019/2/27更新
+------------------------------------
 
 关于上面 **webpack打包后体积依然过大的css文件**的问题我发现还有一种解决方法：**使用懒加载**，使用方法如下：
 [Lazy Loading in Vue using Webpack's Code Splitting](https://alexjover.com/blog/lazy-load-in-vue-using-webpack-s-code-splitting/)

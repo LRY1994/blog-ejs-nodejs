@@ -86,20 +86,19 @@ const makeDir = function (dirpath) {
 }
 //拷贝文件夹
 const CopyDirectory = function(src, dest,excludeDir) {
-
     if (fs.existsSync(dest) == false) {
         fs.mkdirSync(dest);
     }
 
     var dirs = fs.readdirSync(src);
     dirs.forEach(function(item){
-        var item_path = path.join(src, item);
+        var item_path = path.join(src, item);  
         var temp = fs.statSync(item_path);
        
         
         if( 
             excludeDir == undefined ||
-            ( excludeDir && ! item_path.startsWith(excludeDir) )
+            ( excludeDir && item_path != excludeDir )
         ) 
             {
             if (temp.isFile()) 
@@ -114,19 +113,26 @@ const CopyDirectory = function(src, dest,excludeDir) {
 }
 
 //循环删除目录
-const deleteFolder = function(path) {
+const deleteFolder = function(dirpath,excludeDir) {
     let files = [];
-    if( fs.existsSync(path) ) {
-        files = fs.readdirSync(path);
+    if( fs.existsSync(dirpath) ) {
+        files = fs.readdirSync(dirpath);
         files.forEach(function(file,index){
-            let curPath = path + "/" + file;
-            if(fs.statSync(curPath).isDirectory()) {
-                deleteFolder(curPath);
-            } else {
-                fs.unlinkSync(curPath);
+            let curPath = dirpath + "/" + file;
+            if( 
+                excludeDir == undefined ||
+                ( excludeDir && item_path != excludeDir )
+            ) 
+            {
+                
+                if(fs.statSync(curPath).isDirectory()) {
+                    deleteFolder(curPath);
+                } else {
+                    fs.unlinkSync(curPath);
+                }
             }
         });
-        fs.rmdirSync(path);
+        fs.rmdirSync(dirpath);
     }
 }
 

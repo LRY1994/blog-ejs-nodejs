@@ -267,9 +267,12 @@ init,validate,save,remove;
 
 ### 2018-12-27
 centos 安装nodejs
+
+```shell
 yum install -y gcc-c++ make
 curl -sL https://rpm.nodesource.com/setup_9.x | sudo -E bash -
 yum install nodejs
+```
 
 ngix安装
 https://www.cnblogs.com/taiyonghai/p/6728707.html
@@ -280,19 +283,17 @@ https://www.jianshu.com/p/4895cda92808
 
 
 添加到开机自启动项
+```shell
 vi /etc/rc.d/rc.local
 mongod --dbpath /home/mongodb/data --logpath /home/mongodb/logs/log.log -fork
 chmod +x /etc/rc.d/rc.local
+```
 
 添加环境变量
-vim /etc/profile
+``vim /etc/profile``
+
 在最后，添加:
-export PATH="/usr/local/mongodb/bin:$PATH"
+``export PATH="/usr/local/mongodb/bin:$PATH"``
+
 保存，退出，然后运行：
-source /etc/profile不报错则成功。
-
-tar zxvf openssl-fips-2.0.10.tar.gz -C /home
-./config && make && make install
-
-sbin/nginx -s reload
-
+``source /etc/profile`` 不报错则成功。

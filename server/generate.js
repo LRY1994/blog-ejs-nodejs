@@ -59,8 +59,7 @@ class Generate {
                     }else{
                           let dir_path = path.join('./public/' , File.filePath.substring ( 0, File.filePath.lastIndexOf('\\')));                         
                           let html_path = path.join('./public/', File.filePath.replace('.md','.html'));
-                          // console.log(dir_path);
-                          // console.log(html_path);
+           
                           if (fs.existsSync(dir_path) == false) {
                               Utils.makeDir(dir_path);
                           }
@@ -70,7 +69,7 @@ class Generate {
                             } 
                           });
                           //如果有图
-                          let img_path = File.filePath.replace('.md','');console.log(img_path)
+                          let img_path = File.filePath.replace('.md','');
                           if (fs.existsSync(img_path) == true) {
                             let newImgpath = path.join('./public',img_path)
                             Utils.makeDir(newImgpath);
@@ -128,7 +127,11 @@ class Generate {
     }
     //拷贝静态图片
     generateStatic(){
-      Utils.CopyDirectory('./static', './public/static', 'static\\scss');
+      let excludeDir = path.join(__dirname,'../static/scss');
+      let src = path.join(__dirname,'../static');
+      let dest = path.join(__dirname,'../public/static');
+  
+      Utils.CopyDirectory(src,dest, excludeDir);
     }
     //生成css
     generateCss(){
@@ -138,8 +141,8 @@ class Generate {
         //使用node-sass模块进行转换，后保存至css/all.css  
         var arr = [];
         var scssArr = [];
-        Utils.traversalDir('./static/scss', arr, scssArr, 'scss');
-        let outputName = path.resolve(`./static/css/`, 'all.css');
+        Utils.traversalDir( path.join(__dirname,'../static/scss'), arr, scssArr, 'scss');
+        let outputName = path.resolve(path.join(__dirname,'../static/css'), 'all.css');
         let allResult = '';
     
         for(let j = 0;j < scssArr.length;j++){
@@ -159,7 +162,6 @@ class Generate {
     //生成index.html
     async generateIndex(){
       await this.generateCategory('All', './public');
-      fs.renameSync(`./public/All.html`,`./public/index.html`)
     }
 }
 

@@ -4,11 +4,11 @@ date:   2020/1/9
 categories:  Experience 
 ---
 ### Backdrop
-在网上搜索如何搭建博客，大部分是基于hexo\Jekyll等比尔已经写好的框架，往里面套就可以了。但是这个过程我刚开始的时候想不通是什么原理，就只是按照网上步骤操作。最近很好奇这个过程，然后自己操作了一下，其实这个主要是nodejs操作文件的问题。
+在网上搜索如何搭建博客，大部分是基于hexo\Jekyll等别人已经写好的框架，往里面套就可以了。最近很好奇这个过程，然后自己操作了一下，其实这个主要是nodejs操作文件的问题。
 
-举例hexo,一共需要2个github库，一个是用来生成文件的，一个是用来存放生成后的文件，也就是git page托管的内容。git page就相当于一个文件目录，按照静态文件路径渲染的。
+举例hexo,一共需要2个github库，一个是用来生成文件的，一个是用来存放生成后的文件，也就是git page托管的内容。git page就相当于一个文件目录，打开``https://lry1994.github.io/``是按照静态文件路径渲染的。
 
-为什么没有node进程却可以实现点击"标签","分类”就能显示对应内容？原因就在于hexo把``所有可能的结果``都生成html放在git page下面了。观察git page里面的文件就会发现有arhchive、tags、page目录，这些就是所有可能的结果。
+为什么没有node进程却可以实现点击"标签","分类"显示对应内容？原因就在于hexo把``所有可能的结果``都生成html放在git page下面了。观察git page里面的文件就会发现有arhchive、tags、page目录，这些就是所有可能的结果。
 
 <a href="https://www.larscheng.com/hexo-principle/" >这篇文章讲得很清晰</a>
 
@@ -27,6 +27,9 @@ categories:  Experience
 
 ### 过程中遇到的问题
 #### 使用marked
-marked转化成html后的id会变成小写的 ``[React与vue比较](#React与vue比较)``结果会渲染成``<h1 id="react与vue比较">React与vue比较</h1>``
-锚点有标点符号也不行``[PP.js](#PP.js)``结果会渲染成``<h1 id="ppjs">PP.js</h1>``
+marked转化成html后的id会变成小写的
+
+比如 ``[React与vue比较](#React与vue比较)`` ， 结果会渲染成 ``<h1 id="react与vue比较">React与vue比较</h1>``
+锚点有标点符号也不行 ``[PP.js](#PP.js)`` 结果会渲染成``<h1 id="ppjs">PP.js</h1>``
+
 看到有人用``markdown-it``,用了一下发现渲染后的锚点有问题，锚点没有id。比如上面就会渲染成``<h1>React与vue比较</h1>``,导致不能滚动到锚点
