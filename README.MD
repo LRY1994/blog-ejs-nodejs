@@ -16,4 +16,9 @@ npm run clean
 npm run build
 ```
 
-部署到githubPage：把public目录下的文件拷贝到githubPage库。
+部署到githubPage：
+前提是有自己的库
+
+```
+npm run deploy
+``
