@@ -20,7 +20,7 @@ categories:  Experience
     "highlight.js": "^9.17.1",//高亮代码
     "marked": "^0.8.0",//md转化成html
     "mime": "^2.4.4",//获取mime类型。这个如果可以自己写也不用
-    "node-sass": "^4.13.0"//scss转化成css
+    "node-sass": "^4.13.0"//scss转化成css。如果不用scss也不用这个依赖
 ```
 生成文件的node代码：<a href="https://github.com/LRY1994/blog-ejs-nodejs">代码地址</a>
 
@@ -32,4 +32,4 @@ marked转化成html后的id会变成小写的
 比如 ``[React与vue比较](#React与vue比较)`` ， 结果会渲染成 ``<h1 id="react与vue比较">React与vue比较</h1>``
 锚点有标点符号也不行 ``[PP.js](#PP.js)`` 结果会渲染成``<h1 id="ppjs">PP.js</h1>``
 
-看到有人用``markdown-it``,用了一下发现渲染后的锚点有问题，锚点没有id。比如上面就会渲染成``<h1>React与vue比较</h1>``,导致不能滚动到锚点
+看到有人用``markdown-it``,用了一下发现渲染后的锚点有问题，锚点没有id。比如上面就会渲染成``<h1 xxx>React与vue比较</h1>``,导致不能滚动到锚点
