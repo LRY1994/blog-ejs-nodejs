@@ -20,6 +20,14 @@ CSRF 是跨站请求伪造，CSRF 会借用目标用户的权限做一些借刀�
 目标权限），然后去做坏事，
 “盗取”通常是XSS（跨站脚本攻击）最喜欢做的事。
 
+1. 防御XSS攻击
+
+ HttpOnly 防止劫取 Cookie、用户的输入检查、服务端的输出检查
+
+2. 防御CSRF攻击
+
+  验证码、Referer Check、Token 验证
+
 ### APT
 APT（持久化威胁）攻击
 如果是个反射型的XSS，IE 8/IE 9/Chome 直接就给拦截了。

@@ -57,6 +57,7 @@ ES5提出的``performance``可以获取到，``微秒级别(10^-9)``
 <img src="./load-process/timing.png" >
 
  [https://www.cnblogs.com/libin-1/p/6501951.html](https://www.cnblogs.com/libin-1/p/6501951.html)
+ <a href="https://www.cnblogs.com/Bonnie3449/p/8419609.html" traget="_blank">domContentLoaded事件、Js 时间线</a>
  
 比如，我们获得重定向时间用:
 ```javascript
@@ -140,7 +141,7 @@ var performance = {
         // 在 DOMContentLoaded 事件抛出前发生
         domContentLoadedEventStart: 1441112693093,
 
-        // DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕）
+        // DOM 解析完成后，网页内资源加载未必完成
         domContentLoadedEventEnd: 1441112693101,
 
         // DOM 树解析完成，且资源也准备就绪的时间，Document.readyState 变为 complete，并将抛出 readystatechange 相关事件
@@ -167,7 +168,7 @@ Date.now();  //输出是毫秒级别
 ```
 其中``Date.now()``是输出 从``1970年``开始的毫秒数.
 
-``performance.now()``参考的是从``performance.timing.navigationStart````(页面开始加载)``的时间, 到现在的微秒数.
+``performance.now()``参考的是从``performance.timing.navigationStart(页面开始加载)``的时间, 到现在的微秒数.
 
 这里，我们可以使用``performance.now()``来模拟获取``DomContentLoaded``的时间。
 ```javascript

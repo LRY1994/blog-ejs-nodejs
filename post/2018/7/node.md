@@ -10,7 +10,7 @@ tags: 读书笔记
 适合高并发、IO密集型、事件驱动
 
 
-* 服务端
+## 服务端
 ```javascript
 http.createServer(function(ServerRequest, ServerResponse){
     //监听
@@ -24,7 +24,7 @@ http.createServer(function(ServerRequest, ServerResponse){
 }).listen(3000)
 ```
 
-* 客户端
+## 客户端
 ```javascript
 options = {
     host:'',
@@ -65,11 +65,11 @@ clientRequest.setNoDelay()
 
 
 ## 文件加载方式
-> 按路径加载
+1. 按路径加载
 
     require以'/'开头的，以绝对路径方式加载
     require以'./'或'../'开头的，以相对路径加载
->查找node_modules文件夹
+2. 查找node_modules文件夹
 
     在当前目录下的node_modules中查找=>
     父目录node_modules找=>
