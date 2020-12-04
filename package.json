@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "ejs": "^3.0.1",
-    "highlight.js": "^9.17.1",
+    "highlight.js": "^10.4.1",
     "marked": "^0.8.0",
     "mime": "^2.4.4",
     "node-sass": "^4.13.0"
