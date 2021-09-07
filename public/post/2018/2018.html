@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">2018遇到的问题</h1>            
+            <p>I belong to : Experience</p>
+            <hr/>
+            <h2 id="20182">2018/2</h2>
+<h3 id="火狐和ie下-javascriptvoid0-会弹出空白页">火狐和IE下 javascript:void(0) 会弹出空白页</h3>
+<p>本来javascript:void(0);的用处是不用整体刷新网页且返回一个空值，但这儿由于DOM本身的冒泡事件所以会最后执行HREF属性内的javascript:void(0);导致执行函数返回了一个空值，所以覆盖掉了前面正常执行函数所返回的值引起的错误。</p>
+<p>一般情况下，IE会先运行DOM本身绑定的事件，如ONCLICK;如果没有阻止冒泡，则会顺序执行HREF属性。如果想正确运行，可以在前面用RETURN FALSE终止冒泡，例如：</p>
+<pre><code>&lt;a <span class="hljs-attribute">target</span>=<span class="hljs-string">"_blank"</span> <span class="hljs-attribute">class</span>=<span class="hljs-string">"prev"</span> <span class="hljs-attribute">onclick</span>=<span class="hljs-string">"return false;"</span>   <span class="hljs-attribute">href</span>=<span class="hljs-string">"javascript:void(0);"</span>&gt;&lt;/a&gt;</code></pre><p>或者直接删去也行，如：</p>
+<pre><code>&lt;a target=<span class="hljs-string">"_blank"</span>  <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"prev"</span> &gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span></code></pre><p>但是后者hover的时候没有手势的pointer</p>
+<h3 id="vue2父组件传递props异步数据到子组件，获取到的是undefined">vue2父组件传递props异步数据到子组件，获取到的是undefined.</h3>
+<p>解决方法<a href="http://www.jb51.net/article/117447.htm">参考链接</a></p>
+<ol>
+<li>最简单的解决方法：使用v-if</li>
+<li>子组件使用watch来监听父组件改变的prop，使用methods来代替created</li>
+<li>子组件watch computed data 相结合，有点麻烦</li>
+<li>使用emit，on，bus相结合（使用了bus库）</li>
+<li>vuex结合computed、mapState或者合computed、mapGetters</li>
+</ol>
+<h3 id="对象的属性名称可以是变量吗？">对象的属性名称可以是变量吗？</h3>
+<p>可以，运用方括号法设置就是。如</p>
+<pre><code>var a = <span class="hljs-string">"name"</span><span class="hljs-comment">;</span>
+var b = <span class="hljs-number">10</span><span class="hljs-comment">;</span>
+var obj = {}<span class="hljs-comment">;</span>
+obj[a] = b<span class="hljs-comment">;</span></code></pre><h3 id="后台给的服务链接直接插入html中img的src里">后台给的服务链接直接插入html中img的src里</h3>
+<p>修改图片之后，因为src的内容一直都是后台服务链接，是个不变的值，所以不会重新去请求，图    片会一直不变。如果刷新页面这个链接返回的图片会改变，为了做到点击图片只重载这个src而整个页面不刷新，采用的方法是在后面加上          Math.random()，例如 </p>
+<pre><code><span class="hljs-string">`http:<span class="hljs-subst">${<span class="hljs-keyword">this</span>.baseURL}</span>gw/app.get.logo?tenantId=<span class="hljs-subst">${<span class="hljs-keyword">this</span>.tenantId}</span>&amp;appId=<span class="hljs-subst">${<span class="hljs-keyword">this</span>.appId}</span>?`</span>+<span class="hljs-built_in">Math</span>.random();</code></pre><h3 id="扩展运算符可以用于数组深拷贝">扩展运算符可以用于数组深拷贝</h3>
+<pre><code><span class="hljs-keyword">var</span> arr2 = arr;
+<span class="hljs-keyword">var</span> arr3 = [...arr];
+<span class="hljs-built_in">console</span>.log(arr===arr2); <span class="hljs-comment">//true, 说明arr和arr2指向同一个数组</span>
+<span class="hljs-built_in">console</span>.log(arr===arr3); <span class="hljs-comment">//false, 说明arr3和arr指向不同数组</span></code></pre><h3 id="number-的修饰符">.number 的修饰符</h3>
+<p>数字类型的验证需要在 v-model 处加上 .number 的修饰符，这是 Vue 自身提供的用于将绑定值转化为 number 类型的修饰符。              v-model.number只会截取数字部分，比如100ttt只会取前面的100。做修改操作的时候这种情况用自定义validator解决</p>
+<h2 id="20183">2018/3</h2>
+<h3 id="给点击路由的时候加上监听事件">给点击路由的时候加上监听事件</h3>
+<pre><code class="language-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"my-link"</span> <span class="hljs-attr">:to</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{name: 'main.provider.index', params: {providerId: scope.row.providerId}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">}"</span>&gt;</span>提供者主页<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span></code></pre>
+<p>解决方法：给组件绑定原生事件。有时候，你可能想在某个组件的根元素上监听一个原生事件。可以使用 v-on 的修饰符 .native。例如：</p>
+<pre><code>&lt;<span class="hljs-keyword">my</span>-component v-<span class="hljs-keyword">on</span>:click.native=<span class="hljs-string">"doTheThing"</span>&gt;&lt;/<span class="hljs-keyword">my</span>-component&gt;</code></pre><p>参考连接
+<a href="https://segmentfault.com/q/1010000007896386">给组件绑定原生事件</a></p>
+<h3 id="块内元素文字上下居中">块内元素文字上下居中</h3>
+<p>line-height设置为height的值</p>
+<h3 id="用refs来组件通信">用refs来组件通信</h3>
+<p>在讨论非父子通信的时候，并在没有用Vuex的情况下，我是用官网那种创建Vue实例的方法，但是同事提到了另一种方法
+用refs来引用，不禁一想这好像也是一种解决方案，就是觉得怪怪的。在这里记录一下</p>
+<h3 id="关于第4点，今天工作用了thisrefs来传播事件，类似于brocast但是vue2把brocast废除了。">关于第4点，今天工作用了this.$refs来传播事件，类似于$brocast,但是VUE2把$brocast废除了。</h3>
+<p>总结一下vue传播事件</p>
+<p>(1) 子组件传播事件给父组件，用<code>$on,$emit</code>.</p>
+<p>虽然说是这样说，但是不是直接在父组件里面写$on的,应该是这样</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> @<span class="hljs-attr">eventname</span>=<span class="hljs-string">"event"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span></code></pre>
+<p>然后在parent组件里面写 event函数.event(){}</p>
+<p>子组件调用的时候用<code>this.$emit(&#39;eventname&#39;,payload)</code></p>
+<p>(2)父组件传播事件给子组件，用 <code>$refs</code></p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"refname"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">parant</span>&gt;</span></code></pre>
+<p>调用的时候用<code>this.$ref[&#39;refname&#39;].eventname()</code></p>
+<p>(3)上面有种都麻烦的话，创建实例bus</p>
+<h3 id="js的数组可以是这样的形式">js的数组可以是这样的形式</h3>
+<p><code>(4) [{…}, {…}, {…}, {…}, total: 4, code: &quot;core.ok&quot;]</code></p>
+<p>他的length是4</p>
+<h3 id="把字符串转换成数字可以用数字运算符但是--不行">把字符串转换成数字可以用数字运算符,但是 + 不行</h3>
+<pre><code class="language-javascript">console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"2"</span>&gt;&gt;&gt;<span class="hljs-number">0</span>)  <span class="hljs-comment">//2 number </span>
+console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"2"</span>&gt;&gt;<span class="hljs-number">0</span>)  <span class="hljs-comment">//2 number </span>
+console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"2"</span>&lt;&lt;<span class="hljs-number">0</span>)  <span class="hljs-comment">//2 number  没有（&lt;&lt;&lt;）</span>
+console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"2"</span>- <span class="hljs-number">0</span>)    <span class="hljs-comment">//2 number</span>
+console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"2"</span>+<span class="hljs-number">0</span>)    <span class="hljs-comment">//20 string</span></code></pre>
+<h3 id="reduce函数好好用">reduce函数好好用</h3>
+<p>今天写了一个有重大作用的reduce函数，好开心。在此纪念一下</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//str {String}, "app.get.logo.list"</span>
+<span class="hljs-comment">//ctx {Object},  this._$http</span>
+<span class="hljs-comment">//return {Object}, this._$http.app.get.logo.list</span>
+ getBackend(str){
+        <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>.loadBackend.split(<span class="hljs-string">'.'</span>);
+        <span class="hljs-keyword">let</span> ctx= <span class="hljs-keyword">this</span>._$http;
+        <span class="hljs-keyword">let</span> a;
+        <span class="hljs-keyword">let</span> b=arr.reduce(<span class="hljs-function">(<span class="hljs-params">prev, cur, idx</span>) =&gt;</span> {                
+              a = prev[cur] ;         
+            <span class="hljs-keyword">return</span> a;
+        },ctx);              
+          <span class="hljs-keyword">return</span> b;      
+      }</code></pre>
+<h3 id="vue项目中全局引入scss文件的方法">vue项目中全局引入scss文件的方法</h3>
+<pre><code class="language-shell">npm install node-sass --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span>
+npm install sass-loader --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span>
+npm install sass-resources-loader --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span></code></pre>
+<p>修改build/utils.js</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">scs</span><span class="hljs-variable">s:</span> generateLoaders(<span class="hljs-string">'sass'</span>).concat(
+      {
+        loader: <span class="hljs-string">'sass-resources-loader'</span>,
+        option<span class="hljs-variable">s:</span> {
+          resource<span class="hljs-variable">s:</span> path.<span class="hljs-built_in">resolve</span>(__dirname, <span class="hljs-string">'../src/assets/your.scss'</span>)
+        }
+      }
+    )</code></pre>
+<h3 id="elementui的layout问题">elementUI的layout问题</h3>
+<p>el-footer会直接fixed在窗口底部，不好看，</p>
+<p>解决方法：el-footer放到el-main里面</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">el-container</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"height:100%;"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">el-header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"header"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"height:100px"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">cty-navbar</span> <span class="hljs-attr">:navs</span>=<span class="hljs-string">"navs"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">cty-navbar</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">el-header</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">el-main</span>&gt;</span>      
+        <span class="hljs-tag">&lt;<span class="hljs-name">el-scrollbar</span> <span class="hljs-attr">wrap-style</span>=<span class="hljs-string">"overflow-x:hidden;"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"min-height: 800px"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>           
+        <span class="hljs-tag">&lt;/<span class="hljs-name">el-scrollbar</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">el-footer</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"footer"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"height:70px"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">cty-footer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">cty-footer</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">el-footer</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">el-main</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">el-container</span>&gt;</span></code></pre>
+<h3 id="vue路由刷新问题，两个路由对应一个组件，如何能让路由重载">vue路由刷新问题，两个路由对应一个组件，如何能让路由重载</h3>
+<p><a href="https://segmentfault.com/q/1010000010844655">https://segmentfault.com/q/1010000010844655</a></p>
+<p>写在共用组件文件里</p>
+<pre><code class="language-javascript">data(){
+...
+}
+mounted()<span class="hljs-meta">{...}</span>,
+ watch: {          
+            $route: {
+                handler: function (val, oldVal) {
+                    this.worksheet_type = this.$route.params.<span class="hljs-keyword">type</span>;                     
+                },
+                deep: <span class="hljs-literal">true</span>
+            }
+        },</code></pre>
+<p>在共用组件上加上key
+<code>&lt;div :key=&quot;$route.path&quot;&gt;</code></p>
+<h3 id="单行文本超出隐藏并显示省略号">单行文本超出隐藏并显示省略号</h3>
+<pre><code class="language-css"><span class="hljs-selector-class">.element</span>{
+<span class="hljs-attribute">width</span>: <span class="hljs-number">20em</span>;<span class="hljs-comment">/*不允许出现半汉字截断*/</span>
+<span class="hljs-attribute">overflow</span>: hidden; <span class="hljs-comment">/*自动隐藏文字*/</span>
+<span class="hljs-attribute">text-overflow</span>: ellipsis;<span class="hljs-comment">/*文字隐藏后添加省略号*/</span>
+<span class="hljs-attribute">white-space</span>: nowrap;<span class="hljs-comment">/*强制不换行*/</span></code></pre>
+<h3 id="多行文字隐藏加省略号">多行文字隐藏加省略号</h3>
+<pre><code class="language-css"><span class="hljs-selector-class">.element</span>{
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">20em</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">3em</span>;<span class="hljs-comment">/*注意高度和宽度，不允许出现半汉字截断*/</span>
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5em</span>;
+    <span class="hljs-attribute">overflow</span>: hidden;
+    <span class="hljs-attribute">display</span>: -webkit-box;
+    <span class="hljs-attribute">-webkit-line-clamp</span>: <span class="hljs-number">3</span>;
+    <span class="hljs-attribute">-webkit-box-orient</span>: vertical;
+}</code></pre>
+<h2 id="20184">2018/4</h2>
+<h3 id="实现qq弹窗-和qq号为qqnum聊天">实现QQ弹窗 和QQ号为qqnum聊天</h3>
+<pre><code class="language-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"_blank"</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"`http://wpa.qq.com/msgrd?v=3&amp;uin=$</span></span></span><span class="hljs-template-variable">{qqnum}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&amp;site=qq&amp;menu=yes`"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">border</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"`http://wpa.qq.com/pa?p=2:1424314130:51`"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"点击这里给我发消息"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"点击这里给我发消息"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span></code></pre>
+<h3 id="vue全局过滤器也可以当函数使用">Vue全局过滤器也可以当函数使用</h3>
+<pre><code class="language-javascript">this.<span class="hljs-symbol">$</span><span class="hljs-keyword">options</span>.filters.dateformat</code></pre>
+<h3 id="字符串转义问题">字符串转义问题</h3>
+<p>本地字符串不会自己转义，所以本地需要写成 <code>\\d</code></p>
+<p>后台请求返回的字符串会自动帮你转义，所以在后台数据库只需要写成<code>\d</code></p>
+<h3 id="如何解决vue父组件模板slot到孙子组件中去">如何解决vue父组件模板slot到孙子组件中去</h3>
+<pre><code>&gt;每一个被继承的组件都需要有slot<span class="hljs-comment">;</span></code></pre><p><a href="https://segmentfault.com/q/1010000012141592">参考链接</a></p>
+<h3 id="记录一下第一次使用async-await-解决了困扰我一早上的异步问题赞！！！">记录一下第一次使用async ,await ,解决了困扰我一早上的异步问题,赞！！！</h3>
+<pre><code class="language-javascript">   <span class="hljs-comment">//获取文件信息</span>
+    getFileInfo(item){
+        <span class="hljs-keyword">let</span> fileId= item.value;
+        <span class="hljs-keyword">const</span> downloadLink =<span class="hljs-string">`/gw/tenant/worksheet/extend/Download?worksheetInfoId=<span class="hljs-subst">${item.worksheetInfoId}</span>&amp;blobId=offer.info`</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve,reject</span>)=&gt;</span>{
+            <span class="hljs-keyword">if</span>(fileId == <span class="hljs-string">'undefined'</span>) resolve(<span class="hljs-literal">null</span>);
+            <span class="hljs-keyword">this</span>._$http.tenant.offerExtendGetFileInfo({<span class="hljs-attr">fileId</span>: fileId})
+            .then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span>{ 
+                res={...res,downloadLink};
+                resolve(res)
+            }) 
+        })           
+    },
+    <span class="hljs-comment">//获取文件信息</span>
+    <span class="hljs-attr">fileGetter</span>: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{           
+        <span class="hljs-keyword">const</span> fileInfo = <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.getFileInfo(item);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(fileInfo);         
+    },</code></pre>
+<h3 id="自定义指令---解决跟dom有关的问题">自定义指令---解决跟dom有关的问题</h3>
+<p>最大的用处就是可以引用一些第三方的代码插入到Vue项目中，比如有一个操作dom的函数：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//当然，真实情况第三方的代码要复杂的多</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeColor</span><span class="hljs-params">(dom)</span></span>{
+    dom.style.backgroundColor = <span class="hljs-string">"red"</span>;
+}</code></pre>
+<p>我们可以注册一个全局的指令来为需要执行changeColor方法的dom提供指令：</p>
+<pre><code class="language-javascript"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>directives('color',{
+    bind:<span class="hljs-keyword">function</span>(el){
+        change<span class="hljs-constructor">Color(<span class="hljs-params">el</span>)</span>
+    }
+})</code></pre>
+<p>这样，如果需要这个dom改变颜色的话，只需要这样即可：
+<code>&lt;div v-color&gt;改变颜色&lt;/div&gt;</code></p>
+<p>当日常开发遇到跟dom有关的问题却一筹莫展时，可以想想自定义指令是否有功能可以解决为题</p>
+<h3 id="父组件给子组件传值，这个值还要从子组件传给它的子组件【inheritattrs】和【attrs】">父组件给子组件传值，这个值还要从子组件传给它的子组件【inheritAttrs】和【attrs】</h3>
+<p>直接一层一层传prop非常麻烦.
+Vue提供了【inheritAttrs】和【attrs】两个功能来解决这样的问题</p>
+<pre><code>//父组件
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+   </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+     </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">child</span> <span class="hljs-attr">:text</span>=<span class="hljs-string">"text"</span>  <span class="hljs-attr">:count</span>=<span class="hljs-string">"count"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">child</span>&gt;</span></span><span class="xml">
+   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><span class="xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span>
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span></span></span><span class="xquery">{
+        data(){
+            <span class="hljs-keyword">return</span> {
+                text:<span class="hljs-string">"父组件的值"</span>，
+               <span class="hljs-built_in"> count</span>:<span class="hljs-number">123456</span>，
+            }</span><span class="xml">
+        }
+    }
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><pre><code><span class="xml">//子组件
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{text}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span>{
+        <span class="hljs-attr">props</span>:[<span class="hljs-string">"text"</span>]
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>这里父组件的count属性仅仅挂在子组件上，并没有使用。此时我们打开浏览器，可以看到子组件的dom上显示的展示了<code>&lt;div class=&#39;child&#39; count=&quot;123456&quot;&gt;&lt;/div&gt;</code>。</p>
+<p>此时，我们可以通过设置inheritAttrs: false来取消这种默认行为：</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">data</span>(){
+  <span class="hljs-keyword">return</span>{
+    <span class="hljs-params">...</span><span class="hljs-params">...</span>   
+  }  
+}
+
+inheritAttrs: <span class="hljs-literal">false</span>,
+mounted(){
+　　console.<span class="hljs-keyword">log</span>(this.$attrs); <span class="hljs-comment">//{count:123456}</span>
+}</code></pre>
+<p>这时再看dom上就没有count属性了。然后，我还打印了this.$attrs的值，值为一个包含着count键值对的Object。
+也就是说，<code>父组件没有props的属性值会被保存在一个名为$attrs中供子组件使用</code>，然而这并没有解决开头子组件的子组件获取值的问题。
+别急，我们只需要在子组件上加个东西就可以了：</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">my-child</span> <span class="hljs-attr">v-bind</span>=<span class="hljs-string">"$attrs"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-child</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre><p>这样，子组件的子组件也可以获取这个值了。</p>
+<h3 id="provide--inject--更适合用来做父组件给后代组件传值，">provide / inject -更适合用来做父组件给后代组件传值，</h3>
+<p>provide/inject方法要比inheritAttrs/attrs更适合用来做父组件给子组件或孙组件传值，
+<a href="https://cn.vuejs.org/v2/api/#provide-inject">文档的链接</a></p>
+<pre><code><span class="hljs-comment">//父组件使用provide</span>
+&lt;template&gt;  
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>     
+         <span class="hljs-tag">&lt;<span class="hljs-name">child-component</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">child-component</span>&gt;</span>   
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>  
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span>
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {  
+    ......  
+    provide: { <span class="hljs-attr">parent</span>: <span class="hljs-string">"父组件的值"</span>},  
+    <span class="hljs-attr">components</span>:{    child-component,  }, 
+     ......
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+
+
+<span class="hljs-comment">//此时可以在子组件通过这种方式获取父组件中“parent”的值：</span>
+<span class="hljs-comment">//子组件中</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {  
+    mounted(){      
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.parent); <span class="hljs-comment">//"父组件的值"  </span>
+    },  
+    <span class="hljs-attr">inject</span>: [<span class="hljs-string">'parent'</span>],
+}</code></pre><p>2018/5</p>
+<h3 id="发现三个很厉害的库">发现三个很厉害的库</h3>
+<p><code>htmlDocx</code> (将html代码导出为doc文件)<a href="http://evidenceprime.github.io/html-docx-js/build/html-docx.js">http://evidenceprime.github.io/html-docx-js/build/html-docx.js</a> 
+<code>saveAs</code>(将浏览器内存中的doc文件保存至硬盘)<a href="http://evidenceprime.github.io/html-docx-js/test/vendor/FileSaver.js">http://evidenceprime.github.io/html-docx-js/test/vendor/FileSaver.js</a>
+<code>domtoimage</code>(将dom节点转化成为图片)<a href="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js">https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js</a></p>
+<p>domtoimage.toPng(dom); //转出来是base64
+saveAs(htmlDocx.asBlob(html), filename); </p>
+<p>主要这三个库方法
+domtoimage.toPng
+saveAs
+htmlDocx.asBlob  </p>
+<h3 id="vue的router的push传递参数有没有不把参数展示在url中的传递方式？">Vue的router的push传递参数有没有不把参数展示在url中的传递方式？</h3>
+<pre><code class="language-javascipt">const userId = <span class="hljs-number">123</span>
+router.push({ name: <span class="hljs-string">'user'</span>, params: { userId }})
+<span class="hljs-regexp">//</span> 路由设置 path 为：<span class="hljs-string">'/user/:userId'</span>
+<span class="hljs-regexp">//</span> 跳转路径：<span class="hljs-string">'/user/123'</span>
+
+<span class="hljs-regexp">//</span> 路由设置 path 为：<span class="hljs-string">'/user'</span>
+<span class="hljs-regexp">//</span> 跳转路径：<span class="hljs-string">'/user'</span>
+<span class="hljs-regexp">//</span> this.<span class="hljs-variable">$route</span>.params.userId 获取userId</code></pre>
+<h2 id="20186">2018/6</h2>
+<h3 id="使用keep-alive">使用keep-alive</h3>
+<p>在商品列表进入商品详情页之后
+<a href="https://www.cnblogs.com/nokelong/p/8124513.html">vue中使用keepAlive组件缓存遇到的坑</a></p>
+<h3 id="a标签里面不加download属性会下载下来一些莫名其妙的东西">a标签里面不加download属性会下载下来一些莫名其妙的东西</h3>
+<pre><code class="language-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"file.worksheetFileId|url"</span>  <span class="hljs-attr">:download</span>=<span class="hljs-string">"file.fileName"</span>&gt;</span></span><span class="hljs-template-variable">{{file.fileName}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span></code></pre>
+<p>html5对a标签新增的download属性用于下载文件，简单的理解是a标签如果添加了download属性，那么点击它的时候就不会跳转，而是会触发浏览器下载文件。
+那么我不加download属性会下载下来的东西是什么？？</p>
+<p>答案：docx后缀的word文档用解压软件打开就是这个目录结构</p>
+<h3 id="nexttick">$nextTick</h3>
+<p>Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新。
+$nextTick 是在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后使用 。</p>
+<h3 id="router-link存在的问题是，手动输入改变url，下面路由没监听到">router-link存在的问题是，手动输入改变url，下面路由没监听到</h3>
+<p> vue-router在IE 11下有bug,a href 里的路径，点击地址栏发生了变化，页面并不跳转
+vm._route.path并没有发生变化，和地址栏不同步
+要加上这段代码修正下：</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fixRouterIE</span>(<span class="hljs-params">vm</span>)</span>{
+    <span class="hljs-comment">//IE 11下</span>
+    <span class="hljs-keyword">if</span> (
+      <span class="hljs-string">'-ms-scroll-limit'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span>.documentElement.style &amp;&amp; 
+      <span class="hljs-string">'-ms-ime-align'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span>.documentElement.style
+    ) { 
+      <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"hashchange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+        <span class="hljs-keyword">const</span> currentPath = <span class="hljs-built_in">window</span>.location.hash.slice(<span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">if</span> (vm._route.path !== currentPath) {
+          vm._router.push(currentPath)
+        }
+      }, <span class="hljs-literal">false</span>)
+    }
+}</code></pre>
+<h3 id="height设为100要求父容器高度确定，否则无效。">height设为100%要求父容器高度确定，否则无效。</h3>
+<h3 id="el-scrollbar滚动到容器底部">el-scrollbar滚动到容器底部</h3>
+<pre><code>&lt;el-scrollbar style=<span class="hljs-string">"height:100%"</span> ref=<span class="hljs-string">"elscrollbar"</span>&gt;
+var <span class="hljs-built-in">div</span> = this.<span class="hljs-symbol">$</span>refs[<span class="hljs-string">'elscrollbar'</span>].<span class="hljs-symbol">$</span>refs[<span class="hljs-string">'wrap'</span>];
+this.<span class="hljs-symbol">$</span>nextTick(() =&gt; {
+    <span class="hljs-built-in">div</span>.scrollTop = <span class="hljs-built-in">div</span>.scrollHeight
+})</code></pre><h3 id="怎么应用vertical-align，才能生效？">怎么应用vertical-align，才能生效？</h3>
+<p><a href="https://blog.csdn.net/diudiu5201/article/details/54666809">怎么应用vertical-align，才能生效</a></p>
+<ol>
+<li><p>父元素（inline-block\block）必须含有line-height（inline元素有无皆可），子元素（inline-block/inline元素）中的vertical-align才能起作用。
+vertical-align不可继承，必须对子元素单独设置。</p>
+</li>
+<li><p>当父元素没有设置line-height时，vertical-align只对行内元素的兄弟元素对齐有用，无法子元素居中对齐父元素。
+设置了vertical-align:middle的子元素的中线与兄弟元素的基线对齐。若兄弟元素都设置该项，则居中对齐。</p>
+</li>
+</ol>
+<h3 id="arrayprototypesort-兼容">Array.prototype.sort 兼容</h3>
+<p>IE9-- Array.prototype.sort 不能根据 对象属性 做排序的遗憾 </p>
+<pre><code class="language-javascript"><span class="hljs-comment">//方法1冒泡排序</span>
+<span class="hljs-keyword">var</span> mySort = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> fn != <span class="hljs-string">'function'</span>){
+        fn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a,b</span>)</span>{
+            <span class="hljs-keyword">return</span> a-b;
+        }
+    }
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.length<span class="hljs-number">-1</span>;i++){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j=i+<span class="hljs-number">1</span>;j&lt;<span class="hljs-keyword">this</span>.length;j++){
+            <span class="hljs-keyword">var</span> t = <span class="hljs-keyword">this</span>[i];
+            <span class="hljs-keyword">if</span>(fn(<span class="hljs-keyword">this</span>[i],<span class="hljs-keyword">this</span>[j]) &gt; <span class="hljs-number">0</span>){
+                <span class="hljs-keyword">this</span>[i] = <span class="hljs-keyword">this</span>[j];
+                <span class="hljs-keyword">this</span>[j] = t;
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}
+
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Array</span>.prototype.sorts!= <span class="hljs-string">'fucntion'</span>){
+    <span class="hljs-built_in">Array</span>.prototype.sorts = mySort;
+    mySort = <span class="hljs-literal">null</span>;
+}
+
+
+<span class="hljs-comment">//方法2 插入排序</span>
+<span class="hljs-keyword">var</span> mySort = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> fn != <span class="hljs-string">'function'</span>){
+        fn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a,b</span>)</span>{
+            <span class="hljs-keyword">return</span> a-b;
+        }
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">1</span>;i&lt;<span class="hljs-keyword">this</span>.length;i++){
+        <span class="hljs-keyword">var</span> t = <span class="hljs-keyword">this</span>[i];
+        <span class="hljs-keyword">var</span> j = i<span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">while</span>(j &gt;= <span class="hljs-number">0</span> &amp;&amp; fn(<span class="hljs-keyword">this</span>[j],t)&gt; <span class="hljs-number">0</span> ){
+            <span class="hljs-keyword">this</span>[j+<span class="hljs-number">1</span>] = <span class="hljs-keyword">this</span>[j];
+            j--;
+        }
+        <span class="hljs-keyword">this</span>[j+<span class="hljs-number">1</span>] = t;
+
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+
+}
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Array</span>.prototype.sorts!= <span class="hljs-string">'fucntion'</span>){
+    <span class="hljs-built_in">Array</span>.prototype.sorts = mySort;
+    mySort = <span class="hljs-literal">null</span>;
+}</code></pre>
+<p>safari 不支持函数参数 </p>
+<pre><code class="language-javascript">!function(window){ 
+    <span class="hljs-keyword">var</span> ua = window.navigator.userAgent.toLowerCase(), 
+    reg = /msie|applewebkit.+safari/; 
+    <span class="hljs-keyword">if</span>(reg.test(ua)){ 
+        <span class="hljs-keyword">var</span> _sort = Array.prototype.sort; 
+        Array.prototype.sort = function(fn){ 
+            <span class="hljs-keyword">if</span>(!!fn &amp;&amp; typeof fn === <span class="hljs-string">'function'</span>){ 
+                <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.length &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>; 
+                <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, j = i + <span class="hljs-number">1</span>, l = <span class="hljs-keyword">this</span>.length, tmp, r = <span class="hljs-literal">false</span>, t = <span class="hljs-number">0</span>; 
+                <span class="hljs-keyword">for</span>(; i &lt; l; i++){ 
+                    <span class="hljs-keyword">for</span>(j = i + <span class="hljs-number">1</span>; j &lt; l; j++){ 
+                        t = fn.call(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>[i], <span class="hljs-keyword">this</span>[j]); 
+                        r = (typeof t === <span class="hljs-string">'number'</span> ? t : 
+                        !!t ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>) &gt; <span class="hljs-number">0</span> 
+                        ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>; 
+                        <span class="hljs-keyword">if</span>(r){ 
+                            tmp = <span class="hljs-keyword">this</span>[i]; 
+                            <span class="hljs-keyword">this</span>[i] = <span class="hljs-keyword">this</span>[j]; 
+                            <span class="hljs-keyword">this</span>[j] = tmp; 
+                        } 
+                    } 
+                } 
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>; 
+            }<span class="hljs-keyword">else</span>{ 
+                <span class="hljs-keyword">return</span> _sort.call(<span class="hljs-keyword">this</span>); 
+            } 
+        }; 
+    } 
+}(window); </code></pre>
+<p><a href="https://blog.csdn.net/lt3487928/article/details/53157817">https://blog.csdn.net/lt3487928/article/details/53157817</a></p>
+<p><a href="https://www.cnblogs.com/Alucelx/archive/2011/07/13/2104381.html">https://www.cnblogs.com/Alucelx/archive/2011/07/13/2104381.html</a></p>
+<h2 id="20187">2018/7</h2>
+<h3 id="vue强制更新">vue强制更新</h3>
+<p>用vue.$set不行，watch不行，试试$forceUpdate。
+还有一种办法，再把值重新复制一遍也是可以的
+<code>this.obj = Object.assign({},this.obj)</code></p>
+<h3 id="在vue中使用sass及sass图片路径问题">在Vue中使用sass及sass图片路径问题</h3>
+<p><a href="https://www.jianshu.com/p/5e81814f8d8c">https://www.jianshu.com/p/5e81814f8d8c</a></p>
+<h3 id="cors跨域请求">CORS跨域请求</h3>
+<p>会先发option请求，如果server返回access-control-allow-origin头为*或者和当前域名一致的话，才会进入第二段的真正请求。</p>
+<h3 id="禁止缓存数据deactivated">禁止缓存数据deactivated</h3>
+<p> 防止下次选择数据不更新</p>
+<pre><code class="language-js">  deactivated () {
+    <span class="hljs-keyword">this</span>.$destroy(<span class="hljs-literal">true</span>)
+  }</code></pre>
+<h3 id="深拷贝">深拷贝</h3>
+<p> <code>arr.slice()</code>
+ 如果obj所有值都是非引用类型，那么obj.slice(0)与深浅拷贝没有差别；</p>
+<p>如果obj有引用类型的元素的话，obj.slice(0)仅仅是复制了元素的地址，，obj.slice(0)可看作浅拷贝。</p>
+<p>对象深拷贝 <code>Object.assign({},obj)</code>,不要用JSON.parse(JSON.stringify(obj)),太慢</p>
+<h3 id="事件冒泡到父容器或某个祖先容器停止">事件冒泡到父容器或某个祖先容器停止</h3>
+<p>在父容器或某个祖先容器上绑定一个<code>@click.stop=&#39;stop&#39;</code>
+stop函数为一个空函数即可</p>
+<h2 id="201810">2018/10</h2>
+<h3 id="webpack-dev-server启动">webpack-dev-server启动</h3>
+<p>并不是访问vue项目内某个文件, src/assets内的文件是不能在index.html直接引用的, 必须经过loader处理路径</p>
+<p>plublic里放置的文件是不经过 webpack 处理的。在 index.html 里引用的时候，直接就是 <code>&lt;script src=&quot;/plublic/oidc-client.js&quot;&gt;&lt;/script&gt;。</code></p>
+<h3 id="scss-export">scss export</h3>
+<pre><code class="language-scss">
+ $<span class="hljs-keyword">title</span>-<span class="hljs-keyword">width</span>: <span class="hljs-number">100</span><span class="hljs-comment">;</span>
+
+:export {
+  titleWidth: $<span class="hljs-keyword">title</span>-<span class="hljs-keyword">width</span><span class="hljs-comment">;</span>
+}</code></pre>
+<h3 id="ie-margin-top负值无效">ie margin-top负值无效</h3>
+<p><a href="https://www.cnblogs.com/chaozhang/p/4711282.html">https://www.cnblogs.com/chaozhang/p/4711282.html</a></p>
+<p>加上display:inline-block</p>
+<h3 id="inline-block的元素设置over-flowhidden会意外地增加元素总体高度，">inline-block的元素设置over-flow:hidden会意外地增加元素总体高度，</h3>
+<p>用vertical-align:bottom解决</p>
+<h3 id="ie中img被拉伸">ie中img被拉伸</h3>
+<p>只要设置img为 height:auto，width:auto，就不会出现这种情况了</p>
+<h3 id="vue-路由query变化监测不到meta的">vue 路由query变化监测不到meta的</h3>
+<p>这样使用query,路由变化，meta并没有变化</p>
+<pre><code class="language-js">{
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'order.list.1'</span>,
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">'/order/list/status=1'</span>,
+    <span class="hljs-attribute">component</span>: list,
+    <span class="hljs-attribute">meta</span>: {
+      <span class="hljs-attribute">domain</span>: <span class="hljs-string">'order'</span>,
+      <span class="hljs-attribute">key</span>: <span class="hljs-string">'order-list-1'</span>,
+    },
+  },
+
+  {
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'order.list.2'</span>,
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">'/order/list/status=2'</span>,
+    <span class="hljs-attribute">component</span>: list,
+    <span class="hljs-attribute">meta</span>: {
+      <span class="hljs-attribute">domain</span>: <span class="hljs-string">'order'</span>,
+      <span class="hljs-attribute">key</span>: <span class="hljs-string">'order-list-2'</span>,
+    },
+  },</code></pre>
+<p>使用params是可以的</p>
+<pre><code class="language-js">{
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'order.list.1'</span>,
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">'/order/list/1'</span>,
+    <span class="hljs-attribute">component</span>: list,
+    <span class="hljs-attribute">meta</span>: {
+      <span class="hljs-attribute">domain</span>: <span class="hljs-string">'order'</span>,
+      <span class="hljs-attribute">key</span>: <span class="hljs-string">'order-list-1'</span>,
+    },
+  },
+
+  {
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'order.list.2'</span>,
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">'/order/list/2'</span>,
+    <span class="hljs-attribute">component</span>: list,
+    <span class="hljs-attribute">meta</span>: {
+      <span class="hljs-attribute">domain</span>: <span class="hljs-string">'order'</span>,
+      <span class="hljs-attribute">key</span>: <span class="hljs-string">'order-list-2'</span>,
+    },
+  },</code></pre>
+<p>使用函数模式也可以</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> dict = {
+  1: '<span class="hljs-keyword">order</span>-<span class="hljs-keyword">list</span>-1',
+  2: '<span class="hljs-keyword">order</span>-<span class="hljs-keyword">list</span>-2',
+  default: '<span class="hljs-keyword">order</span>-<span class="hljs-keyword">list</span>',
+};
+
+
+export default{
+  name: '<span class="hljs-keyword">order</span>',
+  path: '/<span class="hljs-keyword">order</span>',
+  redirect: {
+    name: '<span class="hljs-keyword">order</span>.<span class="hljs-keyword">list</span>',
+  },
+  component: Container,
+  children: [{
+    name: '<span class="hljs-keyword">order</span>.<span class="hljs-keyword">list</span>',
+    path: '/<span class="hljs-keyword">order</span>/<span class="hljs-keyword">list</span>',
+    component: <span class="hljs-keyword">list</span>,
+    <span class="hljs-keyword">meta</span>: {
+      domain: '<span class="hljs-keyword">order</span>',
+      key(route) {
+        <span class="hljs-keyword">return</span> dict[route.<span class="hljs-keyword">query</span>.status || 'default'];
+      },
+    },
+  },</code></pre>
+<h3 id="vue-指令使用模板，不再用template了，用el">vue 指令使用模板，不再用template了，用el</h3>
+<pre><code class="language-js"><span class="hljs-comment">//Marquee.js</span>
+<span class="hljs-keyword">import</span> Marquee <span class="hljs-keyword">from</span> <span class="hljs-string">'./Marquee.vue'</span>;
+<span class="hljs-keyword">const</span> Tpl = Vue.extend(Marquee);<span class="hljs-comment">//这个好漂亮</span>
+<span class="hljs-keyword">const</span> Plugin = {
+  install(vue, options) {
+        Vue.directive(<span class="hljs-string">'marquee'</span>, {
+           inserted(el, binding, vnode) {
+              <span class="hljs-keyword">const</span> mask = <span class="hljs-keyword">new</span> Tpl({
+                  <span class="hljs-attr">el</span>: <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>),
+                  <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: binding.value }
+              });
+              el.appendChild(mask.$el);
+           })
+     }   
+  }
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Plugin;
+<span class="hljs-comment">//main.js</span>
+<span class="hljs-keyword">import</span> Marquee <span class="hljs-keyword">from</span> <span class="hljs-string">'./Marquee.js'</span>
+Vue.use(Marquee)</code></pre>
+<h2 id="201812">2018/12</h2>
+<h3 id="完美解决本地和服务器上资源url解析的问题">完美解决本地和服务器上资源url解析的问题</h3>
+<p>在 config/index.js 中修改 assetsPublicPath 为 ./
+在 build/utils.js 中的 ExtractTextPlugin.extract 传入参数 publicPath: &#39;../../&#39;</p>
+<h2 id="知识记录">知识记录</h2>
+<h3 id="forfor-infor-eachfor-of">for\for-in\for-each\for-of</h3>
+<p>for-in不仅可以遍历数组还可以遍历对象
+for-in 遍历属性的顺序并不确定，即输出的结果顺序与属性在对象中的顺序无关，也与属性的字母顺序无关，与其他任何顺序也无关。
+使用for-in在遍历的时候，它不仅遍历了对象上的属性，而且还遍历了对象父类原型上的属性。
+所以for-in并不适合遍历Array中的元素，更适合遍历对象中的属性
+for-in只会遍历存在的实体,以及对应的原型链上的属性.因此其速度相比较其他for循环，要慢一些。
+所以除非明确要迭代一个属性数量未知的对象，否则应该避免使用for-in。
+for-in遍历数组的缺点：数组的下标index值是数字，for-in遍历的index值&quot;0&quot;,&quot;1&quot;,&quot;2&quot;等是字符串</p>
+<p>在不同浏览器下测试的结果都是 forEach 的速度不如 for。
+forEach主要应用在遍历数组，但是它的性能并不如for，因此可以使用for就尽量不要使用forEach。
+<strong>forEach 不能break 或者return</strong></p>
+<p><strong>for-of不支持普通对象遍历，只返回具有数字索引的属性</strong>.</p>
+<p>遍历数组：for-of &gt; for &gt; for-each
+遍历对象：for-in(要用hasOwnProperty)
+await/async 要用for-of
+for循环、while循环、do-while循环比for in 要快</p>
+<h3 id="字符串-拼接性能">字符串 拼接性能</h3>
+<p>比较下四中字符串拼接方法的性能：</p>
+<pre><code>A：<span class="hljs-built_in">str</span> = <span class="hljs-built_in">str</span> + <span class="hljs-string">'a'</span>+<span class="hljs-string">'b'</span>
+B:<span class="hljs-built_in">str</span> += <span class="hljs-string">'a'</span> + <span class="hljs-string">'b'</span>
+C: arr.<span class="hljs-built_in">join</span>(<span class="hljs-string">''</span>)
+D:<span class="hljs-built_in">str</span>.<span class="hljs-built_in">concat</span>(<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>)</code></pre><p>☆ Chrome65上测试的是A优于B优于C优于D</p>
+<h3 id="总结一些常用的">总结一些常用的</h3>
+<p>1、内容长短不固定的时候用min-height,而不要用height</p>
+<p>2、 </p>
+<pre><code class="language-css"><span class="hljs-comment">//显示一行，多余的用省略号表示</span>
+<span class="hljs-selector-class">.one-line</span>{
+    <span class="hljs-attribute">overflow</span>: hidden;
+    <span class="hljs-attribute">text-overflow</span>: ellipsis;
+    <span class="hljs-attribute">white-space</span>: nowrap;
+    <span class="hljs-attribute">display</span>: inline-block;
+}
+<span class="hljs-comment">//最多显示2行，多余的用省略号表示</span>
+<span class="hljs-selector-class">.two-line</span>{     
+    <span class="hljs-attribute">overflow</span>: hidden;     
+    <span class="hljs-attribute">display</span>: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: <span class="hljs-number">2</span>;
+    <span class="hljs-attribute">text-overflow</span>: ellipsis;
+}</code></pre>
+<p>3、 一般英文或者数字是默认不换行，所以要加上
+    <code>css
+    word-break: break-all;</code></p>
+<p>4、placeholder</p>
+<pre><code class="language-css"><span class="hljs-selector-pseudo">:-moz-placeholder</span> { <span class="hljs-comment">/* Mozilla Firefox 4 to 18 */</span>
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#C6C6C6</span>;
+}
+<span class="hljs-selector-pseudo">::-moz-placeholder</span> { <span class="hljs-comment">/* Mozilla Firefox 19+ */</span>
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#C6C6C6</span>;
+}
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:-ms-input-placeholder</span>{
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#C6C6C6</span>;
+}
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">::-webkit-input-placeholder</span>{
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#C6C6C6</span>;
+}</code></pre>
+<h3 id="vue源码研读">vue源码研读</h3>
+<p><a href="https://juejin.im/post/5adff30f518825672d33d596">手拉手带你过一遍vue部分源码</a></p>
+<p><a href="https://juejin.im/post/5adf0085518825673123da9a">当面试官问你Vue响应式原理，你可以这么回答他</a></p>
+<p><a href="https://juejin.im/post/5ad10800f265da23826e681e">如何解释vue的生命周期才能令面试官满意？</a></p>
+<p>在使用.vue文件开发的过程当中，我们在里面写了template模板，在经过了vue-loader的处理之后，就变成了render function，最终放到了vue-loader解析过的文件里面。这样做有什么好处呢？原因是由于在解析template变成render function的过程，是一个非常耗时的过程，vue-loader帮我们处理了这些内容之后，当我们在页面上执行vue代码的时候，效率会变得更高。</p>
+<p>Vue为我们提供了renderError方法，这个方法只有在开发的时候它才会被调用，在正式打包上线的过程当中，它是不会被调用的。它主要是帮助我们调试render里面的一些错误。</p>
+<pre><code class="language-javascript">renderError (<span class="hljs-keyword">h</span>, <span class="hljs-keyword">err</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">h</span>('div', {}, <span class="hljs-keyword">err</span>.<span class="hljs-keyword">stack</span>)
+}</code></pre>
+<p>有且只有当render方法里面报错了，才会执行renderError方法。
+所以我们主动让render函数报个错：</p>
+<pre><code class="language-javascript">render (h) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">TypeError</span>(<span class="hljs-string">'render error'</span>)
+}</code></pre>
+<p>还有一点，renderError只有在<code>本组件</code>的render方法报错的情况下它才会被调用。</p>
+<h3 id="cache-control">Cache-Control</h3>
+<pre><code><span class="hljs-keyword">no</span>-cache: 告诉浏览器、缓存服务器，不管本地副本是否过期，使用资源副本前，一定要到源服务器进行副本有效性校验。
+must-revalidate：告诉浏览器、缓存服务器，本地副本过期前，可以使用本地副本；本地副本一旦过期，必须去源服务器进行有效性校验。
+<span class="hljs-built-in">max</span>-age： 指缓存资源的缓存时间比指定的值小，那么客户端就接受缓存资源，且缓存服务器不对资源有效性进行再次确认</code></pre><h3 id="css像素">CSS像素</h3>
+<p>是web编程的概念,是相对的而不是绝对的单位. 用户的缩放比会影响单位CSS像素点对应的实际物理像素的多少</p>
+<h3 id="使用flexible实现手淘h5页面的终端适配">使用Flexible实现手淘H5页面的终端适配</h3>
+<p>   <a href="https://github.com/amfe/article/issues/17">https://github.com/amfe/article/issues/17</a></p>
+<h3 id="禁止使用documentwrite">禁止使用document.write()</h3>
+<p>异步脚本禁止使用document.write()
+延迟脚本禁止使用document.write()</p>
+<h3 id="export及export-default的区别">export及export default的区别</h3>
+<p>在一个文件或模块中，export可以有多个，export default仅有一个。 </p>
+<ul>
+<li>export</li>
+</ul>
+<p>(1) 导入的时候带花括号</p>
+<pre><code>```<span class="javascript">javascript
+    <span class="hljs-comment">// 写法一</span>
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">var</span> m = <span class="hljs-number">1</span>;
+
+    <span class="hljs-comment">// 写法二</span>
+    <span class="hljs-keyword">var</span> m = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">export</span> {m}; <span class="hljs-comment">//export m 或者export 1都错误</span>
+
+    <span class="hljs-comment">// 写法三</span>
+    <span class="hljs-keyword">var</span> n = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">export</span> {n <span class="hljs-keyword">as</span> m};
+</span>```</code></pre><p>(2) export命令规定的是对外的接口，必须与模块内部的变量建立一一对应关系。</p>
+<ul>
+<li>export default </li>
+</ul>
+<p>(1) 导入的时候没有花括号</p>
+<pre><code>```javascript
+    <span class="hljs-keyword">import</span> str <span class="hljs-keyword">from</span> <span class="hljs-string">'demo1'</span> <span class="hljs-comment">//导入的时候没有花括号</span>
+```</code></pre><p>(2) export default命令的本质是将后面的值，赋给default变量，所以可以直接将一个值写在export default之后。</p>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

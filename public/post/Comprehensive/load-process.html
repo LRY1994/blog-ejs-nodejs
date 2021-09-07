@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">页面加载过程解析</h1>            
+            <p>I belong to : Collection</p>
+            <hr/>
+            <h1 id="页面加载">页面加载</h1>
+<p>页面加载就是从你输入网址+enter开始，发生的一些列过程，最终到页面显示。 从微观上分的话，页面加载有两部分</p>
+<p>一个是以<code>DOMContentLoaded</code>触发为标志的DOM树的渲染完成</p>
+<p>一个是以辅助资源img,font加载完成为触发标志的onload事件</p>
+<p>他们两个的具体区别就是<code>&quot;资源的加载&quot;</code>这个关键点.</p>
+<p>在获得数据响应后,页面开始解析,发生的过程为:</p>
+<ol>
+<li>解析HTML结构。 </li>
+<li>加载外部脚本和样式表文件。 </li>
+<li>解析并执行脚本代码。 </li>
+<li>构造HTML DOM模型。//ready执行 </li>
+<li>加载图片等外部文件。 </li>
+<li>页面加载完毕。//load执行</li>
+</ol>
+<p>上文的页面加载其实只算是 </p>
+<p><code>浏览器处理</code>=&gt; <code>最后onload</code>  这一过程</p>
+<p>从你输入网站 + enter键后，发生的过程为:</p>
+<p><code>重定向</code>=&gt;<code>检查DNS缓存</code>=&gt; <code>DNS解析</code> =&gt; <code>TCP连接</code> =&gt; <code>发请求</code>=&gt; <code>得到响应</code>=&gt; <code>浏览器处理</code> =&gt; <code>最后onload</code></p>
+<h2 id="宏观页面加载">宏观页面加载</h2>
+<p>以前，我们来检查浏览器的时候，大部分情况下是使用</p>
+<pre><code class="language-javascript">console.time(specialNum)<span class="hljs-comment">;</span>
+console.timeEnd(specialNum)<span class="hljs-comment">;</span></code></pre>
+<p>或者</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">new</span> <span class="hljs-constructor">Date()</span>.get<span class="hljs-constructor">Time()</span>;
+<span class="hljs-comment">//或者</span>
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Date</span>.</span></span>now<span class="hljs-literal">()</span>;</code></pre>
+<p>上面说的两种方法， 获取的精度都是<code>毫秒级(10^-6)</code></p>
+<p>ES5提出的<code>performance</code>可以获取到，<code>微秒级别(10^-9)</code></p>
+<p><code>performance.timing</code>对象
+<img src="./load-process/timing.png" ></p>
+<p> <a href="https://www.cnblogs.com/libin-1/p/6501951.html">https://www.cnblogs.com/libin-1/p/6501951.html</a>
+ <a href="https://www.cnblogs.com/Bonnie3449/p/8419609.html" traget="_blank">domContentLoaded事件、Js 时间线</a></p>
+<p>比如，我们获得重定向时间用:</p>
+<pre><code class="language-javascript">var time = performance.timing;
+var redirect = time.redirectEnd - time.redirectStart; <span class="hljs-comment">//单位为微秒</span>
+DOMContentLoaded事件 是在domContentLoaded那段触发的。图中所指的domContentLoaded其实分为两块, 一个是domContentLoadedEventStart和domContentLoadedEventEnd. 详见下述说明:
+<span class="hljs-comment">// 获取 performance 数据</span>
+var performance = {
+    <span class="hljs-comment">// memory 是非标准属性，只在 Chrome 有</span>
+    <span class="hljs-comment">// 财富问题：我有多少内存</span>
+<span class="hljs-symbol">    memory:</span> {
+<span class="hljs-symbol">        usedJSHeapSize:</span>  <span class="hljs-number">16100000</span>, <span class="hljs-comment">// JS 对象（包括V8引擎内部对象）占用的内存，一定小于 totalJSHeapSize</span>
+<span class="hljs-symbol">        totalJSHeapSize:</span> <span class="hljs-number">35100000</span>, <span class="hljs-comment">// 可使用的内存</span>
+<span class="hljs-symbol">        jsHeapSizeLimit:</span> <span class="hljs-number">793000000</span> <span class="hljs-comment">// 内存大小限制</span>
+    },
+
+    <span class="hljs-comment">//  哲学问题：我从哪里来？</span>
+<span class="hljs-symbol">    navigation:</span> {
+<span class="hljs-symbol">        redirectCount:</span> <span class="hljs-number">0</span>, <span class="hljs-comment">// 如果有重定向的话，页面通过几次重定向跳转而来</span>
+<span class="hljs-symbol">        type:</span> <span class="hljs-number">0</span>           <span class="hljs-comment">// 0   即 TYPE_NAVIGATENEXT 正常进入的页面（非刷新、非重定向等）</span>
+                          <span class="hljs-comment">// 1   即 TYPE_RELOAD       通过 window.location.reload() 刷新的页面</span>
+                          <span class="hljs-comment">// 2   即 TYPE_BACK_FORWARD 通过浏览器的前进后退按钮进入的页面（历史记录）</span>
+                          <span class="hljs-comment">// 255 即 TYPE_UNDEFINED    非以上方式进入的页面</span>
+    },
+<span class="hljs-symbol">
+    timing:</span> {
+        <span class="hljs-comment">// 在同一个浏览器上下文中，前一个网页（与当前页面不一定同域）unload 的时间戳，如果无前一个网页 unload ，则与 fetchStart 值相等</span>
+<span class="hljs-symbol">        navigationStart:</span> <span class="hljs-number">1441112691935</span>,
+
+        <span class="hljs-comment">// 前一个网页（与当前页面同域）unload 的时间戳，如果无前一个网页 unload 或者前一个网页与当前页面不同域，则值为 0</span>
+<span class="hljs-symbol">        unloadEventStart:</span> <span class="hljs-number">0</span>,
+
+        <span class="hljs-comment">// 和 unloadEventStart 相对应，返回前一个网页 unload 事件绑定的回调函数执行完毕的时间戳</span>
+<span class="hljs-symbol">        unloadEventEnd:</span> <span class="hljs-number">0</span>,
+
+        <span class="hljs-comment">// 第一个 HTTP 重定向发生时的时间。有跳转且是同域名内的重定向才算，否则值为 0 </span>
+<span class="hljs-symbol">        redirectStart:</span> <span class="hljs-number">0</span>,
+
+        <span class="hljs-comment">// 最后一个 HTTP 重定向完成时的时间。有跳转且是同域名内部的重定向才算，否则值为 0 </span>
+<span class="hljs-symbol">        redirectEnd:</span> <span class="hljs-number">0</span>,
+
+        <span class="hljs-comment">// 浏览器准备好使用 HTTP 请求抓取文档的时间，这发生在检查本地缓存之前</span>
+<span class="hljs-symbol">        fetchStart:</span> <span class="hljs-number">1441112692155</span>,
+
+        <span class="hljs-comment">// DNS 域名查询开始的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</span>
+<span class="hljs-symbol">        domainLookupStart:</span> <span class="hljs-number">1441112692155</span>,
+
+        <span class="hljs-comment">// DNS 域名查询完成的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</span>
+<span class="hljs-symbol">        domainLookupEnd:</span> <span class="hljs-number">1441112692155</span>,
+
+        <span class="hljs-comment">// HTTP（TCP） 开始建立连接的时间，如果是持久连接，则与 fetchStart 值相等</span>
+        <span class="hljs-comment">// 注意如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接开始的时间</span>
+<span class="hljs-symbol">        connectStart:</span> <span class="hljs-number">1441112692155</span>,
+
+        <span class="hljs-comment">// HTTP（TCP） 完成建立连接的时间（完成握手），如果是持久连接，则与 fetchStart 值相等</span>
+        <span class="hljs-comment">// 注意如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接完成的时间</span>
+        <span class="hljs-comment">// 注意这里握手结束，包括安全连接建立完成、SOCKS 授权通过</span>
+<span class="hljs-symbol">        connectEnd:</span> <span class="hljs-number">1441112692155</span>,
+
+        <span class="hljs-comment">// HTTPS 连接开始的时间，如果不是安全连接，则值为 0</span>
+<span class="hljs-symbol">        secureConnectionStart:</span> <span class="hljs-number">0</span>,
+
+        <span class="hljs-comment">// HTTP 请求读取真实文档开始的时间（完成建立连接），包括从本地读取缓存</span>
+        <span class="hljs-comment">// 连接错误重连时，这里显示的也是新建立连接的时间</span>
+<span class="hljs-symbol">        requestStart:</span> <span class="hljs-number">1441112692158</span>,
+
+        <span class="hljs-comment">// HTTP 开始接收响应的时间（获取到第一个字节），包括从本地读取缓存</span>
+<span class="hljs-symbol">        responseStart:</span> <span class="hljs-number">1441112692686</span>,
+
+        <span class="hljs-comment">// HTTP 响应全部接收完成的时间（获取到最后一个字节），包括从本地读取缓存</span>
+<span class="hljs-symbol">        responseEnd:</span> <span class="hljs-number">1441112692687</span>,
+
+        <span class="hljs-comment">// 开始解析渲染 DOM 树的时间，此时 Document.readyState 变为 loading，并将抛出 readystatechange 相关事件</span>
+<span class="hljs-symbol">        domLoading:</span> <span class="hljs-number">1441112692690</span>,
+
+        <span class="hljs-comment">// 完成解析 DOM 树的时间，Document.readyState 变为 interactive，并将抛出 readystatechange 相关事件</span>
+        <span class="hljs-comment">// 注意只是 DOM 树解析完成，这时候并没有开始加载网页内的资源</span>
+<span class="hljs-symbol">        domInteractive:</span> <span class="hljs-number">1441112693093</span>,
+
+        <span class="hljs-comment">// DOM 解析完成后，网页内资源加载开始的时间</span>
+        <span class="hljs-comment">// 在 DOMContentLoaded 事件抛出前发生</span>
+<span class="hljs-symbol">        domContentLoadedEventStart:</span> <span class="hljs-number">1441112693093</span>,
+
+        <span class="hljs-comment">// DOM 解析完成后，网页内资源加载未必完成</span>
+<span class="hljs-symbol">        domContentLoadedEventEnd:</span> <span class="hljs-number">1441112693101</span>,
+
+        <span class="hljs-comment">// DOM 树解析完成，且资源也准备就绪的时间，Document.readyState 变为 complete，并将抛出 readystatechange 相关事件</span>
+<span class="hljs-symbol">        domComplete:</span> <span class="hljs-number">1441112693214</span>,
+
+        <span class="hljs-comment">// load 事件发送给文档，也即 load 回调函数开始执行的时间</span>
+        <span class="hljs-comment">// 注意如果没有绑定 load 事件，值为 0</span>
+<span class="hljs-symbol">        loadEventStart:</span> <span class="hljs-number">1441112693214</span>,
+
+        <span class="hljs-comment">// load 事件的回调函数执行完毕的时间</span>
+<span class="hljs-symbol">        loadEventEnd:</span> <span class="hljs-number">1441112693215</span>
+    }
+};</code></pre>
+<p>不过<code>performance</code>还有另外一个方法 <code>now</code></p>
+<p><code>performance.now()</code></p>
+<p>通常，我们会将该方法和<code>Date.now()</code>进行一个对比。</p>
+<pre><code class="language-javascript"><span class="hljs-selector-tag">performance</span><span class="hljs-selector-class">.now</span>();  <span class="hljs-comment">//输出是微秒级别</span>
+<span class="hljs-selector-tag">Date</span><span class="hljs-selector-class">.now</span>();  <span class="hljs-comment">//输出是毫秒级别</span></code></pre>
+<p>其中<code>Date.now()</code>是输出 从<code>1970年</code>开始的毫秒数.</p>
+<p><code>performance.now()</code>参考的是从<code>performance.timing.navigationStart(页面开始加载)</code>的时间, 到现在的微秒数.</p>
+<p>这里，我们可以使用<code>performance.now()</code>来模拟获取<code>DomContentLoaded</code>的时间。</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> timesnipe = performance.now();
+        <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">console</span>.log(performance.now() - timesnipe);
+        }, <span class="hljs-literal">false</span>);
+
+        <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+           <span class="hljs-built_in">console</span>.log(performance.now() - timesnipe);
+        }, <span class="hljs-literal">false</span>);
+<span class="hljs-comment">//但是这样并不等同于,只能算作约等于</span>
+performance.timing.domContentLoadedEventStart - performance.timing.domLoading; <span class="hljs-comment">//检测domLoadEvent触发时间</span>
+</code></pre>
+<p>上面不相等的原因就在于，当执行script的时候，DOM其实已经开始解析DOM和页面内容， 所以会造成时间上比真实时间<code>略短</code>。</p>
+<h2 id="redirect">redirect</h2>
+<p>这是页面加载的第一步(也有可能没有). 比如，当一个页面已经迁移，但是你输入原来的网站地址的时候就会发生。 </p>
+<p>或者， 比如<code>example.com</code> -&gt;<code>m.example.com/home</code>。</p>
+<p>这里就会经过两次DNS解析，TCP连接，以及请求的发送,耗费的时间成本是双倍的。所以，<code>在后台设置好正确的网址是很重要的。</code></p>
+<img src="./load-process/2.png" >
+
+
+<p>这里，我们可以使用<code>performance</code>的属性,计算出<code>重定向时间</code></p>
+<pre><code class="language-javascript"><span class="hljs-attribute">redirectTime</span> = <span class="hljs-literal">redirect</span>End - <span class="hljs-literal">redirect</span>Start</code></pre>
+<h2 id="cachednstcprequestresponse">cache,DNS,TCP,Request,Response</h2>
+<p>如果我们的域名输入正确的话，接着，浏览器会查询本地是否有域名缓存(appCache)，如果有，则不需要进行DNS解析，否则需要对域名进行解析，找到真实的IP地址，然后建立3次握手连接， 发送请求， 最后接受数据。 通常，这一部分，可以做的优化有:</p>
+<p>发送请求的优化:加异地机房，加CDN.(加快解析request)</p>
+<p>请求加载数据的优化:页面内容经过 gzip 压缩，静态资源 css/js 等压缩(request到response的优化)</p>
+<p>ok~ 使用performance测试时间为:</p>
+<p>DNS查询耗时 = domainLookupEnd - domainLookupStart</p>
+<p>TCP链接耗时 = connectEnd - connectStart</p>
+<p>request请求耗时 = responseEnd - responseStart</p>
+<p>解析dom树耗时 = domComplete - domInteractive</p>
+<p>白屏时间 = domloadng - fetchStart</p>
+<p>domready时间 = domContentLoadedEventEnd - fetchStart</p>
+<p>onload时间 = loadEventEnd - fetchStart</p>
+<p>其实，只要对照第一个图查查就可以，不用太关注上面的式子。使用时需要注意，<code>performance的相关操作，最好放在onload的回调中执行，避免出现异常的bug.</code></p>
+<pre><code class="language-javascript"><span class="hljs-comment">;</span>
+(<span class="hljs-name">function</span>() {
+
+    handleAddListener(<span class="hljs-symbol">'load</span>', getTiming)
+
+    function handleAddListener(<span class="hljs-name">type</span>, fn) {
+        if(<span class="hljs-name">window.addEventListener</span>) {
+            window.addEventListener(<span class="hljs-name">type</span>, fn)
+        } else {
+            window.attachEvent(<span class="hljs-symbol">'on</span>' + type, fn)
+        }
+    }
+
+    function getTiming() {
+        try {
+            var time = performance.timing<span class="hljs-comment">;</span>
+            var timingObj = {}<span class="hljs-comment">;</span>
+
+            var loadTime = (<span class="hljs-name">time.loadEventEnd</span> - time.loadEventStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+
+            if(<span class="hljs-name">loadTime</span> &lt; <span class="hljs-number">0</span>) {
+                setTimeout(<span class="hljs-name">function</span>() {
+                    getTiming()<span class="hljs-comment">;</span>
+                }, <span class="hljs-number">200</span>)<span class="hljs-comment">;</span>
+                return<span class="hljs-comment">;</span>
+            }
+
+            timingObj[<span class="hljs-symbol">'重定向时间</span>'] = (<span class="hljs-name">time.redirectEnd</span> - time.redirectStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'DNS解析时间</span>'] = (<span class="hljs-name">time.domainLookupEnd</span> - time.domainLookupStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'TCP完成握手时间</span>'] = (<span class="hljs-name">time.connectEnd</span> - time.connectStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'HTTP请求响应完成时间</span>'] = (<span class="hljs-name">time.responseEnd</span> - time.requestStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'DOM开始加载前所花费时间</span>'] = (<span class="hljs-name">time.responseEnd</span> - time.navigationStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'DOM加载完成时间</span>'] = (<span class="hljs-name">time.domComplete</span> - time.domLoading) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'DOM结构解析完成时间</span>'] = (<span class="hljs-name">time.domInteractive</span> - time.domLoading) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'脚本加载时间</span>'] = (<span class="hljs-name">time.domContentLoadedEventEnd</span> - time.domContentLoadedEventStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'onload事件时间</span>'] = (<span class="hljs-name">time.loadEventEnd</span> - time.loadEventStart) / <span class="hljs-number">1000</span><span class="hljs-comment">;</span>
+            timingObj[<span class="hljs-symbol">'页面完全加载时间</span>'] = (<span class="hljs-name">timingObj</span>[<span class="hljs-symbol">'重定向时间</span>'] + timingObj[<span class="hljs-symbol">'DNS解析时间</span>'] + timingObj[<span class="hljs-symbol">'TCP完成握手时间</span>'] + timingObj[<span class="hljs-symbol">'HTTP请求响应完成时间</span>'] + timingObj[<span class="hljs-symbol">'DOM结构解析完成时间</span>'] + timingObj[<span class="hljs-symbol">'DOM加载完成时间</span>'])<span class="hljs-comment">;</span>
+
+            for(<span class="hljs-name">item</span> in timingObj) {
+                console.log(<span class="hljs-name">item</span> + <span class="hljs-string">":"</span> + timingObj[<span class="hljs-name">item</span>] + <span class="hljs-symbol">'毫秒</span>(<span class="hljs-name">ms</span>)')<span class="hljs-comment">;</span>
+            }
+
+            console.log(<span class="hljs-name">performance.timing</span>)<span class="hljs-comment">;</span>
+
+        } catch(<span class="hljs-name">e</span>) {
+            console.log(<span class="hljs-name">timingObj</span>)
+            console.log(<span class="hljs-name">performance.timing</span>)<span class="hljs-comment">;</span>
+        }
+    }
+})()<span class="hljs-comment">;</span></code></pre>
+<h2 id="processonload">process,onload</h2>
+<p>这里的过程其实就和开头的时候说的一样</p>
+<ol>
+<li>解析HTML结构。 </li>
+<li>加载外部脚本和样式表文件。 </li>
+<li>解析并执行脚本代码。 </li>
+<li>构造HTML DOM模型。//ready执行 </li>
+<li>加载图片等外部文件。 </li>
+<li>页面加载完毕。//load执行</li>
+</ol>
+<p>ok~ 这里，我们来计算一下时间:
+上performance</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//计算DOMContentLoaded触发时间</span>
+<span class="hljs-keyword">var</span> contentLoadedTime = t.domContentLoadedEventStart-t.domLoading
+<span class="hljs-comment">//计算load触发时间</span>
+<span class="hljs-keyword">var</span> loadTime = t.domComplete - t.domLoading;</code></pre>
+<p>DOMContentLoaded事件比onload事件先触发</p>
+<p>如果你的js文件涉及DOM操作，可以直接在<code>DOMContentLoaded</code>里面添加回调函数，或者说基本上我们的js文件都可以写在里面进行调用. </p>
+<p>其实，这和我们将js文件放在body底部，在js上面加async,defer,以及hard Callback异步加载js文件的效果是一样的。</p>
+<h1 id="jquery-ready事件浅析">jquery ready事件浅析</h1>
+<p>jquery主要做的工作就是兼容IE6,7,8实现<code>DOMContentLoaded</code>的效果
+目前流行的做法有两种， 一种是使用<code>readystatechange</code>实现，另外一种使用IE自带的<code>doScroll</code>方法实现.</p>
+<h2 id="readystatechange">readyStateChange</h2>
+<p>这其实是IE6，7，8的特有属性，用它来标识某个元素的加载状态。 但是现在w3c规定，只有xhr才有这个事件。 所以，这里，我们一般只能在IE中使用readyStateChange否则，其他浏览器是没有效果的。</p>
+<p>这样，我们模拟jquery的ready事件时就可以使用:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">document</span>.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.readyState == <span class="hljs-string">"interactive"</span> || <span class="hljs-built_in">document</span>.readyState == <span class="hljs-string">"complete"</span>) {
+        <span class="hljs-comment">//添加回调...</span>
+  }
+}</code></pre>
+<p>理想很丰满，现实很骨感。 事实上, 当<code>readyState</code>为<code>interactive</code>时， Dom的结构并未完全稳定，如果还有其他脚本影响DOM时, 这时候可能会造成bug。</p>
+<p> 另外为<code>complete</code>时， 这时候图片等相关资源已经加载完成。 这个时候模拟触发<code>DOMContentLoaded</code>事件，其实和<code>onload</code>事件触发时间并没有太久的时间距离。 </p>
+<p> 这种方式兼容低版本IE还是不太可靠的。</p>
+<h2 id="doscroll">doScroll</h2>
+<p>这是IE低版本特有的，不过IE11已经弃用了。 使用<code>scrollLeft</code>和<code>scrollTop</code>代替.<code>doScroll</code>的主要作用是检测DOM结构是否稳定， </p>
+<p>通常我们会使用<code>轮询</code>来检测<code>doScroll</code>是否可用，当可用的时候一定是DOM结构稳定，图片资源还未加载的时候。</p>
+<p>我们来看一下jquery中实现doScroll的兼容:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//低版本的IE浏览器，这里添加监听作为向下兼容，如果doScroll执行出现bug，也能保证ready函数的执行</span>
+    <span class="hljs-built_in">document</span>.attachEvent( <span class="hljs-string">"onreadystatechange"</span>, DOMContentLoaded );
+     <span class="hljs-built_in">window</span>.attachEvent( <span class="hljs-string">"onload"</span>, jQuery.ready );
+<span class="hljs-comment">//在ready里面会对执行做判断，确保只执行一次</span>
+     <span class="hljs-keyword">var</span> top = <span class="hljs-literal">false</span>;
+<span class="hljs-comment">// 如果是IE且不是iframe就通过不停的检查doScroll来判断dom结构是否ready</span>
+<span class="hljs-keyword">try</span> {
+    top = <span class="hljs-built_in">window</span>.frameElement == <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-built_in">document</span>.documentElement;
+} <span class="hljs-keyword">catch</span>(e) {}
+<span class="hljs-keyword">if</span> ( top &amp;&amp; top.doScroll ) {
+    (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doScrollCheck</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span> ( !jQuery.isReady ) {<span class="hljs-comment">//ready方法没有执行过</span>
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-comment">// 检查是否可以向左scroll滑动,当dom结构还没有解析完成时会抛出异常</span>
+                top.doScroll(<span class="hljs-string">"left"</span>);
+            } <span class="hljs-keyword">catch</span>(e) {
+                <span class="hljs-comment">//递归调用,直到当dom结构解析完成</span>
+                <span class="hljs-keyword">return</span> setTimeout( doScrollCheck, <span class="hljs-number">50</span> );
+            }
+            <span class="hljs-comment">//没有发现异常,表示dom结构解析完成,删除之前绑定的onreadystatechange事件</span>
+
+            <span class="hljs-comment">//执行jQuery的ready方法</span>
+            jQuery.ready();
+        }
+    })();
+}</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">//看看jQuery.ready()方法:</span>
+<span class="hljs-attr">ready</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">wait</span>) </span>{
+    <span class="hljs-keyword">if</span> (wait === <span class="hljs-literal">true</span> ? --jQuery.readyWait : jQuery.isReady) {
+        <span class="hljs-comment">//判断页面是否已完成加载并且是否已经执行ready方法</span>
+        <span class="hljs-comment">//通过isReady状态进行判断, 保证只执行一次</span>
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">document</span>.body) {
+        <span class="hljs-keyword">return</span> setTimeout(jQuery.ready);
+    }
+    jQuery.isReady = <span class="hljs-literal">true</span>; <span class="hljs-comment">//指示ready方法已被执行</span>
+      <span class="hljs-comment">//这也是上面两次绑定事件的原因,会保证只执行一次</span>
+    <span class="hljs-keyword">if</span> (wait !== <span class="hljs-literal">true</span> &amp;&amp; --jQuery.readyWait &gt; <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-comment">//以下是处理ready的状态</span>
+    readyList.resolveWith(<span class="hljs-built_in">document</span>, [jQuery]);
+    <span class="hljs-keyword">if</span> (jQuery.fn.trigger) {
+    <span class="hljs-comment">//解除引用</span>
+        jQuery(<span class="hljs-built_in">document</span>).trigger(<span class="hljs-string">"ready"</span>).off(<span class="hljs-string">"ready"</span>);
+    }
+}
+</code></pre>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

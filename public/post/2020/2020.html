@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">2020遇到的问题</h1>            
+            <p>I belong to : Experience</p>
+            <hr/>
+            <h3 id="nuxt-page-页面data不能序列化方法">nuxt page 页面data不能序列化方法</h3>
+<p><a href="https://stackoverflow.com/questions/60353759/how-do-i-resolve-cannot-stringify-a-function-error-in-nuxt">how-do-i-resolve-cannot-stringify-a-function-error-in-nuxt</a></p>
+<p>在page里的data或者asyncData里面返回了方法，而这个方法是不能通过序列化传到前端的。但是路由间切换的时候，不需要序列化，所以没问题。</p>
+<p>解决方法：把产生错误的组件放到components目录下。</p>
+<h3 id="关于-vuex-报错-do-not-mutate-vuex-store-state-outside-mutation-handlers">关于 vuex 报错 Do not mutate vuex store state outside mutation handlers.</h3>
+<p>数组用array.slice();
+对象用Object.assign({},obj)</p>
+<h3 id="display-table-cell-无法使用-margin-padding-的解法">display: table-cell 无法使用 margin/ padding 的解法</h3>
+<p><a href="http://www.yzktw.com.cn/post/476.html#cmt17315" target="_blank">display: table-cell 无法使用 margin/ padding 的解法</a></p>
+<pre><code class="language-css"><span class="hljs-selector-class">.image-list</span> {
+  <span class="hljs-attribute">display</span>: table;
+  <span class="hljs-attribute">border-collapse</span>:separate;
+  <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">5px</span>;
+}</code></pre>
+<h3 id="async-函数返回的都是promise">async 函数返回的都是promise</h3>
+<p>return 一个 async函数 结果都是一个 promise,即使async函数里面是<code>return false</code></p>
+<h3 id="浏览器拦截打开新窗口解决方案">浏览器拦截打开新窗口解决方案</h3>
+<p><a href="https://segmentfault.com/a/1190000016900915" target="_blank">博文</a></p>
+<ol>
+<li><p>规则总结
+就参与测试的浏览器，三种打开新窗口的方式对拦截结果没有影响。
+所有浏览器都不允许非用户操作引起的打开新窗口。
+所有浏览器都不允许在异步 ajax 请求中打开新窗口。
+Edge 和 IE 不允许在 setTimeout 中打开新窗口，Chrome、Firefox 允许在用户操作事件中的 setTimeout 中打开新窗口。
+Firefox 和 IE 不允许在用户键盘操作事件中打开新窗口</p>
+</li>
+<li><p>解决方案
+需要在异步 ajax 请求中打开新窗口的可以使用请求前打开新窗口，请求拿到结果后再修改窗口地址的方式。
+需要在键盘回车事件中打开新窗口的推荐使用 form 表单包装并添加 button 的方式，回车触发默认的 submit 事件进行新窗口的打开。</p>
+</li>
+</ol>
+<h3 id="不要再computed属性里面emit有可能失败">不要再computed属性里面emit,有可能失败</h3>
+<h3 id="es5写promise的链式调用">ES5写promise的链式调用</h3>
+<pre><code class="language-js"><span class="hljs-comment">// 创建 MyPromise构造函数</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPromise</span> <span class="hljs-params">(fn)</span> </span>{
+  <span class="hljs-keyword">let</span> <span class="hljs-keyword">self</span> = this;
+  this.value = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// 存储resolve数据</span>
+  this.status = <span class="hljs-string">'pending'</span>; <span class="hljs-comment">// 存储状态</span>
+  this.err = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// 存储reject错误信息</span>
+  this.onFulfilledArr = []; <span class="hljs-comment">// 存储将要执行的resolve函数</span>
+  this.onRejectedArr = []; <span class="hljs-comment">// 存储将要执行的reject函数</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolveFn</span> <span class="hljs-params">(val)</span> </span>{ <span class="hljs-comment">// resolve()时执行的函数</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>.status === <span class="hljs-string">'pending'</span>) { <span class="hljs-comment">// 只用pending状态才能继续进行</span>
+      <span class="hljs-keyword">self</span>.value = val; <span class="hljs-comment">// 存储数据</span>
+      <span class="hljs-keyword">self</span>.status = <span class="hljs-string">'fulfilled'</span>; <span class="hljs-comment">// 改变状态</span>
+      <span class="hljs-comment">// 逐个调用then()函数</span>
+      <span class="hljs-keyword">self</span>.onFulfilledArr.<span class="hljs-keyword">forEach</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(thenFn)</span> </span>{
+          thenFn(<span class="hljs-keyword">self</span>.value);
+      });
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rejectFn</span><span class="hljs-params">(errMsg)</span> </span>{ <span class="hljs-comment">// reject()时执行的函数</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>.status === <span class="hljs-string">'pending'</span>) {
+      <span class="hljs-keyword">self</span>.err = errMsg;
+      <span class="hljs-keyword">self</span>.status = <span class="hljs-string">'rejected'</span>;
+       <span class="hljs-keyword">self</span>.onRejectedArr.<span class="hljs-keyword">forEach</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(catchFn)</span> </span>{
+        catchFn(<span class="hljs-keyword">self</span>.err);
+      });
+    }
+  }
+  <span class="hljs-keyword">try</span> {
+    fn(resolveFn, rejectFn);
+  } <span class="hljs-keyword">catch</span> (e) {
+    rejectFn(e);
+  }
+}
+
+MyPromise.prototype.then = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(onFulfilled, onRejected)</span> </span>{
+  <span class="hljs-comment">// 如果当前处于pending状态，就将函数压入对应数组</span>
+  <span class="hljs-keyword">var</span> <span class="hljs-keyword">self</span> = this;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>.status === <span class="hljs-string">'pending'</span>) {
+    <span class="hljs-keyword">self</span>.onFulfilledArr.push(onFulfilled);
+    <span class="hljs-keyword">self</span>.onRejectedArr.push(onRejected);
+  }
+  <span class="hljs-comment">// fulfilled状态就执行onFulfilled()方法</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>.status === <span class="hljs-string">'fulfilled'</span>) {
+    onFulfilled(<span class="hljs-keyword">self</span>.value);
+  }
+  <span class="hljs-comment">// onFulfilled状态就要执行onRejected()函数</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>.status === <span class="hljs-string">'rejected'</span>) {
+    onRejected(<span class="hljs-keyword">self</span>.err);
+  }
+  <span class="hljs-keyword">return</span> this; <span class="hljs-comment">// return this是链式调用关键</span>
+};
+</code></pre>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

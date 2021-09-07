@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">读《全栈应用开发精益实践》</h1>            
+            <p>I belong to : Reading</p>
+            <hr/>
+            <p>这本书以前翻过几章，但是因为其他事情耽搁了，重新阅读已不太记得讲了什么，故重新阅读</p>
+<h3 id="系统工具">系统工具</h3>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th align="left">包管理</th>
+<th align="left">快速启动</th>
+<th align="left">命令行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>window</td>
+<td align="left">chocolatey</td>
+<td align="left">wox</td>
+<td align="left">cmder/Cygwin</td>
+</tr>
+<tr>
+<td>GNU/Linux</td>
+<td align="left">apt/yum/yast</td>
+<td align="left">Launchy</td>
+<td align="left">Zsh</td>
+</tr>
+<tr>
+<td>Mac</td>
+<td align="left">Homebrew</td>
+<td align="left"></td>
+<td align="left">iTerm2</td>
+</tr>
+</tbody></table>
+<h3 id="回到顶部">回到顶部</h3>
+<p><code>&lt;a href=&quot;#&quot;&gt;回到顶部&lt;/a&gt;</code></p>
+<h3 id="沟通">沟通</h3>
+<ul>
+<li>每日站会。讲述昨天今天做了什么，遇到什么问题。</li>
+<li>结对编程。两个人实现一个功能除了可以减少bug，还能分享。</li>
+<li>代码审查</li>
+<li>开卡和验收。开发人员和业务分析人员、测试人员一起开卡来进行新的任务，并在最后一起验收。</li>
+<li>迭代回顾。</li>
+</ul>
+<h3 id="软件质量">软件质量</h3>
+<ul>
+<li>测试驱动开发。先写测试，再实现代码，最后对代码进行重构。</li>
+<li>重构。</li>
+<li>技术债管理。由于发布临近，可能在这次发布里使用一些比较粗暴的方式来实现功能，代码不太吗。每当出现一点时就对问题进行标识，在适当的时候修复，若果所欠的债务越来越多，意味着软件的质量受到影响，需要重新审视这个问题。</li>
+<li>浮现式设计。敏捷开发并不意味着架构设计不存在，在实践过程中依据问题改进代码。随着对软件质量的重视，我们的架构就会浮现出来。<h3 id="数据持久化">数据持久化</h3>
+</li>
+<li>文件存储。
+GoAcess/Hadoop/Spark.Logstash/ElasticSearch/Kibana</li>
+<li>数据库<ul>
+<li>关系数据库。MYSQL/SQLite3/PostgreSQL</li>
+<li>非关系数据库。NoSQL/MongoDB/Redis/Cassandra</li>
+</ul>
+</li>
+</ul>
+<h3 id="ui框架。foundationskeletonpurecss">UI框架。Foundation/Skeleton/Pure.css</h3>
+<h3 id="django">Django</h3>
+<ul>
+<li><p>安装
+  <code>pip install Django =1.10.2</code></p>
+</li>
+<li><p>创建项目
+  <code>django-admin startproject project-name</code></p>
+<p>文件结构
+```</p>
+</li>
+<li><p>project-name</p>
+<ul>
+<li><strong>pycache</strong></li>
+<li>project-name<ul>
+<li><strong>init</strong>.py//指明这是一个Python模块</li>
+<li>settings.py //包含数据库环境、启用插件等的配置</li>
+<li>urls.py//指明了某个URL应该指向某个函数来处理</li>
+<li>wsgi.py//用于部署</li>
+</ul>
+</li>
+<li>manage.py //可以和django-admin做类似的事情</li>
+<li>db.sqlite3
+```</li>
+</ul>
+</li>
+<li><p>启动服务器
+  <code>python manage.py runserver</code></p>
+<p>   打开 “<a href="http://localhost:8000/%E2%80%9D">http://localhost:8000/”</a></p>
+<ul>
+<li>下载SQLite3数据库 <a href="https://sqlite.org/download.html">https://sqlite.org/download.html</a></li>
+<li>数据库迁移
+  <code>python manage.py migrate</code></li>
+<li>创建超级用户来登录后台
+  <code>python manage.py createsuperuser</code></li>
+<li>登录后台-打开 “<a href="http://localhost:8000/admin%E2%80%9D">http://localhost:8000/admin”</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="fabric搭建构建系统">Fabric搭建构建系统</h3>
+<ul>
+<li><p>安装<code>pip install fabric3</code></p>
+</li>
+<li><p>创建<code>fabfile.py</code>。执行  <code>fab 函数名:arg</code><br>fab命令从fabfile.py里面寻找对应的函数来执行</p>
+</li>
+<li><p>fabric有两种运行方式</p>
+<ul>
+<li><p>本地运行 <code>local函数</code></p>
+<p>  需要<code>from fabric.api import local</code></p>
+</li>
+<li><p>在远程机器上执行命令</p>
+</li>
+</ul>
+</li>
+<li><p><code>fab --list</code> 会列出<code>fabfile.py</code>文件中所有有<code>@task</code>修饰器的方法</p>
+<h3 id="代码风格监测">代码风格监测</h3>
+</li>
+<li><p>pep8 </p>
+<p>  安装<code>pip install pep8--1.7.0</code></p>
+<p>  执行 <code>pep .</code></p>
+</li>
+<li><p>pylint</p>
+<p>  安装 <code>pip install pylint</code>,再加入requirements.txt即可。</p>
+<p>  有pylint-django插件</p>
+</li>
+<li><p>Flake8,他包装了</p>
+<p>  静态检查<strong>PEP8</strong>风格的pep8,</p>
+<p>  静态检查<strong>python代码逻辑错误</strong>的PyFlakes, </p>
+<p>  静态分析<strong>pyhon代码复杂度</strong>的Ned Batchelder&#39;sMcCabe script</p>
+<h3 id="创建应用">创建应用</h3>
+</li>
+</ul>
+<p>在<code>project-name/project-name</code>目录下</p>
+<p><code>django-admin startapp homepage</code></p>
+<p>文件目录</p>
+<pre><code>    -<span class="ruby"> project-name          
+</span>        -<span class="ruby"> project-name
+</span>            -<span class="ruby"> __init_<span class="hljs-number">_</span>.py /<span class="hljs-regexp">/指明这是一个Python模块
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> settings.py /</span><span class="hljs-regexp">/包含数据库环境、启用插件等的配置
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> urls.py  /</span><span class="hljs-regexp">/指明了某个URL应该指向某个函数来处理
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> wsgi.py  /</span><span class="hljs-regexp">/用于部署
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> requirements
+</span></span>                -<span class="ruby"><span class="hljs-regexp"> dev.txt
+</span></span>                -<span class="ruby"><span class="hljs-regexp"> prod.txt
+</span></span>
+        -<span class="ruby"><span class="hljs-regexp"> homepage 
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> __init__.py
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> admin.py
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> apps.py
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> models.py /</span><span class="hljs-regexp">/ 模型
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> tests.py
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> views.py /</span><span class="hljs-regexp">/业务逻辑
+</span></span>            -<span class="ruby"><span class="hljs-regexp"> migratios
+</span></span>                -<span class="ruby"><span class="hljs-regexp"> __init__.py
+</span></span>
+
+        -<span class="ruby"><span class="hljs-regexp"> templates
+</span></span>        -<span class="ruby"><span class="hljs-regexp"> static
+</span></span>
+        -<span class="ruby"><span class="hljs-regexp"> manage.py /</span><span class="hljs-regexp">/ 可以和django-admin做类似的事情
+</span></span>        -<span class="ruby"><span class="hljs-regexp"> fabfile.py /</span><span class="hljs-regexp">/ fab命令寻找的文件
+</span></span>        -<span class="ruby"><span class="hljs-regexp"> db.sqlite3
+</span></span></code></pre>
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

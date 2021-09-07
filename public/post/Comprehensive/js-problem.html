@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">js题摘录（柯里化、栈队列）</h1>            
+            <p>I belong to : Collection</p>
+            <hr/>
+            <p><a href="https://blog.csdn.net/ceshi986745/article/details/51698893">44个Javascript变态题解析</a></p>
+<h2 id="foreach">foreach</h2>
+<p>数组的foreach可以和闭包起一样的作用</p>
+<p>闭包中的变量包括参数，在内部函数执行完毕之前不会被释放</p>
+<h2 id="js运行机制">JS运行机制</h2>
+<p>执行栈,任务队列</p>
+<p><code>process.nextTick</code>方法可以在当前&quot;执行栈&quot;的尾部----下一次Event Loop（主线程读取&quot;任务队列&quot;）之前----触发回调函数</p>
+<p><code>setImmediate</code>方法则是在当前&quot;任务队列&quot;的尾部添加事件</p>
+<p><code>process.nextTick</code>指定的回调函数是在本次&quot;事件循环&quot;触发，而setImmediate指定的是在下次&quot;事件循环&quot;触发</p>
+<p><code>setTimeout(fn,0)</code>表示当前代码执行完（执行栈清空）以后，立即执行（0毫秒间隔）指定的回调函数。</p>
+<p><code>Promise</code>，里面的函数是直接执行的.</p>
+<p><code>Promise</code> 的 then 应当会放到当前 &quot;执行栈&quot;的尾部</p>
+<img src="./js-problem/js_zhan_duilie.jpg" title="js堆栈">
+
+<p>在Javascript引擎里面，队列还分为 Task队列（也有人叫做 MacroTask）和 MicroTask队列， MicroTask会优先于 Task执行。</p>
+<p>比如常见的点击事件、 setImmediate、 setTimeout、 MessageChannel等会放入 Task队列，</p>
+<p>但是 Promise以及 MutationObserver会放到 Microtask队列。</p>
+<p>同时，Javascript引擎在执行 Microtask队列的时候，如果期间又加入了新的 Microtask，则该 Microtask会加入到之前的 Microtask队列的尾部，保证 Microtask先于 Task队列执行。</p>
+<p>Task(MacroTask)队列中： <strong>setImmediate &gt; MessageChannel &gt; setTimeout 0</strong></p>
+<p><a href="https://mp.weixin.qq.com/s/2ilx-5kDvszjF66iAvYQlg?utm_medium=hao.caibaojian.com&amp;utm_source=hao.caibaojian.com">你真的了解Javascript执行顺序么？</a></p>
+<h3 id="settimeout">setTimeOut</h3>
+<img src="./js-problem/setTimeOut.jpg" title="js堆栈">
+
+<p><a href="http://www.cnblogs.com/sprying/archive/2013/05/26/3100639.html">谈谈JavaScript的异步实现</a></p>
+<h2 id="你知道为什么会有-generator-吗">你知道为什么会有 Generator 吗?</h2>
+<p><a href="https://juejin.im/post/5adae8246fb9a07aa541e150">你知道为什么会有 Generator 吗</a></p>
+<h2 id="柯里化--部分求值">柯里化--部分求值</h2>
+<p>柯里化又称部分求值，柯里化函数会接收一些参数，然后不会立即求值，而是继续返回一个新函数，将传入的参数通过闭包的形式保存，等到被真正求值的时候，再一次性把所有传入的参数进行求值</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//通用的柯里化函数</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curry</span>(<span class="hljs-params">fn</span>) </span>{
+    <span class="hljs-keyword">let</span> slice = <span class="hljs-built_in">Array</span>.prototype.slice,  <span class="hljs-comment">// 将slice缓存起来</span>
+        args = slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>);   <span class="hljs-comment">// 这里将arguments转成数组并保存</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// 将新旧的参数拼接起来</span>
+        <span class="hljs-keyword">let</span> newArgs = args.concat(slice.call(<span class="hljs-built_in">arguments</span>));    
+        <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-literal">null</span>, newArgs); <span class="hljs-comment">// 返回执行的fn并传递最新的参数</span>
+    }
+}
+<span class="hljs-comment">// ES6版的柯里化函数</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curry</span>(<span class="hljs-params">fn</span>) </span>{
+    <span class="hljs-keyword">const</span> g = <span class="hljs-function">(<span class="hljs-params">...allArgs</span>) =&gt;</span> allArgs.length &gt;= fn.length ?
+        fn(...allArgs) : 
+        <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> g(...allArgs, ...args)
+
+    <span class="hljs-keyword">return</span> g;
+}
+
+<span class="hljs-comment">// 测试用例</span>
+<span class="hljs-keyword">const</span> foo = curry(<span class="hljs-function">(<span class="hljs-params">a, b, c, d</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(a, b, c, d);
+});
+foo(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>)(<span class="hljs-number">4</span>);    <span class="hljs-comment">// 1 2 3 4</span>
+<span class="hljs-keyword">const</span> f = foo(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>);
+f(<span class="hljs-number">5</span>);               <span class="hljs-comment">// 1 2 3 5</span>
+</code></pre>
+<h2 id="反柯里化-函数的借用">反柯里化-函数的借用</h2>
+<p>简而言之就是函数的借用，天下函数(方法)大家用</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//写法一</span>
+<span class="hljs-built_in">Function</span>.prototype.uncurrying = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> self = <span class="hljs-keyword">this</span>;    
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">let</span> obj = <span class="hljs-built_in">Array</span>.prototype.shift.call(<span class="hljs-built_in">arguments</span>);<span class="hljs-comment">//删除并返回</span>
+        <span class="hljs-keyword">return</span> self.apply(obj, <span class="hljs-built_in">arguments</span>); 
+    }
+};
+<span class="hljs-comment">//写法二</span>
+<span class="hljs-built_in">Function</span>.prototype.uncurrying = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> self = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Function</span>.prototype.call.apply(self, <span class="hljs-built_in">arguments</span>);
+        <span class="hljs-comment">/*相当于Function.prototype.call.apply(Array.prototype.slice, arguments);
+        也就是相当于Array.prototype.slice.call(arguments)*/</span>
+    }
+};
+
+<span class="hljs-comment">//测试一</span>
+<span class="hljs-keyword">let</span> slice = <span class="hljs-built_in">Array</span>.prototype.slice.uncurrying();
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> result = slice(<span class="hljs-built_in">arguments</span>);  
+    <span class="hljs-built_in">console</span>.log(result);    <span class="hljs-comment">// [1, 2, 3]</span>
+})(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+
+<span class="hljs-comment">//测试二</span>
+<span class="hljs-keyword">let</span> slice = <span class="hljs-built_in">Array</span>.prototype.push.uncurrying();
+<span class="hljs-keyword">let</span> obj = {
+    <span class="hljs-string">'length'</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">'0'</span>: <span class="hljs-number">1</span>
+};
+push(obj, <span class="hljs-number">110</span>);
+<span class="hljs-built_in">console</span>.log(obj);   <span class="hljs-comment">// { '0': 1, '1': 110, length: 2 }</span></code></pre>
+<pre><code class="language-js"> [] === []<span class="hljs-comment">//false </span>
+ [] == []<span class="hljs-comment">//false</span>
+ <span class="hljs-comment">//因为[]是一个数组，是一个对象。就好比创建了2个对象，然后比较两个对象是否相同</span>
+
+[] == <span class="hljs-literal">false</span><span class="hljs-comment">//true</span>
+ <span class="hljs-comment">/*他是经历了这个过程最终才为true的。
+（[] == false）   ----&gt;  （[] == +0）   ----&gt;  （“”== +0）  ----&gt;  （+0 == +0）  ---&gt;   true*/</span>
+
+ <span class="hljs-built_in">window</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span><span class="hljs-comment">//false</span>
+ <span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">window</span>) <span class="hljs-comment">// object</span>
+
+<span class="hljs-keyword">typeof</span> <span class="hljs-literal">null</span> === <span class="hljs-string">'object'</span>;
+<span class="hljs-literal">null</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> === <span class="hljs-literal">false</span>
+
+<span class="hljs-literal">null</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-literal">null</span><span class="hljs-comment">//会抛出异常：``Uncaught TypeError: Right-hand side of 'instanceof' is not an object``</span></code></pre>
+<ul>
+<li>1<pre><code class="language-javascript"><span class="hljs-keyword">let</span> <span class="hljs-attr">a=[1,2,3];</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">b</span> = a.<span class="hljs-built_in">map</span>(<span class="hljs-attr">n=&gt;{n=n+1});</span>
+<span class="hljs-keyword">let</span> <span class="hljs-attr">c</span> = a.<span class="hljs-built_in">map</span>(<span class="hljs-attr">n=&gt;n=n+1);</span>
+b// [undefined, undefined, undefined]
+c// [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]</code></pre>
+改成<pre><code class="language-javascript"><span class="hljs-keyword">let</span> <span class="hljs-attr">b</span> = a.<span class="hljs-built_in">map</span>(<span class="hljs-attr">n</span> =&gt; {<span class="hljs-attr">n</span> = n + <span class="hljs-number">1</span>;return n;});</code></pre>
+原因<pre><code class="language-javascript">(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>,c) =&gt; 表达式（单一）相当于
+(<span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">b</span>,c)=&gt;{ return 表达式}</code></pre>
+</li>
+</ul>
+<ul>
+<li>2<pre><code class="language-javascript">var a = <span class="hljs-number">111111111111111110000</span>;
+b=<span class="hljs-number">111</span>;
+console.info(a+b);<span class="hljs-comment">//111111111111111110000</span></code></pre>
+</li>
+</ul>
+<p>JS的基础类型Number，遵循 IEEE 754 规范，采用双精度存储（double precision），占用 64 bit。
+1位用来表示符号位，
+11位用来表示指数，
+52位表示尾数</p>
+<p>Math.pow(2, 53) == 9007199254740992 是可以表示的最大值. </p>
+<pre><code class="language-javascript"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Number</span>.</span></span>is<span class="hljs-constructor">SafeInteger(111111111111111110000)</span><span class="hljs-comment">//false</span></code></pre>
+<ul>
+<li><p>3</p>
+<pre><code class="language-javascript">[<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>].reduce(Math.pow)<span class="hljs-comment">//9</span></code></pre>
+<p>表达式等价于 Math.pow(3, 2) =&gt; 9; Math.pow(9, 1) =&gt;9</p>
+</li>
+<li><p>4</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>];
+arr[<span class="hljs-number">10</span>]=<span class="hljs-number">10</span>;
+arr.filter(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>{<span class="hljs-keyword">return</span> x==<span class="hljs-literal">undefined</span>});<span class="hljs-comment">//[]</span></code></pre>
+<p>首先检查了这个索引值是不是数组的一个属性, 那么我们测试一下.</p>
+<pre><code class="language-javascript"><span class="hljs-symbol">0 </span>in ary; =&gt; true
+<span class="hljs-symbol">3 </span>in ary; =&gt; false
+<span class="hljs-symbol">10 </span>in ary; =&gt; true</code></pre>
+<p>从 3 - 9 都是没有初始化的&#39;坑&#39;!, 这些索引并不存在与数组中. 在 array 的函数调用的时候是会<code>跳过</code>这些&#39;坑&#39;的,所以它不知道是不是undefined</p>
+</li>
+<li><p>5</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-attr">foo</span>:<span class="hljs-string">'bar'</span>,
+  <span class="hljs-attr">func</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+      <span class="hljs-built_in">console</span>.log(self.foo);
+      (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+          <span class="hljs-built_in">console</span>.log(self.foo);
+      }())
+  }
+}
+obj.func();</code></pre>
+<p>输出</p>
+<pre><code><span class="hljs-built_in">bar</span>
+<span class="hljs-built_in">bar</span>
+undefined
+<span class="hljs-built_in">bar</span></code></pre></li>
+<li><p>6</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">return</span> <span class="hljs-number">23</span>;}
+<span class="hljs-keyword">typeof</span> g();</code></pre>
+<p>输出</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//Chrome:</span>
+<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">g</span>() <span class="hljs-comment">//无输出响应</span>
+<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">g</span>   <span class="hljs-comment">//undefined</span>
+<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">f</span>() <span class="hljs-comment">//number</span>
+<span class="hljs-keyword">typeof</span> f   <span class="hljs-comment">//function</span>
+</code></pre>
+</li>
+</ul>
+<p>//Firfox
+typeof g() //无输出响应
+typeof g   //undefined
+typeof f() //number
+typeof f   //function</p>
+<p>//IE8
+typeof g() //number
+typeof g   //function
+typeof f() //number
+typeof f   //function</p>
+<pre><code>
+* <span class="hljs-number">7</span> 重点
+```<span class="javascript">javascript
+add(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>); <span class="hljs-comment">// 7</span>
+add(<span class="hljs-number">2</span>)(<span class="hljs-number">5</span>); <span class="hljs-comment">// 7</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addto</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> length = <span class="hljs-built_in">arguments</span>.length;
+    <span class="hljs-keyword">var</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;i&lt;length;i++){
+        sum += <span class="hljs-built_in">arguments</span>[i]
+    }
+    <span class="hljs-keyword">return</span> sum;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> value = addto.apply(add,<span class="hljs-built_in">arguments</span>);
+    <span class="hljs-keyword">var</span> helper = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>)</span>{
+        <span class="hljs-keyword">typeof</span> next == <span class="hljs-string">"number"</span> ? value+=next:value;
+        <span class="hljs-keyword">return</span> helper
+    }
+    helper.valueOf = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-keyword">return</span> value;
+    }
+    <span class="hljs-keyword">return</span> helper;
+}
+</span></code></pre><ul>
+<li><p>8</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">void</span> <span class="hljs-number">0</span><span class="hljs-comment">//undefined</span>
+<span class="hljs-built_in">void</span>(<span class="hljs-number">0</span>)<span class="hljs-comment">//undefined</span></code></pre>
+</li>
+<li><p>9</p>
+<pre><code class="language-javascript">this;<span class="hljs-comment">//window</span>
+<span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-function"><span class="hljs-keyword">func</span> : <span class="hljs-title">function</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">return</span> this;}
+};
+obj<span class="hljs-function">.<span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//obj</span></code></pre>
+</li>
+<li><p>抛出的异常找最近的catch</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">try</span>{
+  <span class="hljs-keyword">try</span>{
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'oops'</span>);
+  }
+  <span class="hljs-keyword">finally</span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'finally'</span>);
+  }<span class="hljs-keyword">catch</span>(ex){
+      <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'outer'</span>,ex.message);
+  }
+}</code></pre>
+<p>输出  outer oops finally</p>
+</li>
+<li><p>抛出的异常只需处理一次</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">try</span>{
+  <span class="hljs-keyword">try</span>{
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'oops'</span>)
+  }
+  <span class="hljs-keyword">catch</span>(ex){
+      <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'inner'</span>,ex.message);
+  }<span class="hljs-keyword">finally</span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'finally'</span>)
+  }
+}<span class="hljs-keyword">catch</span>(ex){
+  <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'outer'</span>,ex.message)
+}
+}</code></pre>
+<p>输出 inner oops finally</p>
+</li>
+<li><p>12</p>
+<pre><code class="language-javascript">fd();<span class="hljs-comment">//true</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fd</span><span class="hljs-params">()</span></span>{
+  <span class="hljs-comment">//do sth</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}</code></pre>
+<pre><code class="language-javascript">fe();<span class="hljs-comment">//TypeError</span>
+<span class="hljs-keyword">var</span> fe = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+  <span class="hljs-comment">//do sth</span>
+}</code></pre>
+</li>
+<li><p>13</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> myarr2 = <span class="hljs-keyword">new</span> <span class="hljs-type"></span>
+<span class="hljs-keyword">Array</span>(<span class="hljs-string">"80"</span>,<span class="hljs-string">"16"</span>,<span class="hljs-string">"50"</span>,<span class="hljs-string">"6"</span>,<span class="hljs-string">"100"</span>,<span class="hljs-string">"1"</span>);
+document.write(myarr2.sort());<span class="hljs-comment">//1,100,16,50,6,80</span></code></pre>
+<p>原因 ：因为按unicode码顺序排列。如要实现排序，就必须手写排序函数</p>
+</li>
+</ul>
+<img src="./js-problem/1.png" >
+<img src="./js-problem/2.png" >
+<img src="./js-problem/3.png" >
+<img src="./js-problem/4.png" >
+<img src="./js-problem/5.png" >
+<img src="./js-problem/6.png" >
+<img src="./js-problem/7.png" >
+
+
+<p>什么是普通对象？？？
+<img src="./js-problem/8.png" >
+<img src="./js-problem/9.png" ></p>
+<p>为什么result先输出？？？？
+<img src="./js-problem/10.png" ></p>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

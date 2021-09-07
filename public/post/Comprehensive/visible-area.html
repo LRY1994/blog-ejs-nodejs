@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">HTML元素定位</h1>            
+            <p>I belong to : Collection</p>
+            <hr/>
+            <p> getBoundingClientRect() 获取它相对于视图窗口的坐标</p>
+<h2 id="html元素精准定位">HTML元素精准定位</h2>
+<p><code>event.clientX</code> 相对文档的水平座标 </p>
+<p><code>event.clientY</code> 相对文档的垂直座标 </p>
+<p><code>event.offsetX</code> 相对容器的水平坐标 </p>
+<p><code>event.offsetY</code> 相对容器的垂直坐标 </p>
+<p>网页正文项目组上： <code>window.screenTop</code>;</p>
+<p>网页正文项目组左： <code>window.screenLeft</code>;</p>
+<img src="./visible-area/element-position.gif" >
+
+<img src="./visible-area/pic2.jpg" >
+
+
+<p>clientTop/clientLeft  这个属性就是border宽度。</p>
+<p>offset包括border,client不包括border</p>
+<p>document.documentElement / body要做兼容</p>
+<h2 id="如何获取元素相对于整个网页的精确位置">如何获取元素相对于整个网页的精确位置</h2>
+<p><strong>el.offsetLeft + el.clientLeft - el.scrollLeft</strong></p>
+<pre><code class="language-js"><span class="hljs-comment">// Helper function to get an element's exact position</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPosition</span>(<span class="hljs-params">el</span>) </span>{
+  <span class="hljs-keyword">var</span> xPos = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">var</span> yPos = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">while</span> (el) {
+    <span class="hljs-keyword">if</span> (el.tagName == <span class="hljs-string">"BODY"</span>) {
+      <span class="hljs-comment">// deal with browser quirks with body/window/document and page scroll</span>
+      <span class="hljs-keyword">var</span> xScroll = el.scrollLeft || <span class="hljs-built_in">document</span>.documentElement.scrollLeft;
+      <span class="hljs-keyword">var</span> yScroll = el.scrollTop || <span class="hljs-built_in">document</span>.documentElement.scrollTop;
+
+      xPos += (el.offsetLeft - xScroll + el.clientLeft);
+      yPos += (el.offsetTop - yScroll + el.clientTop);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// for all other non-BODY elements</span>
+      xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+      yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+    }
+
+    el = el.offsetParent;
+  }
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">x</span>: xPos,
+    <span class="hljs-attr">y</span>: yPos
+  };
+}</code></pre>
+<h2 id="判断元素是否在某个容器里的可视区域">判断元素是否在某个容器里的可视区域</h2>
+<p><strong>el.offsetLeft + el.clientLeft</strong></p>
+<pre><code class="language-js"><span class="hljs-comment">/**
+ * el 查询元素
+ * scrollParent el最近的可滚动祖先节点
+ * offset 预留的预加载距离
+*/</span>
+<span class="hljs-keyword">const</span> checkInView=<span class="hljs-function">(<span class="hljs-params">el,scrollParent,offset</span>)=&gt;</span>{
+    <span class="hljs-keyword">let</span> scrollTop,clientH,clientW,scrollLeft;
+    <span class="hljs-keyword">let</span> offsetTop=<span class="hljs-number">0</span>,offsetLeft=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span>(scrollParent === <span class="hljs-built_in">window</span>) {
+        scrollTop=<span class="hljs-built_in">document</span>.documentElement.scrollTop||<span class="hljs-built_in">document</span>.body.scrollTop;
+        scrollLeft=<span class="hljs-built_in">document</span>.documentElement.scrollLeft||<span class="hljs-built_in">document</span>.body.scrollLeft;
+        clientH=<span class="hljs-built_in">document</span>.documentElement.clientHeight||<span class="hljs-built_in">document</span>.body.clientHeight;
+        clientW=<span class="hljs-built_in">document</span>.documentElement.clientWidth||<span class="hljs-built_in">document</span>.body.clientWidth;
+    }
+    <span class="hljs-keyword">else</span> {
+        scrollTop = scrollParent.scrollTop;
+        scrollLeft=scrollParent.scrollLeft;
+        clientH = scrollParent.clientHeight;
+        clientW=scrollParent.clientWidth;
+    }
+    <span class="hljs-keyword">while</span>(el!=scrollParent &amp;&amp; el!=<span class="hljs-literal">null</span>){
+        offsetTop+=el.offsetTop+el.clientTop;
+        offsetLeft+=el.offsetLeft+el.clientLeft;
+        el=el.offsetParent;
+    }
+    <span class="hljs-keyword">if</span>(scrollTop+clientH&gt;offsetTop-offset &amp;&amp; scrollLeft+clientW&gt;offsetLeft-offset){
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}</code></pre>
+<h2 id="screen对象">screen对象</h2>
+<p>用于获取用户的屏幕信息。</p>
+<ul>
+<li><p><code>screen.availWidth</code> 属性返回访问者屏幕的宽度，以像素计，减去界面特性，比如任务栏。</p>
+</li>
+<li><p><code>screen.availHeight</code> 属性返回访问者屏幕的高度，以像素计，减去界面特性，比如任务栏。</p>
+</li>
+</ul>
+<p>屏幕辨别率的高： <code>window.screen.height</code>;</p>
+<p>屏幕辨别率的宽： <code>window.screen.width</code>;</p>
+<h2 id="浏览器窗口可视区域大小clientheight">浏览器窗口可视区域大小clientHeight</h2>
+<p>获得浏览器窗口的尺寸（浏览器的视口，不包括工具栏和滚动条）的方法:</p>
+<h4 id="一、对于ie9、chrome、firefox、opera-以及-safari：">一、对于IE9+、Chrome、Firefox、Opera 以及 Safari：</h4>
+<ul>
+<li><code>window.innerHeight</code> - 浏览器窗口的内部高度</li>
+<li><code>window.innerWidth</code>- 浏览器窗口的内部宽度</li>
+</ul>
+<h4 id="二、对于-internet-explorer-8、7、6、5：">二、对于 Internet Explorer 8、7、6、5：</h4>
+<ul>
+<li><code>document.documentElement.clientHeight</code>表示HTML文档所在窗口的当前高度。</li>
+<li><code>document.documentElement.clientWidth</code>表示HTML文档所在窗口的当前宽度。</li>
+</ul>
+<p>或者</p>
+<p>Document对象的body属性对应HTML文档的<code>&lt;body&gt;</code>标签</p>
+<ul>
+<li><code>document.body.clientHeight</code></li>
+<li><code>document.body.clientWidth</code></li>
+</ul>
+<h4 id="三、浏览器兼容性">三、浏览器兼容性</h4>
+<pre><code class="language-javascript"><span class="hljs-comment">//屏幕可视窗口大小</span>
+<span class="hljs-keyword">var</span> w= <span class="hljs-built_in">window</span>.innerWidth||<span class="hljs-built_in">document</span>.documentElement.clientWidth|| <span class="hljs-built_in">document</span>.body.clientWidth;
+<span class="hljs-keyword">var</span> h=<span class="hljs-built_in">window</span>.innerHeight|| <span class="hljs-built_in">document</span>.documentElement.clientHeight || <span class="hljs-built_in">document</span>.body.clientHeight;
+
+<span class="hljs-comment">//滚动条滚动的距离</span>
+<span class="hljs-built_in">window</span>.pagYoffset || <span class="hljs-built_in">document</span>.documentElement.scrollTop||<span class="hljs-built_in">document</span>.body.scrollTop 
+</code></pre>
+<h2 id="网页尺寸scrollheight">网页尺寸scrollHeight</h2>
+<p><code>scrollHeight</code>和<code>scrollWidth</code>，获取网页内容高度和宽度。</p>
+<h4 id="一、针对ie、opera">一、针对IE、Opera:</h4>
+<p>scrollHeight 是网页内容实际高度，可以小于 clientHeight。</p>
+<h4 id="二、针对ns、ff">二、针对NS、FF:</h4>
+<p>scrollHeight 是网页内容高度，不过最小值是 clientHeight。也就是说网页内容实际高度小于 clientHeight 时，scrollHeight 返回 clientHeight 。</p>
+<h4 id="三、浏览器兼容性-1">三、浏览器兼容性</h4>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> w=<span class="hljs-built_in">document</span>.documentElement.scrollWidth|| <span class="hljs-built_in">document</span>.body.scrollWidth;
+<span class="hljs-keyword">var</span> h=<span class="hljs-built_in">document</span>.documentElement.scrollHeight|| <span class="hljs-built_in">document</span>.body.scrollHeight;</code></pre>
+<p><code>scrollHeight</code>和<code>scrollWidth</code>还可获取Dom元素中内容实际占用的高度和宽度。</p>
+<h2 id="网页尺寸offsetheight">网页尺寸offsetHeight</h2>
+<p><code>offsetHeight</code>和<code>offsetWidth</code>，获取网页内容高度和宽度(包括滚动条等边线，会随窗口的显示大小改变)。</p>
+<h4 id="一、值">一、值</h4>
+<p><code>offsetHeight = clientHeight + 滚动条 + 边框。</code></p>
+<h4 id="二、浏览器兼容性">二、浏览器兼容性</h4>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> w= <span class="hljs-built_in">document</span>.documentElement.offsetWidth || <span class="hljs-built_in">document</span>.body.offsetWidth;
+<span class="hljs-keyword">var</span> h= <span class="hljs-built_in">document</span>.documentElement.offsetHeight|| <span class="hljs-built_in">document</span>.body.offsetHeight;</code></pre>
+<h2 id="网页卷去的距离与偏移量">网页卷去的距离与偏移量</h2>
+<p>我们先来看看下面的图：</p>
+<img src="./visible-area/scroll.png" >
+
+
+<p><code>scrollLeft</code>:设置或获取位于给定对象左边界与窗口中目前可见内容的最左端之间的距离 ，即左边灰色的内容。</p>
+<p><code>scrollTop</code>:设置或获取位于对象最顶端与窗口中可见内容的最顶端之间的距离,即网页被卷去的高，即上边灰色的内容。向上滚动的距离</p>
+<p><code>offsetLeft</code>:获取指定对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置 。</p>
+<p><code>offsetTop</code>:获取指定对象相对于版面或由 offsetParent 属性指定的父坐标的计算顶端位置 。</p>
+<p>注意:</p>
+<ol>
+<li>区分大小写</li>
+<li>offsetParent：布局中设置postion属性(Relative、Absolute、fixed)的父容器，从最近的父节点开始，一层层向上找，直到HTML的body。</li>
+</ol>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

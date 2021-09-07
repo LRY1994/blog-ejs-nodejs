@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">vue vs react vs angular1</h1>            
+            <p>I belong to : Experience</p>
+            <hr/>
+            <h1 id="vue-与angualr1-react-不同体验整理">vue 与angualr1 ,react 不同体验整理</h1>
+<p>之前项目组的前端用的是angualr1.x版本，给我的感觉就是angular啥都有，只要注入依赖就可以用。</p>
+<p>工作闲暇之余会自己学习新知识，react很火，但是公司没有react的项目实操，所以自己找了网上一个比较适合入门的项目来练手，下面是我在边敲边学的过程中体验到的不同点。</p>
+<p>而react和vue就是轻量级的，要什么就去找，找来再用。</p>
+<ul>
+<li><a href="#react%E4%B8%8Evue%E6%AF%94%E8%BE%83">React与vue比较</a><ul>
+<li><a href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">生命周期</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+<li><a href="#react-redux%E4%B8%8Evuex%E6%AF%94%E8%BE%83">React-redux与vuex比较</a><ul>
+<li><a href="#1-%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B">1-使用流程</a></li>
+<li><a href="#2-%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AEstore">2-共享数据store</a></li>
+<li><a href="#3-%E6%A8%A1%E5%9D%97">3-模块</a></li>
+<li><a href="#4-%E5%94%AF%E4%B8%80%E5%8F%AF%E4%BB%A5%E6%94%B9%E5%8F%98state%E7%9A%84%E6%96%B9%E5%BC%8F">4-唯一可以改变state的方式</a></li>
+<li><a href="#5-%E7%BB%84%E4%BB%B6%E8%BF%9E%E6%8E%A5%E5%A7%BF%E5%8A%BF">5-组件连接姿势</a></li>
+<li><a href="#6-%E8%B0%83%E7%94%A8%E9%93%BE">6-调用链</a></li>
+<li><a href="#7-%E6%80%BB%E7%BB%93">7-总结</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="react与vue比较">React与vue比较</h1>
+<h3 id="生命周期">生命周期</h3>
+<h4 id="react生命周期">React生命周期</h4>
+<img src="./28-vue-comparison/react-life.png">
+
+<h4 id="vue生命周期">vue生命周期</h4>
+<img src="./28-vue-comparison/vue-life.png">
+
+
+<h3 id="总结">总结</h3>
+<h4 id="react">React</h4>
+<ol>
+<li>子组件直接import后使用</li>
+<li>在render()的return里面进行模板渲染</li>
+<li>实例的方法在constructor里面定义</li>
+<li>实例的数据在constructor里面定义</li>
+<li>contextTypes验证数据类型</li>
+<li>defaultProps设置默认值</li>
+<li>父组件传给子组件的数据，在子组件内用this.props.xxx获取</li>
+</ol>
+<h4 id="vue">Vue</h4>
+<ol>
+<li>子组件import后，还需在实例里面的components注册</li>
+<li>直接在实例的template属性或标签渲染模板</li>
+<li>实例的方法写在method里面</li>
+<li>实例的数据写在data,computed里面</li>
+<li>props验证数据类型</li>
+<li>props里面的default设置默认值</li>
+<li>父组件传给子组件的数据在props里面注册，在子组件内用this.xxx获取。这一点有点像angular的隔离scope
+(react没有的)</li>
+<li>computed可以依赖于data更新而更新</li>
+<li>有watch监听函数</li>
+</ol>
+<h4 id="觉得与angular类似地方">觉得与angular类似地方</h4>
+<ol>
+<li>双向绑定，v-指令和angular的ng-指令类似</li>
+<li>同样有watch监听函数</li>
+<li>vue父组件传给子组件的数据要在props里面注册，在子组件内用this.xxx获取。这一点有点像angular的隔离scope</li>
+</ol>
+<p>觉得vue比起angular更像react。vue和react很像，但是比react细腻。</p>
+<h1 id="react-redux与vuex比较">React-redux与vuex比较</h1>
+<h3 id="1-使用流程">1-使用流程</h3>
+<h4 id="react-redux">React-redux</h4>
+<ol>
+<li>写reducer（previousState,action）函数 return 更新后的所需要的数据</li>
+<li>Store=createStore(reducer)</li>
+<li><Provider store={store}>{router}&lt; Provider/&gt;</li>
+<li>定义action对象，{事件类型type,事件参数data}</li>
+<li>connect(mapStateToProps, mapDispatchToProps)（组件）</li>
+<li>组件里面使用this.props.（action.type）(action.data)</li>
+</ol>
+<img src="./28-vue-comparison/react-redux-process.png">
+
+<h4 id="vuex">vuex</h4>
+<ol>
+<li>写好store和不同模块的state,mutations,getters,actions </li>
+<li>store = new Vuex.Store( )</li>
+<li>new Vue({
+el: &#39;#app&#39;,
+store,
+render: h =&gt; h(App)
+})</li>
+<li>组件使用</li>
+</ol>
+<p>mapState</p>
+<p>mapMutations</p>
+<p>mapGetters</p>
+<p>mapActions</p>
+<p>连接</p>
+<h3 id="2-共享数据store">2-共享数据store</h3>
+<h4 id="react-redux的store">React-redux的store</h4>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> store = createStore(
+    combineReducers(reducer),
+
+);
+
+ReactDOM.render(
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{store}</span>&gt;</span>
+  {router}
+<span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>,
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>)
+);
+</code></pre>
+<h4 id="vuex的store">Vuex的store</h4>
+<pre><code class="language-javascript">store = new Vuex.Store({
+  <span class="hljs-keyword">state</span>:
+mutations
+actions
+getters
+  modules:}）
+
+new Vue({
+  el: '<span class="hljs-comment">#app',</span>
+  router,
+  store,
+  render: h =&gt; h(App)
+})</code></pre>
+<h3 id="3-模块">3-模块</h3>
+<h4 id="react-redux的reducer">React-redux的reducer</h4>
+<p>reducer和vuex的modules类似，可以用来划分不同模块</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// reducer</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">User</span> (<span class="hljs-params">state = <span class="hljs-built_in">JSON</span>.parse(Tool.localItem(<span class="hljs-string">'User'</span>)), action</span>) </span>{     
+        <span class="hljs-keyword">switch</span> (action.type) {
+            <span class="hljs-keyword">case</span> SIGNIN_SUCCESS: <span class="hljs-comment">//登录成功                               </span>
+                Tool.localItem(<span class="hljs-string">'User'</span>, <span class="hljs-built_in">JSON</span>.stringify(action.target));               
+                <span class="hljs-keyword">return</span> action.target;
+
+            <span class="hljs-keyword">case</span> SIGNIN: <span class="hljs-comment">//退出</span>
+                Tool.removeLocalItem(<span class="hljs-string">'User'</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+
+            <span class="hljs-keyword">default</span>:            
+               <span class="hljs-keyword">return</span> state;
+        }
+
+    }
+<span class="hljs-comment">/**省略。。。。。。*/</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> { IndexList, Topic, MyMessages, UserView, User }
+</code></pre>
+<h4 id="vuex的modules">vuex的modules</h4>
+<pre><code class="language-javascript">export <span class="hljs-keyword">default</span> new Vuex.Store({
+  <span class="hljs-keyword">state</span>: {
+    <span class="hljs-keyword">user</span>: null
+  },
+  mutations: {
+    <span class="hljs-built_in">set</span>User (<span class="hljs-keyword">state</span>, payload) {
+      <span class="hljs-keyword">state</span>.<span class="hljs-keyword">user</span> = payload     
+    }
+  },
+  actions,
+  getters,
+  modules: {
+    cart,
+    products,
+    login}
+})</code></pre>
+<h3 id="4-唯一可以改变state的方式">4-唯一可以改变state的方式</h3>
+<h4 id="react-redux的action">React-redux的action</h4>
+<p>action就是一个对象,具体处理方法在reducer里面实现</p>
+<pre><code class="language-javascript">export <span class="hljs-keyword">function</span> <span class="hljs-title">signinSuccess</span>(target){
+<span class="hljs-keyword">return</span> <span class="hljs-type">{</span>
+<span class="hljs-keyword">type</span>:<span class="hljs-symbol">'signinSuccess</span>',
+target
+}
+};</code></pre>
+<h4 id="vuex的mutation">Vuex的mutation</h4>
+<p>mutation是方法，由action调用</p>
+<pre><code class="language-javascript">// mutations
+const mutations = {
+  [types.RECEIVE_PRODUCTS] (<span class="hljs-keyword">state</span>, { products }) {
+    <span class="hljs-keyword">state</span>.<span class="hljs-literal">all</span> = products
+  },
+
+  [types.ADD_TO_CART] (<span class="hljs-keyword">state</span>, { id }) {
+    console.<span class="hljs-keyword">log</span>('form product')
+    <span class="hljs-keyword">state</span>.<span class="hljs-literal">all</span>.find(p =&gt; p.id === id).inventory--
+  }
+}</code></pre>
+<h3 id="5-组件连接姿势">5-组件连接姿势</h3>
+<h4 id="react-redux连接">React-redux连接</h4>
+<p>用connect方法</p>
+<pre><code class="language-javascript">const mapStateToProps = <span class="hljs-function"><span class="hljs-params">(state)</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> {
+      User: state.User
+    }
+  }
+
+  const mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">(dispatch)</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> {
+        signinSuccess: <span class="hljs-function"><span class="hljs-params">(user)</span> =&gt;</span> {
+            dispatch(signinSuccess(user))
+        }
+    }
+  }
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(mapStateToProps,mapDispatchToProps)(SignIn);</code></pre>
+<h4 id="vuex连接">Vuex连接</h4>
+<p>只需要在组件里面映射
+mapState<br>mapMutations<br>mapGetters<br>mapActions</p>
+<pre><code class="language-javascript"><span class="hljs-builtin-name">export</span><span class="hljs-built_in"> default </span>{
+  computed: mapGetters({
+    products: <span class="hljs-string">'allProducts'</span>
+  }),
+  methods: mapActions([
+    <span class="hljs-string">'addToCart'</span>
+  ]),</code></pre>
+<h3 id="6-调用链">6-调用链</h3>
+<h4 id="react-redux调用链">React-redux调用链</h4>
+<img src="./28-vue-comparison/react-redux-lian.png">
+
+<h4 id="vuex调用链">Vuex调用链</h4>
+<img src="./28-vue-comparison/vuex-lian.png">
+
+<h3 id="7-总结">7-总结</h3>
+<h4 id="react-redux-1">React-redux</h4>
+<p>action是唯一修改state的方法</p>
+<p>Action用dispatch调用</p>
+<p>reducer， 和vuex的modules相似</p>
+<p>组件调用都是dispatch action</p>
+<h4 id="vuex-1">Vuex</h4>
+<p>mutation是唯一修改state的方法，类似React-redux的action</p>
+<p>除了mutation还有action,</p>
+<p>mutation用于同步操作，用commit调用</p>
+<p>action用于异步操作,用dispatch调用</p>
+<p>Modules，和redux的reducer相似</p>
+<p>有getters</p>
+<p>有namespaced</p>
+<p>组件调用都是dispatch action</p>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>
