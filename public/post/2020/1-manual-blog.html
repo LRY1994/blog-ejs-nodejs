@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">不借助博客框架建博客</h1>            
+            <p>I belong to : Experience</p>
+            <hr/>
+            <h3 id="backdrop">Backdrop</h3>
+<p>在网上搜索如何搭建博客，大部分是基于hexo\Jekyll等别人已经写好的框架，往里面套就可以了。最近很好奇这个过程，然后自己操作了一下，其实这个主要是nodejs操作文件的问题。</p>
+<p>举例hexo,一共需要2个github库，一个是用来生成文件的，一个是用来存放生成后的文件，也就是git page托管的内容。git page就相当于一个文件目录，打开<code>https://lry1994.github.io/</code>是按照静态文件路径渲染的。</p>
+<p>为什么没有node进程却可以实现点击&quot;标签&quot;,&quot;分类&quot;显示对应内容？原因就在于hexo把<code>所有可能的结果</code>都生成html放在git page下面了。观察git page里面的文件就会发现有arhchive、tags、page目录，这些就是所有可能的结果。</p>
+<p><a href="https://www.larscheng.com/hexo-principle/" >这篇文章讲得很清晰</a></p>
+<h3 id="开始干活">开始干活</h3>
+<p>用最少的依赖库实现自己的博客。以下是用到的全部库:</p>
+<pre><code class="language-json">    <span class="hljs-string">"ejs"</span>: <span class="hljs-string">"^3.0.1"</span>,<span class="hljs-comment">//ejs渲染插值html</span>
+    <span class="hljs-string">"highlight.js"</span>: <span class="hljs-string">"^9.17.1"</span>,<span class="hljs-comment">//高亮代码</span>
+    <span class="hljs-string">"marked"</span>: <span class="hljs-string">"^0.8.0"</span>,<span class="hljs-comment">//md转化成html</span>
+    <span class="hljs-string">"mime"</span>: <span class="hljs-string">"^2.4.4"</span>,<span class="hljs-comment">//获取mime类型。这个如果可以自己写也不用</span>
+    <span class="hljs-string">"node-sass"</span>: <span class="hljs-string">"^4.13.0"</span><span class="hljs-comment">//scss转化成css。如果不用scss也不用这个依赖</span></code></pre>
+<p>生成文件的node代码：<a href="https://github.com/LRY1994/blog-ejs-nodejs">代码地址</a></p>
+<h3 id="过程中遇到的问题">过程中遇到的问题</h3>
+<h4 id="使用marked">使用marked</h4>
+<p>marked转化成html后的id会变成小写的</p>
+<p>比如 <code>[React与vue比较](#React与vue比较)</code> ， 结果会渲染成 <code>&lt;h1 id=&quot;react与vue比较&quot;&gt;React与vue比较&lt;/h1&gt;</code>
+锚点有标点符号也不行 <code>[PP.js](#PP.js)</code> 结果会渲染成<code>&lt;h1 id=&quot;ppjs&quot;&gt;PP.js&lt;/h1&gt;</code></p>
+<p>看到有人用<code>markdown-it</code>,用了一下发现渲染后的锚点有问题，锚点没有id。比如上面就会渲染成<code>&lt;h1 xxx&gt;React与vue比较&lt;/h1&gt;</code>,导致不能滚动到锚点</p>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

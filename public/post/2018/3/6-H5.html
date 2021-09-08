@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">制作H5动画页面</h1>            
+            <p>I belong to : Collection</p>
+            <hr/>
+            <p>突然看到有H5页面外快做，看到微信朋友圈发的那些H5页面里面都用的了TweenMax，所以来研究一下，结果吓一跳，太太太强大了！！！！</p>
+<h1 id="复习一下css3">复习一下CSS3</h1>
+<pre><code><span class="hljs-built_in">background</span>-<span class="hljs-built_in">size</span>: <span class="hljs-built_in">width</span> <span class="hljs-built_in">height</span>
+<span class="hljs-built_in">background</span>-clip:content-<span class="hljs-built_in">box</span>/padding-<span class="hljs-built_in">box</span>/border-<span class="hljs-built_in">box</span>
+<span class="hljs-built_in">background</span>-origin:content-<span class="hljs-built_in">box</span>/padding-<span class="hljs-built_in">box</span>/border-<span class="hljs-built_in">box</span>
+<span class="hljs-built_in">background</span>-<span class="hljs-built_in">image</span>:url(bg_flower.gif),url(bg_flower_2.gif);多个背景
+
+<span class="hljs-built_in">text</span>-shadow:水平阴影 垂直阴影 模糊距离 阴影的颜色
+<span class="hljs-built_in">box</span>-shadow: 水平阴影 垂直阴影 模糊距离  阴影的尺寸 阴影的颜色
+
+clip: <span class="hljs-built_in">rect</span> (top, right, bottom, left)
+&lt;top&gt;和&lt;bottom&gt;指定偏移量是从元素盒子顶部边缘算起；
+&lt;left&gt;和&lt;right&gt;指定的偏移量是从元素盒子左边边缘算起。
+
+
+word-wrap:<span class="hljs-keyword">break</span>-word
+@font-face
+
+转换
+transform:<span class="hljs-built_in">translate</span>()/<span class="hljs-built_in">rotate</span>()/<span class="hljs-built_in">scale</span>()/skew()/matrix()/<span class="hljs-built_in">rotateX</span>()/<span class="hljs-built_in">rotateY</span>()
+
+动画
+transition:transition-property transition-duration transition-timing-function transition-delay
+        @keyframes myfirst
+        {
+        from {<span class="hljs-built_in">background</span>: <span class="hljs-built_in">red</span>;}
+        to {<span class="hljs-built_in">background</span>: yellow;}
+        }
+        animation: myfirst <span class="hljs-number">5</span>s;
+
+多列，这个只能平均分
+column-count
+column-gap
+column-rule
+
+resize:both 可以鼠标拖拽
+<span class="hljs-built_in">box</span>-sizing:border-<span class="hljs-built_in">box</span>;
+
+outline:<span class="hljs-number">2</span>px solid <span class="hljs-built_in">red</span>;
+outline-offset:<span class="hljs-number">15</span>px;
+</code></pre><h1 id="greensock">GreenSock</h1>
+<h2 id="参考资料">参考资料</h2>
+<p>了解资料</p>
+<p><a href="https://greensock.com/get-started-js#intro">greensock get-started-js</a></p>
+<p><a href="https://greensock.com/css3">3D Transforms &amp; More CSS3 Goodies Arrive in GSAP JS</a></p>
+<p>基础实例</p>
+<p><a href="https://greensock.com/jump-start-js#welcome">Jump Start: GSAP JS</a></p>
+<p><a href="https://greensock.com/position-parameter">Timeline Tip: Understanding the Position Parameter</a></p>
+<p><a href="https://codepen.io/GreenSock/pen/qeHac">Basic play / pause toggle button</a></p>
+<p><a href="https://tympanus.net/codrops/2015/03/25/jump-loader-animation-svg-gsap/">create a playful Jump Loader animation</a></p>
+<p>进阶
+<a href="https://css-tricks.com/writing-smarter-animation-code/">Writing Smarter Animation Code</a></p>
+<p><a href="https://greensock.com/examples-showcases">https://greensock.com/examples-showcases</a></p>
+<p><a href="https://tympanus.net/codrops/">https://tympanus.net/codrops/</a>
+隆重介绍这个网站，上面有好多好多好看的动画</p>
+<h2 id="介绍">介绍</h2>
+<p>GreenSock Animation Platform(GSAP)
+是一套脚本动画工具。它包括：</p>
+<p>{% blockquote %}</p>
+<ul>
+<li><code>TweenLite</code>: the core of the engine which handles animating just about any property of any object. It is relatively lightweight yet full-featured and can be expanded using optional plugins (like CSSPlugin for animating DOM element styles in the browser, or ScrollToPlugin scrolling to a specific location on a page or div, etc.)</li>
+<li><code>TweenMax</code>: TweenLite&#39;s beefy big brother; it does everything TweenLite can do plus non-essentials like repeat, yoyo, repeatDelay, etc. It includes many common plugins too like CSSPlugin so that you don&#39;t need to load as many files. The focus is on being full-featured rather than lightweight.</li>
+<li><code>TimelineLite</code>: a powerful, lightweight sequencing tool that acts like a container for tweens, making it simple to control them as a whole and precisely manage their timing in relation to each other. You can even nest timelines inside other timelines as deeply as you want. This allows you to modularize your animation workflow easily.</li>
+<li><code>TimelineMax</code>: extends TimelineLite, offering exactly the same functionality plus useful (but non-essential) features like repeat, repeatDelay, yoyo, currentLabel(), and many more. Again, just like TweenMax does for TweenLite, TimelineMax aims to be the ultimate full-featured tool rather than lightweight.</li>
+<li>Extras like easing tools, plugins, utilities like Draggable, and more</li>
+</ul>
+<p>{% endblockquote %}</p>
+<h2 id="tweenlite-可以解决基础动画"><code>TweenLite</code> 可以解决基础动画</h2>
+<h3 id="动画曲线">动画曲线</h3>
+<p>Lightweight TweenLite: Power0, Power1, Power2, Power3, Power4, Linear, Quad, Cubic, Quart, Quint, and Strong </p>
+<p>EasePack : Elastic, SlowMo, Bounce, SteppedEase, Sine, Circ, and Expo<a href="https://greensock.com/ease-visualizer">https://greensock.com/ease-visualizer</a></p>
+<h3 id="2d转换">2D转换</h3>
+<pre><code><span class="hljs-built_in">rotation,</span> 
+<span class="hljs-built_in">scaleX,</span>
+<span class="hljs-built_in">scaleY,</span>
+<span class="hljs-built_in">scale,</span> 
+<span class="hljs-built_in">skewX,</span> 
+<span class="hljs-built_in">skewY,</span>
+<span class="hljs-built_in">x,</span> (相当于css的translateX)
+<span class="hljs-built_in">y,</span> (相当于css的translateY)
+<span class="hljs-built_in">xPercent,</span> 
+yPercent</code></pre><ul>
+<li>you could set <code>xPercent</code> and <code>yPercent</code> to <code>-50</code> and <code>position:&quot;absolute&quot;</code> so that everything starts with their centers in the same spot</li>
+<li>IE6, IE7, and IE8 transforms don&#39;t apply to child elements (that&#39;s a browser limitation).</li>
+</ul>
+<h3 id="3d转换">3D转换</h3>
+<pre><code><span class="hljs-built_in">rotationX,</span> 
+<span class="hljs-built_in">rotationY,</span> 
+rotationZ (identical to regular <span class="hljs-string">"rotation"</span>), 
+<span class="hljs-built_in">z,</span>(相当于css的translateZ)
+<span class="hljs-built_in">perspective,</span>
+transformPerspective</code></pre><ul>
+<li><p>To get your elements to have a true 3D visual perspective applied, you must either set the <code>&quot;perspective&quot;</code> property of the parent element or set the special <code>&quot;transformPerspective&quot;</code> of the element itself (common values range from around 200 to 1000, the lower the number the stronger the perspective distortion)</p>
+<p>  {% blockquote %}</p>
+<p>  perspective distortion透视变形指的是一个物体及其周围区域与标准镜头中看到的相比完全不同，由于远近特征的相对比例变化，发生了弯曲或变形。</p>
+<p>  {% endblockquote %}</p>
+</li>
+</ul>
+<h3 id="重要属性">重要属性</h3>
+<ul>
+<li><p>transformOrigin </p>
+<ul>
+<li>Sets the origin around which all transforms occur. By default, it is in the center of the element (&quot;50% 50%&quot;).</li>
+</ul>
+</li>
+<li><p>directionalRotation</p>
+<ul>
+<li>_cw, _ccw , _short</li>
+</ul>
+</li>
+<li><p>autoAlpha</p>
+</li>
+<li><p>className</p>
+</li>
+<li><p>autoRound
+  By default, CSSPlugin will round pixel values and zIndex to the closest integer during the tween
+  if you&#39;d rather disable that behavior, pass autoRound:false
+  You can still use the RoundPropsPlugin to manually define properties that you want rounded.</p>
+</li>
+<li><p>immediateRender :默认值true,在 from(), fromTo(), staggerFrom() and staggerFromTo() 方法中用</p>
+</li>
+<li><p>force3D :默认false</p>
+<h3 id="controlling-tween">Controlling tween</h3>
+<p>  tween.pause();</p>
+<pre><code>  tl.pause() // pauses the animation
+  tl.paused() // gets paused <span class="hljs-keyword">state</span>, returns true or false
+  tl.paused(true) // sets paused <span class="hljs-keyword">state</span> <span class="hljs-keyword">to</span> true
+  tl.paused(!tl.paused()) // sets paused <span class="hljs-keyword">state</span> <span class="hljs-keyword">to</span> inverse of current paused <span class="hljs-keyword">state</span>.</code></pre><p>  tween.resume();
+  tween.reverse();
+  tween.seek(0.5);
+  tween.timeScale(0.5);
+  tween.timeScale(2);
+  tween.kill();</p>
+<p>  TweenLite.killTweensOf(myElement);</p>
+</li>
+</ul>
+<h2 id="timelinelite-让动画有序和组织"><code>TimelineLite</code> 让动画有序和组织</h2>
+<pre><code class="language-js"><span class="hljs-comment">//create a TimelineLite instance</span>
+var tl = <span class="hljs-keyword">new</span> <span class="hljs-constructor">TimelineLite()</span>;
+
+<span class="hljs-comment">//append a to() tween</span>
+tl.<span class="hljs-keyword">to</span>(element, <span class="hljs-number">1</span>, {width:<span class="hljs-string">"50%"</span>});
+
+<span class="hljs-comment">//add another sequenced tween (by default, tweens are added to the end of the timeline which makes sequencing simple)</span>
+tl.<span class="hljs-keyword">to</span>(element, <span class="hljs-number">1</span>, {height:<span class="hljs-string">"300px"</span>, ease:<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Elastic</span>.</span></span>easeOut});
+
+<span class="hljs-comment">//offset the next tween by 0.75 seconds so there's a gap between the end of the previous tween and this new one</span>
+tl.<span class="hljs-keyword">to</span>(element, <span class="hljs-number">1</span>, {opacity:<span class="hljs-number">0.5</span>}, <span class="hljs-string">"+=0.75"</span>);
+
+<span class="hljs-comment">//overlap the next tween with the previous one by 0.5 seconds (notice the negative offset at the end)</span>
+tl.<span class="hljs-keyword">to</span>(element, <span class="hljs-number">1</span>, {backgroundColor:<span class="hljs-string">"#FF0000"</span>}, <span class="hljs-string">"-=0.5"</span>);
+
+<span class="hljs-comment">//animate 3 elements (e1, e2, and e3) to a rotation of 60 degrees, and stagger their start times by 0.2 seconds</span>
+tl.stagger<span class="hljs-constructor">To([<span class="hljs-params">e1</span>, <span class="hljs-params">e2</span>, <span class="hljs-params">e3</span>], 1, {<span class="hljs-params">rotation</span>:60}, 0.2)</span>;
+
+<span class="hljs-comment">//then call myFunction()</span>
+tl.call(myFunction);
+
+<span class="hljs-comment">//now we can control the entire sequence with the standard methods like these:</span>
+tl.pause<span class="hljs-literal">()</span>;
+tl.resume<span class="hljs-literal">()</span>;
+tl.restart<span class="hljs-literal">()</span>;
+tl.reverse<span class="hljs-literal">()</span>;
+tl.play<span class="hljs-literal">()</span>;
+
+<span class="hljs-comment">//jump to exactly 2.5 seconds into the animation</span>
+tl.seek(<span class="hljs-number">2.5</span>);
+
+<span class="hljs-comment">//slow down playback to 10% of the normal speed</span>
+tl.time<span class="hljs-constructor">Scale(0.1)</span>;
+
+<span class="hljs-comment">//add a label named "myLabel" at exactly 3 seconds:</span>
+tl.add(<span class="hljs-string">"myLabel"</span>, <span class="hljs-number">3</span>);
+
+<span class="hljs-comment">//add a tween that starts at "myLabel"</span>
+tl.add( <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">TweenLite</span>.</span></span><span class="hljs-keyword">to</span>(element, <span class="hljs-number">1</span>, {scale:<span class="hljs-number">0.5</span>}), <span class="hljs-string">"myLabel"</span>);
+
+<span class="hljs-comment">//jump to "myLabel" and play from there:</span>
+tl.play(<span class="hljs-string">"myLabel"</span>);
+</code></pre>
+<h2 id="timelinemax和tweenmax-多一些功能"><code>TimelineMax</code>和<code>TweenMax</code> 多一些功能</h2>
+<pre><code><span class="hljs-symbol">repeat</span>, 
+<span class="hljs-symbol">yoyo</span>:<span class="hljs-keyword">Boolean
+</span><span class="hljs-symbol">repeatDelay</span> <span class="hljs-keyword">and </span>more.</code></pre><p><code>TimelineMax</code> 还有方法</p>
+<pre><code><span class="hljs-function"><span class="hljs-title">tweenTo</span><span class="hljs-params">()</span></span>, 
+<span class="hljs-function"><span class="hljs-title">currentLabel</span><span class="hljs-params">()</span></span>,
+<span class="hljs-function"><span class="hljs-title">getLabelBefore</span><span class="hljs-params">()</span></span> 
+<span class="hljs-function"><span class="hljs-title">getLabelAfter</span><span class="hljs-params">()</span></span> and more.</code></pre><h2 id="overwriting-other-tweens">Overwriting other tweens</h2>
+<p> all,none,auto</p>
+<p>TweenLite.defaultOverwrite = &quot;all&quot;;</p>
+<h2 id="其它">其它</h2>
+<p> stagger可以让多个元素执行同一个动画</p>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

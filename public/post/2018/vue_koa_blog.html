@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">koa建站及部署</h1>            
+            <p>I belong to : Experience</p>
+            <hr/>
+            <p>参考</p>
+<p><a href="https://segmentfault.com/a/1190000009469890">SimpleMDE编辑器 + 提取HTML + 美化输出</a></p>
+<p><a href="https://segmentfault.com/a/1190000007004199">用 vue koa 和mongo 撸了个人博客和博客管理网站</a></p>
+<p><a href="https://www.v2ex.com/t/357255">前端 vue+后端 koa，全栈式开发 bilibili 首页</a></p>
+<p><a href="http://cnodejs.org/topic/5a66b313ce45d44045146277">分享我个人学习项目：系统管理平台（基于vue，koa2前后端分离）</a></p>
+<p><a href="https://www.cnblogs.com/junhua/p/7714572.html">koa+mongoose实现简单增删改查接口</a></p>
+<p><a href="https://www.jianshu.com/p/6b816c609669">koa2从起步到填坑</a></p>
+<p><a href="https://www.jianshu.com/p/6c1e4fcc6d6f">vue使用highlight.js</a></p>
+<p><a href="https://www.jianshu.com/p/2e31fd9eb048">阿里云ECS服务器部署Node.js项目全过程详解</a>
+<a href="https://blog.csdn.net/u013263917/article/details/79037770">Nodejs项目部署阿里云完整流程</a>
+<a href="https://www.cnblogs.com/beileixinqing/p/9152113.html"> koa2使用阿里云oss的nodejs sdk实现上传图片</a>
+<a href="https://help.aliyun.com/document_detail/50775.html?spm=5176.doc25426.6.655.kn1mB7"></a></p>
+<h3 id="2018-5-22">2018-5-22</h3>
+<p>windows下查找特定端口</p>
+<pre><code>cd c:<span class="hljs-symbol">\W</span>INDOWS<span class="hljs-symbol">\s</span>ystem32<span class="hljs-symbol">\ </span>
+netstat -aon|findstr "3000"</code></pre><p><code>W:\MongoDB\bin\mongod --dbpath W:\MongoDB\data</code> 运行 MongoDB 服务器
+pm2</p>
+<p><code>mongo</code> 连接MongoDB</p>
+<p>一些常用命令</p>
+<pre><code><span class="hljs-selector-tag">show</span> <span class="hljs-selector-tag">dbs</span>
+<span class="hljs-selector-tag">use</span> ...
+<span class="hljs-selector-tag">db</span><span class="hljs-selector-class">.dropDatabase</span>()
+<span class="hljs-selector-tag">show</span> <span class="hljs-selector-tag">collections</span>
+<span class="hljs-selector-tag">db</span><span class="hljs-selector-class">.collection</span><span class="hljs-selector-class">.drop</span>()
+<span class="hljs-selector-tag">db</span><span class="hljs-selector-class">.users</span><span class="hljs-selector-class">.find</span>()<span class="hljs-selector-class">.pretty</span>()</code></pre><ul>
+<li><p>Vue准备</p>
+<pre><code><span class="hljs-built_in">npm</span> install -g @vue/cli
+vue init webpack  admin 
+<span class="hljs-built_in">npm</span> i --registry https:<span class="hljs-regexp">//</span>registry.<span class="hljs-built_in">npm</span>.taobao.org</code></pre><p>安装<code>sass-loader\node-sass\axios\element-ui</code></p>
+</li>
+<li><p>Koa2准备</p>
+<pre><code>npm install -g koa-generator 
+koa2 <span class="hljs-keyword">server</span> <span class="hljs-comment">//创建koa2项目</span></code></pre><p>安装<code>koa-router\mongoose\koa2-cors</code></p>
+</li>
+</ul>
+<p><code>co</code>模块可以将异步解放成同步。co 函数接受一个 generator 函数作为参数，在函数内部自动执行 yield 。(没用这个在别处看到)</p>
+<p><code>npm install --save koa-router</code></p>
+<p>koa-router在处理post请求时，koa无法解析http请求体中的数据，这时我们需要引入另外一个模块叫做<code>koa-bodyparser</code>。
+引入<code>bodyparser</code>之后需要注册到app对象上，且在router之前注册，然后才可能在router的post请求的处理函数中获取http请求体中的数据。</p>
+<h3 id="2018-5-23">2018-5-23</h3>
+<p><code>npm install --save koa2-cors</code></p>
+<p>koa2-cors 解决跨域问题</p>
+<pre><code>Response to preflight request doesn't pass access control <span class="hljs-keyword">check</span>: <span class="hljs-keyword">No</span> <span class="hljs-string">'Access-Control-Allow-Origin'</span> header <span class="hljs-keyword">is</span> <span class="hljs-keyword">present</span> <span class="hljs-keyword">on</span> the requested resource.
+https://github.com/zadzbw/koa2-cors </code></pre><ul>
+<li>axios</li>
+</ul>
+<p>如果没有<code>type=file</code>的控件，用默认的<code>application/x-www-form-urlencoded</code>就可以了。
+ 但是如果有<code>type=file</code>的话，就要用到<code>multipart/form-data</code>了。</p>
+<p> 要给<code>ctx.response.body</code>赋值，否则会404</p>
+<p><code>withCredentials:true</code> 代表请求带cookies</p>
+<h3 id="2018-5-31">2018-5-31</h3>
+<p><code>npm install md5 --save</code>密码加密</p>
+<p><code>npm install mavon-editor --save</code>富文本编辑器</p>
+<h3 id="2018-6-5">2018-6-5</h3>
+<p>这两点很重要</p>
+<p>axios传data   ---&gt; 用ctx.request.body提取</p>
+<p>axios传params ---&gt; 用ctx.query提取</p>
+<p>mongose用_id查询的话用<code>findById(id)</code>.</p>
+<p><code>npm install marked --save</code>  md转化成html</p>
+<p><code>npm install hightlight.js --save</code> 高亮代码块</p>
+<h3 id="2018-6-6">2018-6-6</h3>
+<p><code>npm install moment --save</code> 格式化日期</p>
+<p>使用mongoose的<code>timestamp</code>/<code>virtual</code></p>
+<p>让MongoDB自动生成和管理createTime和updateTime字段的值，参考：<a href="https://www.cnblogs.com/duhuo/p/6232534.html">Mongoose Schemas中定义日期以及timestamps选项的妙用</a></p>
+<p>格式化Date使用schema.virtual。参考
+<a href="https://cnodejs.org/topic/5532466b1b9662da568db904">mongoose Schema设置virtual属性不起作用</a></p>
+<p>问题：搜索、上传图片</p>
+<h3 id="2018-6-7">2018-6-7</h3>
+<p>遇到一个很纠结的问题，目前用的postId都是使用mongoose自动生产的_id.但是在新建文章的时候，我把上传文件和保存文章的服务分开做，分别是不同的collection，如果用_id的话那上传图片的时候不知道那个_id,这种情况下只能在保存好文章之后返回_id再上传图片，这样不是很优雅。</p>
+<p>试一试用同一个collection好了</p>
+<p>form表单里有文件，又有文本，该怎么办？ 解决方案总的有两种：</p>
+<p>1、使用formData实现文件和文本同时提交</p>
+<p>2、先ajax上传文件，返回文件url，再和文本一起提交，我称作伪提交。</p>
+<p>一般数据库中存放的是图片的路径和名称，实际图片是存放在服务器上的，显示的时候只是在页面指定其路径和名称从而获取。</p>
+<p>koa-bodyParser中间件 [详情介绍 <a href="https://github.com/koajs/bodyparser%5D">https://github.com/koajs/bodyparser]</a>
+默认支持json form类型的数据，但是不支持form-data类型的数据 不怎么好用 </p>
+<p>koa-multer中间件 [详情介绍 <a href="https://github.com/koa-modules/multer%5D">https://github.com/koa-modules/multer]</a>
+不同的koa版本，支持不同的multer版本,以及在使用的方式上也有所不同,使用方式查看以上链接文档.
+koa-multer仅仅支持multipart/form-data类型的数据</p>
+<p>koa-body [详情介绍 <a href="https://github.com/dlau/koa-body%5D">https://github.com/dlau/koa-body]</a>
+支持三种类型的数据</p>
+<p>1、multipart/form-data
+2、application/x-www-urlencoded
+3、application/json</p>
+<p>新版本的koa-body通过ctx.request.files获取上传的文件。
+旧版本的koa-body通过ctx.request.body.files获取上传的文件 </p>
+<p><a href="http://www.jb51.net/article/137369.htm">Koa2 之文件上传下载的示例代码</a>
+<a href="https://www.xttblog.com/?p=1753"></a></p>
+<p>使用koa-body时，文件用<code>ctx.request.files</code>获取，而不是<code>ctx.request.body.files</code></p>
+<p>现在上传一个图片没有问题了，上传多个文件出现问题
+<code>path must be a string or Buffer</code></p>
+<h3 id="2018-8-6">2018-8-6</h3>
+<p>上传多个图片，为什么不能遍历
+<a href="https://segmentfault.com/q/1010000015899152">https://segmentfault.com/q/1010000015899152</a>
+最后这样</p>
+<pre><code>let <span class="hljs-keyword">files</span> = ctx.request.<span class="hljs-keyword">files</span>;
+通过<span class="hljs-keyword">files</span>[<span class="hljs-string">'file'</span>];取得数组。</code></pre><p>一次上次多张图片的代码：</p>
+<pre><code class="language-js"> <span class="hljs-attribute">ADD_POST </span>:{
+        <span class="hljs-attribute">method</span>:<span class="hljs-string">'post'</span>,
+        <span class="hljs-attribute">url </span>:<span class="hljs-string">'/post/new'</span>,
+        <span class="hljs-attribute">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-built_in">`multipart/form-data`</span>},
+    },</code></pre>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">upload</span>(<span class="hljs-params">files,title</span>)</span>{  
+    <span class="hljs-keyword">let</span> imgList=[],file,<span class="hljs-built_in">url</span>,name;
+
+    files = files[<span class="hljs-string">'file'</span>];<span class="hljs-comment">//关键！！！！！！</span>
+    <span class="hljs-keyword">if</span>(files==<span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> [];
+    <span class="hljs-keyword">if</span>(files.length){<span class="hljs-comment">//如果是一个数组</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> index <span class="hljs-keyword">in</span> files){
+            file = files[index];     
+
+            <span class="hljs-built_in">url</span>=<span class="hljs-string">`uploads/<span class="hljs-subst">${title}</span>-<span class="hljs-subst">${file.name}</span>`</span>;
+            name =<span class="hljs-string">`<span class="hljs-subst">${title}</span>-<span class="hljs-subst">${file.name}</span>`</span>;
+            fs.createReadStream(file.path).pipe(fs.createWriteStream(<span class="hljs-built_in">url</span>))
+
+            imgList.push([index,name]);
+        }
+    }<span class="hljs-title">else</span>{   
+        file = files;        
+        <span class="hljs-built_in">url</span>=<span class="hljs-string">`uploads/<span class="hljs-subst">${title}</span>-<span class="hljs-subst">${file.name}</span>`</span>;
+        name =<span class="hljs-string">`<span class="hljs-subst">${title}</span>-<span class="hljs-subst">${file.name}</span>`</span>;
+        fs.createReadStream(file.path).pipe(fs.createWriteStream(<span class="hljs-built_in">url</span>))
+        imgList.push([<span class="hljs-number">0</span>,name]);
+    }
+
+     <span class="hljs-keyword">return</span> imgList;
+
+}
+exports.new = <span class="hljs-keyword">async</span>(ctx, next)=&gt;{
+    <span class="hljs-title">let</span> {title,body,tags,category}=ctx.request.body;
+    <span class="hljs-keyword">let</span> files = ctx.request.files;<span class="hljs-comment">//重点</span>
+    <span class="hljs-keyword">let</span> imgList=[];
+    <span class="hljs-keyword">if</span>(files) imgList = upload(files,title);
+
+    <span class="hljs-keyword">let</span> post = <span class="hljs-keyword">new</span> Post({
+        title,
+        body,
+        tags,
+        category,
+        imgList
+    })
+    <span class="hljs-keyword">let</span> result= <span class="hljs-keyword">await</span> dbHelper.Save(post);
+    ctx.response.body = result;    
+}</code></pre>
+<p>接下来看看怎么获取后端照片 ==&gt; 
+<code>app.use(require(&#39;koa-static&#39;)(__dirname + &#39;/uploads&#39;))</code></p>
+<p>$img2Url老是报错</p>
+<h3 id="2018-8-26">2018-8-26</h3>
+<p>koa-session
+为了弥补HTTP的无状态，就有了cookies和session.之前没有seesion的时候都用的是cookies.</p>
+<p>当程序需要给某个客户端请求创建一个session时，服务器会检查请求里面是否包含sessionid,服务器把这个session找出来就行了。没有就创建，返回sessionid给客户端保存.</p>
+<p>服务端重启会清除session.session持久化方法：cookies,redis,MongoDB,硬盘内存
+<a href="https://www.jianshu.com/p/8f4cc45d712e">koa-session</a></p>
+<p>用户权限管理：中间件</p>
+<h3 id="2018-10-13">2018-10-13</h3>
+<ul>
+<li>npm install bcrypt报错.
+Can&#39;t find Python executable &quot;python&quot;, you can set the PYTHON env variable.</li>
+</ul>
+<p>这里需要依赖python.推荐使用bcrypt-</p>
+<ul>
+<li><p>今天一直搞不懂404错误，最后在一个中间件加上await next()就可以了。</p>
+</li>
+<li><p><em>所有中间件都要加上await next()，无论它有没有提供数据给下一个*</em></p>
+</li>
+<li><p>图片还是一张一张上传比较好，不然mavonEditor得不到图片地址。传完立刻用<code>$img2Url</code>把图片地址插入到md里面</p>
+</li>
+</ul>
+<h3 id="2018-10-14">2018-10-14</h3>
+<p>mongoose中间件一般仅仅只能限于在几个方法中使用. (但感觉就已经是全部了)
+init,validate,save,remove;</p>
+<p>非常重要的一点是中间件只是在document级别有效，如findAndUpdate等方法不会触发中间件，因为这不是document级别的操作。</p>
+<h3 id="2018-10-31">2018-10-31</h3>
+<p>一般是在本地npm run serve看效果,但是终端关掉就访问不了了。在VPS上怎么做才不会关掉终端之后还可以继续访问?用 <strong>pm2</strong> !!
+<code>pm2 start npm --watch --name XXX -- run start   相当于 (npm run start)</code></p>
+<h3 id="2018-11-3">2018-11-3</h3>
+<p>不要在服务器里面上传图片了，怕以后占的空间太大，直接用github里面的图片的链接好了</p>
+<h3 id="2018-12-27">2018-12-27</h3>
+<p>centos 安装nodejs</p>
+<pre><code class="language-shell"><span class="hljs-attr">yum</span> <span class="hljs-string">install -y gcc-c++ make</span>
+<span class="hljs-attr">curl</span> <span class="hljs-string">-sL https://rpm.nodesource.com/setup_9.x | sudo -E bash -</span>
+<span class="hljs-attr">yum</span> <span class="hljs-string">install nodejs</span></code></pre>
+<p>ngix安装
+<a href="https://www.cnblogs.com/taiyonghai/p/6728707.html">https://www.cnblogs.com/taiyonghai/p/6728707.html</a></p>
+<p>搭建网站过程
+<a href="https://www.jianshu.com/p/4895cda92808">https://www.jianshu.com/p/4895cda92808</a></p>
+<p>添加到开机自启动项</p>
+<pre><code class="language-shell">vi <span class="hljs-string">/etc/rc.d/rc.local</span>
+mongod <span class="hljs-params">--dbpath</span> <span class="hljs-string">/home/mongodb/data</span> <span class="hljs-params">--logpath</span> <span class="hljs-string">/home/mongodb/logs/log.log</span> -fork
+chmod +x <span class="hljs-string">/etc/rc.d/rc.local</span></code></pre>
+<p>添加环境变量
+<code>vim /etc/profile</code></p>
+<p>在最后，添加:
+<code>export PATH=&quot;/usr/local/mongodb/bin:$PATH&quot;</code></p>
+<p>保存，退出，然后运行：
+<code>source /etc/profile</code> 不报错则成功。</p>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

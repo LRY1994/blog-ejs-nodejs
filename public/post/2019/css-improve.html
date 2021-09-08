@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+    
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">关于css打包后过大的问题</h1>            
+            <p>I belong to : Experience</p>
+            <hr/>
+            <h3 id="公共代码多次放在scoped内">公共代码多次放在scoped内</h3>
+<p>我们很多时候写了一个公共的common.scss,然后在各个vue里面</p>
+<pre><code class="language-scss"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">scoped</span>&gt;</span>
+import  '@/assets/css/common.scss'
+<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<p>由于加了scoped，导致common里面的样式都加上了<code>[data-v-aaaa]</code>这样的标识，最后打出来的css重复，这就不是公共css了。</p>
+<p>并且在多少个vue里面import就会打包多少次common.scss进去，最后导致css打出来很大。</p>
+<h3 id="公共代码多次放在scoped外">公共代码多次放在scoped外</h3>
+<p>下面的代码打包出来只会有一份global.scss，也就是不会重复打包。所以为了方便，直接在main.js引入一次就够了</p>
+<pre><code class="language-scss">//a.vue
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span> &gt;</span><span class="css">
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@/assets/css/global.scss'</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<pre><code class="language-scss">//b.vue
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span> &gt;</span><span class="css">
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@/assets/css/global.scss'</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<h3 id="公共代码放scoped外，自定义代码放scoped内">公共代码放scoped外，自定义代码放scoped内</h3>
+<p> 为了不重复打包，那我把公共的css代码拿出来不放在scoped里面不就好了。</p>
+<pre><code class="language-scss"><span class="hljs-comment">//global.scss</span>
+.white{ <span class="hljs-keyword">color</span>:<span class="hljs-meta">#fff}</span></code></pre>
+<pre><code class="language-scss">//a.vue
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span> &gt;</span><span class="css">
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@/assets/css/global.scss'</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<p>但是下面这个情况不行，运行会报错：<code>$white is not defined</code></p>
+<pre><code class="language-scss"><span class="hljs-comment">// variable.scss</span>
+<span class="hljs-variable">$white</span>:<span class="hljs-number">#fff</span>;</code></pre>
+<pre><code class="language-scss">//a.vue
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span> &gt;</span><span class="css">
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@/assets/css/variable.scss'</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">scoped</span>&gt;</span><span class="xml">
+.white{
+    color:$white;
+}
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>/&gt;</span></span></code></pre>
+<p>然后试了一下</p>
+<pre><code class="language-scss"><span class="hljs-variable">&lt;style scoped&gt;</span>
+<span class="hljs-meta">@import</span> '<span class="hljs-meta">@/assets/css/variable.scss'</span>
+.white{
+    color:$white;
+}
+<span class="hljs-variable">&lt;/style&gt;</span></code></pre>
+<p>发现打出来的css里面变量$white直接编译成#fff了，打包后的css里面找不到$white,所以就不用担心会重复打包这些变量了。</p>
+<h3 id="webpack打包后体积依然过大的css文件">webpack打包后体积依然过大的css文件</h3>
+<p> 之前控制台中心在IE9浏览器下样式混乱。说是IE浏览器对css有些约束</p>
+<p><a href="https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer/">Stylesheet Limits in Internet Explorer</a></p>
+<p><a href="https://blog.csdn.net/napoleonxxx/article/details/80292006">参考博客</a></p>
+<p>然后用了下面两个插件解决。好像也可以设置splitChunk解决，不过试了效果不太满意，后面再继续探究。</p>
+<pre><code class="language-js"><span class="hljs-selector-tag">optimization</span>: {
+    <span class="hljs-attribute">minimizer</span>: [
+    new <span class="hljs-built_in">CSSSplitWebpackPlugin</span>({
+        size: <span class="hljs-number">4000</span>,
+        filename: path.posix.join(assetsDir,<span class="hljs-string">'css/[name]-[part].[ext]'</span>),
+        }),  
+    <span class="hljs-selector-tag">new</span> <span class="hljs-selector-tag">OptimizeCSSAssetsPlugin</span>({
+        <span class="hljs-attribute">assetNameRegExp</span>: /\.css$/g,
+        cssProcessor: <span class="hljs-built_in">require</span>(<span class="hljs-string">'cssnano'</span>),
+        cssProcessorOptions: { discardComments: {removeAll: true },<span class="hljs-selector-tag">reduceIdents</span><span class="hljs-selector-pseudo">:false</span> },
+        <span class="hljs-selector-tag">canPrint</span>: <span class="hljs-selector-tag">true</span>
+    }),             
+    ]
+},</code></pre>
+<p><a href="https://blog.csdn.net/napoleonxxx/article/details/80292006">IE9引发的血案-如何处理webpack打包后体积依然过大的css文件</a></p>
+<h2 id="总结：">总结：</h2>
+<p>1、把css变量单独拎出来做一个文件variable.scss，在vue的<code>&lt;style scoped&gt;</code>里@import使用</p>
+<p>2、公共css文件在main.js里面直接import一次就好，不要再在其他vue里面import</p>
+<p>3、 多人协作防止冲突，各组件的公共css文件我觉得可以在外面用一个自己的class包裹起来。例如</p>
+<pre><code class="language-js"><span class="hljs-string">//main.js</span>
+import '@<span class="hljs-string">/views/order/style.scss</span>';
+
+<span class="hljs-string">//</span>@<span class="hljs-string">/views/order/style.scss</span>
+<span class="hljs-string">.order</span>{
+    xxxxx
+}</code></pre>
+<p>最后把控制台的代码按照上面的方法整理了一下，结果打包出来的css足足小了127kb</p>
+<h2 id="2019219更新">2019/2/19更新</h2>
+<p>注意：之前在想，既然<code>&lt;style&gt;&lt;/style&gt;</code>(不用scoped)放在哪里都可以全局生效，那我随便放在一个大组件里也行啊。
+最近发现在一个组件里面不用scoped地引入css,从这个组件进去另一个组件，另一个组件确实是会受到前者css的影响。
+但是如果直接打开后者组件的页面，不经过前者，css无效。所以全局css还是放在main里面好。</p>
+<h2 id="2019227更新">2019/2/27更新</h2>
+<p>关于上面 <strong>webpack打包后体积依然过大的css文件</strong>的问题我发现还有一种解决方法：<strong>使用懒加载</strong>，使用方法如下：
+<a href="https://alexjover.com/blog/lazy-load-in-vue-using-webpack-s-code-splitting/">Lazy Loading in Vue using Webpack&#39;s Code Splitting</a></p>
+<p>懒加载会把每个vue组件变成一个chunk,自然对应css也会变成一个chunk。<span color="red">感觉这个方法比较不错</span>
+有一个地方比较特殊：组件上要用ref引用的话，这个组件不可以使用懒加载<a href="https://lry1994.github.io/study/2019/2.html">https://lry1994.github.io/study/2019/2.html</a>。</p>
+<p>对于其他库文件的话，可以设置maxSize进行切割</p>
+<pre><code class="language-js"><span class="hljs-attr">optimization:</span> <span class="hljs-string">{</span>
+    <span class="hljs-attr">splitChunks:</span> <span class="hljs-string">{</span>
+    <span class="hljs-attr">chunks:</span> <span class="hljs-string">'all'</span><span class="hljs-string">,</span>
+    <span class="hljs-attr">maxInitialRequests:</span> <span class="hljs-number">5</span><span class="hljs-string">,</span>
+    <span class="hljs-attr">maxSize:</span> <span class="hljs-number">244</span> <span class="hljs-string">*</span> <span class="hljs-number">1024</span><span class="hljs-string">,</span>
+    <span class="hljs-attr">cacheGroups:</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">default:</span> <span class="hljs-literal">false</span><span class="hljs-string">,</span>
+        <span class="hljs-attr">vendors:</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">test:</span> <span class="hljs-string">/[\\/]node_modules[\\/]/,</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">'vendors'</span><span class="hljs-string">,</span>
+        <span class="hljs-string">},</span>
+    <span class="hljs-string">},</span>
+    <span class="hljs-string">},</span>
+<span class="hljs-string">},</span></code></pre>
+
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>

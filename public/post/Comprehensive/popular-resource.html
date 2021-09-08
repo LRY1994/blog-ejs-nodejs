@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/css/all.css" />
+    <!---hljs的css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+
+    <title>大脸圆玉的博客</title>
+</head>
+<body>
+
+    <div class="l-nav">
+        <div class="nav-img">
+    <img src="/static/img/avatar.png"/>
+</div>
+
+
+<ul>
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xilanhua"></use>
+                </svg>
+                <a href="/categories/Experience.html">Experience</a>
+            </li>
+        
+    
+        
+            <li > 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-nangua"></use>
+                </svg>
+                <a href="/categories/Reading.html">Reading</a>
+            </li>
+        
+    
+        
+            <li class="li-active"> 
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qiezi"></use>
+                </svg>
+                <a href="/categories/Collection.html">Collection</a>
+            </li>
+        
+</ul>
+
+<div class="intro">
+    <div>
+       <a href="https://www.douban.com/people/167927352/" target="_blank"> 
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-doubanwang"></use>
+        </svg>
+        </a>
+        <a href="http://www.mafengwo.cn/u/78143999.html" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-mafengwo"></use>
+            </svg>
+        </a> 
+        <a href="https://github.com/LRY1994/blog-ejs-nodejs" target="_blank"> 
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-github"></use>
+            </svg>
+        </a> 
+    </div>
+</div>
+    </div>
+    <div class="r-box">
+        <div class="article">
+            <h1 class="title">前端库收集</h1>            
+            <p>I belong to : Collection</p>
+            <hr/>
+            <h2 id="动画">动画</h2>
+<h3 id="greensock">GreenSock</h3>
+<pre><code>了解资料
+
+[<span class="hljs-string">greensock get-started-js</span>](<span class="hljs-link">https://greensock.com/get-started-js#intro</span>)
+
+[<span class="hljs-string">3D Transforms &amp; More CSS3 Goodies Arrive in GSAP JS</span>](<span class="hljs-link">https://greensock.com/css3</span>)
+
+基础实例
+
+[<span class="hljs-string">Jump Start: GSAP JS</span>](<span class="hljs-link">https://greensock.com/jump-start-js#welcome</span>)
+
+[<span class="hljs-string">Timeline Tip: Understanding the Position Parameter</span>](<span class="hljs-link">https://greensock.com/position-parameter</span>)
+
+[<span class="hljs-string">Basic play / pause toggle button</span>](<span class="hljs-link">https://codepen.io/GreenSock/pen/qeHac</span>)
+
+[<span class="hljs-string">create a playful Jump Loader animation</span>](<span class="hljs-link">https://tympanus.net/codrops/2015/03/25/jump-loader-animation-svg-gsap/</span>)
+
+进阶
+[<span class="hljs-string">Writing Smarter Animation Code</span>](<span class="hljs-link">https://css-tricks.com/writing-smarter-animation-code/</span>)
+
+[<span class="hljs-string">https://greensock.com/examples-showcases</span>](<span class="hljs-link">https://greensock.com/examples-showcases</span>)
+
+[<span class="hljs-string">https://tympanus.net/codrops/</span>](<span class="hljs-link">https://tympanus.net/codrops/</span>)
+隆重介绍这个网站，上面有好多好多好看的动画</code></pre><h3 id="draggable">Draggable</h3>
+<pre><code>Draggable是一个简单易用的模块化拖放库。它通过快速DOM重新排序，干净的API和可访问的标记提供了出色的拖放功能。Draggable附带额外的模块，可以添加更多的功能，如排序，交换和其他实用程序。</code></pre><h3 id="animatecss">Animate.css</h3>
+<pre><code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Animate</span>.</span></span>css是一个跨浏览器的CSS动画库。它非常易于使用，并提供大量不同的动画效果，如反弹，脉冲，摆动，淡入淡出，翻转等等。它可以用于在任何你喜欢的地方添加一些很酷和有趣的动画效果。</code></pre><h3 id="micron">Micron</h3>
+<pre><code>是一个允许你为DOM元素添加不同的CSS增强动画的库。其中交互可以通过HTML数据属性或通过链接<span class="hljs-keyword">JavaScript方法来设置速度、消除和其他选项来控制。它支持不同的交互，如摇晃、褪色、反弹、摇摆（shake, </span>fade, <span class="hljs-keyword">bounce, </span><span class="hljs-keyword">swing）等等。</span></code></pre><h2 id="animate-elements-on-scroll">animate elements on scroll</h2>
+<h3 id="wow">WOW</h3>
+<pre><code> http:<span class="hljs-regexp">//my</span>nameismatthieu.com<span class="hljs-regexp">/WOW/</span>docs.html </code></pre><h3 id="aos">AOS</h3>
+<pre><code>http:<span class="hljs-regexp">//mi</span>chalsnik.github.io<span class="hljs-regexp">/aos/</span>
+AOS 是一个用于在页面滚动的时候呈现元素动画的工具库，和 WOWJS 类似。但是AOS是 CSS3 动画驱动的库，该库是高度可定制的，非常小，易于使用（通过CDN安装）。在页面往回滚动时，元素会恢复到原来的状态，如此达到循环动画的效果。</code></pre><h2 id="存储">存储</h2>
+<h3 id="localforage">localForage</h3>
+<pre><code>用于indexedDB和WebSQL的封装程序，能够让你的Web应用程序存储更多数据，并提升应用程序的离线体验。写入和读取操作与                localStorage类似，支持 <span class="hljs-keyword">BLOB </span>和任意类型的数据，可以存储图片，文件等等，而不仅仅是字符串。它还提供多种API，使开发               人员可以选择回调的异步API。</code></pre><h2 id="邮件">邮件</h2>
+<h3 id="mjml">MJML</h3>
+<pre><code>The only framwork <span class="hljs-keyword">that</span> makes responsive email easy</code></pre><h2 id="vr">VR</h2>
+<h3 id="a-frame">A-Frame</h3>
+<pre><code>是 Mozilla 开源的网页虚拟现实体验（ WebVR ）框架。能够在HTML中创建<span class="hljs-number">3</span>D场景的框架，使用<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Three</span>.</span></span>js和WebGL来创建VR场景。可用于桌面、iPhone（即将支持安卓）以及 Oculus Rift。</code></pre><h3 id="gpujs">GPU.js</h3>
+<pre><code>用于在GPU中运行浏览器JavaScript代码的库。使用<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">GPU</span>.</span></span>js，您可以通过将专门编写的JS编译成可通过WebGL在GPU上运行的着色器语言来更快速地执行复杂的计算。如果WebGL不可用，则函数将回退到常规JavaScript。</code></pre><h2 id="http">HTTP</h2>
+<h3 id="r2">R2</h3>
+<pre><code>这是一个更轻量级的 HTTP 客户端解决方案，它建立在浏览器原生的 Fetch API 的基础之上，并为 <span class="hljs-keyword">Node</span>.<span class="hljs-title">js</span> 提供优化。压缩后的R2大小只有<span class="hljs-number">16</span>K。</code></pre><h3 id="axios">Axios</h3>
+<pre><code>为处理HTTP请求提供了一个现代化的JavaScript解决方案。它有一个基于Promise的API，在处理async调用时使你的代码更加结构化。该库可以在浏览器中工作，也可以在<span class="hljs-keyword">node</span>.<span class="hljs-title">js</span>环境中工作。</code></pre><h2 id="桌面通知">桌面通知</h2>
+<h3 id="push">Push</h3>
+<pre><code><span class="hljs-keyword">Push是一款可靠的跨浏览器的JavaScript桌面通知库。它基于强大的Notification </span>API，如果用户的浏览器不支持新API，则会回退到较早的实现。</code></pre><h2 id="自适应">自适应</h2>
+<h3 id="devicescss">Devices.css</h3>
+<pre><code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Devices</span>.</span></span>css 是一个使用纯 CSS 实现移动设备的库。它包含了一些目前主流的移动设备，如 iPhone X，Google Pixel <span class="hljs-number">2</span> XL 和三星Galaxy S8。由于其高品质的设计，可用于着陆页面或者网页快照。</code></pre><h3 id="lit">Lit</h3>
+<pre><code>是一个非常小和响应式CSS框架。它包含<span class="hljs-number">12</span>列响应式网格、不同的排印风格、自定义输入、三种按钮类型以及CSS框架应该提供的所有功能。Lit适用于所有现代浏览器，以及IE11等一些较旧的浏览器</code></pre><h3 id="tachyons">Tachyons</h3>
+<pre><code>你可以制作漂亮且响应速度快的界面，并且几乎不需要CSS。它很容易使用和定制，移动优先，并能很好地与React、Ember、Angular和其他框架配合使用。更重要的是，它非常轻量级，并且具有非常详细的文档，你可以在其中找到所需的一切。</code></pre><h3 id="rekit">Rekit</h3>
+<pre><code>是一款可帮助你使用React、Redux和React-router创建出色的响应式Web应用程序的工具包。该框架提供了两个用于处理框架的强大工具 — 一个名为Rekit Studio的全功能IDE，以及一个用于在终端上工作的扩展命令行界面。</code></pre><h2 id="字体">字体</h2>
+<h3 id="nerd-font">Nerd Font</h3>
+<pre><code>这是一个流行字体和图标的集合。它包含<span class="hljs-number">39</span>个补充字体系列，以及来自诸如Font Awesome、Devicons、Octicons等流行图标集的<span class="hljs-number">1300</span>多个图形和图标。所有字体在Linux、macOS和Windows上兼容。</code></pre><h2 id="链接">链接</h2>
+<h3 id="kutt">Kutt</h3>
+<pre><code>是一个免费的可以用来缩短你的<span class="hljs-built_in">URL</span>、管理链接和设置自定义域的开源库。它有一个易于使用的API，并允许你创建和删除<span class="hljs-built_in">URL</span>，以及使用详细统计信息跟踪它们。</code></pre><h2 id="卡片">卡片</h2>
+<h3 id="card">Card</h3>
+<pre><code><span class="hljs-keyword">Card</span>是一个小巧的vanilla JS项目（带有jQuery版本），可以让你的信用卡表格变得更加有趣生动。快速安装后，将采取您的表格，并将其转换为一张动画的信用卡。</code></pre><h2 id="图片">图片</h2>
+<h3 id="direction-reveal">Direction Reveal</h3>
+<pre><code>该插件检测光标进入或离开块时的方向，允许你使用各种酷炫特效和过渡。它提供了一些开箱即用的CSS动画，让你可以轻松创建自己的CSS动画。</code></pre><h3 id="carbon">Carbon</h3>
+<pre><code>允许你创建并分享代码组成的美丽图像。你所需要做的就是将你的代码粘贴到编辑器中，或直接自己编写代码。你可以通过更改字体样式、编辑器主题、语法高亮和甚至窗口按钮来自定义图像的外观。</code></pre><h2 id="弹出框">弹出框</h2>
+<h3 id="sweetalert2">SweetAlert2</h3>
+<pre><code>是一个可以创建漂亮和可响应弹出框的库。SweetAlert2是高度可定制的，<span class="hljs-number">100</span>%响应式并且在所有屏幕尺寸上都能有很好的显示效果。使用SweetAlert2 你可以创建各种不同的拥有惊艳的风格、显示效果和动画的弹出框。</code></pre><h2 id="h5">H5</h2>
+<h3 id="phaser">Phaser</h3>
+<pre><code>是一个快速的开源框架，可以开发为运行在桌面浏览器或手机浏览器的HTML5游戏。你也可以为iOS、Android和其他不同的本地应用程序创建游戏。Phaser有对开发人员非常友好的API，并且Phaser的团队也积极开发和维护。最近，在Phaser <span class="hljs-number">3.0</span>版本中发布了很多新的特性和功能。</code></pre><h2 id="cms">CMS</h2>
+<h3 id="keystonejs">KeystoneJS</h3>
+<pre><code>KeystoneJS是一个功能强大的<span class="hljs-built_in">CMS</span>框架，基于Express和MongoDB构建，它提供了一个漂亮的管理用户界面，实用的API应用程序，会话管理，电子邮件发送，扩展等等。</code></pre><h2 id="其他">其他</h2>
+<h3 id="puppeteer">Puppeteer</h3>
+<pre><code>Puppeteer是一个<span class="hljs-keyword">Node</span>.<span class="hljs-title">js</span> API，用于控制 headless Chrome。由 Google官方的 Chrome DevTools 团队维护。在headless环境中，开发者可以生成网页截图或者 PDF ，通过Puppeteer的提供的api直接控制Chrome模拟大部分用户操作来进行UI Test或者作为爬虫访问页面来收集数据。</code></pre><h3 id="deeplearnjs">Deeplearn.js</h3>
+<pre><code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Deeplearn</span>.</span></span>js是一个开放源代码库，可将高性能机器学习构建模块带入网络。它提供了两个API，即时执行模型和延期执行模型。它可以完全在浏览器中运行，不需要安装，不需要后端处理。</code></pre><h3 id="popperjs">Popper.js</h3>
+<pre><code>Popper是一个<span class="hljs-keyword">JavaScript库，它提供了大量的定制选项，并且完全模块化，每个功能都有独立的插件。不需要依赖 </span><span class="hljs-keyword">jQuery </span>库，大小仅为 <span class="hljs-number">3</span>.<span class="hljs-number">5</span>KB 左右，使用与配置相当简单，Twitter，WebClipper中的Microsoft以及AtlasKit等大企业都在使用</code></pre><h3 id="apollo-client">Apollo Client</h3>
+<pre><code>是一款全功能的GraphQL客户端，用于 React 、Angular 的交互。压缩的大小还不到<span class="hljs-number">25</span>K。</code></pre><h3 id="jarvis">Jarvis</h3>
+<pre><code>一款基于Webpack仪表板的智能浏览器，它可以给你显示你在webpack构建所需的所有重要信息。它向你展示了你的资源在<span class="hljs-number">12</span>种不同的连接类型中的表现如何，你项目中所有包的大小，并拥有一个漂亮的错误输出。它仍处于beta版本，预计会增加许多新功能。</code></pre><h3 id="wikijs">Wiki.js</h3>
+<pre><code>是一个强大的Wiki App，基于<span class="hljs-keyword">Node</span>.<span class="hljs-title">js</span>、Git和Markdown开发。你可以使用内置编辑器用Markdown格式来写作，并且可以自动同步到你的Git仓库。Wiki.js 有完整的访问控制和配置管理，但只占用很少的CPU资源。</code></pre>
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+    //文章里面的外链都打开新窗口    
+    var alist = document.querySelectorAll(".article a");
+    for(let i=0;i<alist.length;i++) if(alist[i].href.indexOf('#') < 0) alist[i].target="_blank"    
+    //加上table样式
+    var tableList = document.querySelectorAll("table");
+    for(let i = 0;i<tableList.length;i++) tableList[i].className+=" table table-striped"
+</script>
+<script src="//at.alicdn.com/t/font_1606737_dfnzi0oc8au.js"></script>
+</html>
